@@ -2,7 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Home, ShieldQuestionIcon, Headset, Bug } from 'lucide-react';
+import { Home, QuestionCircle, Headset, Bug } from 'lucide-react';
+import Link from 'next/link';
 
 export default function NotFound() {
   const router = useRouter();
@@ -109,7 +110,7 @@ export default function NotFound() {
           <p className="text-muted-foreground mb-4">Need help? We're here for you!</p>
           <div className="flex flex-wrap justify-center gap-6 text-sm">
             <span className="text-blue-500 hover:text-purple-500 transition-colors font-semibold hover:underline cursor-pointer">
-              <ShieldQuestionIcon className="h-4 w-4 mr-2 inline" />
+              <QuestionCircle className="h-4 w-4 mr-2 inline" />
               Help Center
             </span>
             <span className="text-green-500 hover:text-blue-500 transition-colors font-semibold hover:underline cursor-pointer">

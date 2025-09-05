@@ -1,0 +1,1145 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    
+    <style>
+        ::webkit-scrollbar { display: none;}
+        .gradient-text {
+            background: linear-gradient(135deg, #FFB3BA, #BAE1FF, #BAFFC9, #FFFFBA, #E0BAFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .pastel-gradient {
+            background: linear-gradient(135deg, #FFB3BA 0%, #BAE1FF 25%, #BAFFC9 50%, #FFFFBA 75%, #E0BAFF 100%);
+        }
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        .floating-animation:nth-child(2) {
+            animation-delay: -2s;
+        }
+        .floating-animation:nth-child(3) {
+            animation-delay: -4s;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .glow-effect {
+            box-shadow: 0 0 30px rgba(186, 225, 255, 0.4);
+        }
+    </style>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "fontFamily": {
+        "poppins": [
+          "Poppins",
+          "sans-serif"
+        ],
+        "inter": [
+          "Inter",
+          "sans-serif"
+        ],
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      },
+      "colors": {
+        "pastel-pink": "#FFB3BA",
+        "pastel-blue": "#BAE1FF",
+        "pastel-green": "#BAFFC9",
+        "pastel-yellow": "#FFFFBA",
+        "pastel-purple": "#E0BAFF",
+        "pastel-gray": "#D6D6D6",
+        "off-white": "#FDFDFD"
+      }
+    }
+  }
+};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body class="bg-off-white font-sans">
+    
+    <!-- Navigation -->
+    <nav id="header" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-pastel-gray/20">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 rounded-xl pastel-gradient flex items-center justify-center">
+                        <i class="fas fa-video text-white text-lg"></i>
+                    </div>
+                    <span class="text-2xl font-poppins font-bold gradient-text">VideoAI</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <span class="text-gray-700 hover:text-gray-900 font-inter font-medium transition-colors cursor-pointer">Features</span>
+                    <span class="text-gray-700 hover:text-gray-900 font-inter font-medium transition-colors cursor-pointer">Pricing</span>
+                    <span class="text-gray-700 hover:text-gray-900 font-inter font-medium transition-colors cursor-pointer">Reviews</span>
+                    <span class="text-gray-700 hover:text-gray-900 font-inter font-medium transition-colors cursor-pointer">Login</span>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="pastel-gradient text-white px-6 py-3 rounded-full font-poppins font-semibold hover-scale shadow-lg">
+                        Try Free
+                    </button>
+                    <button class="md:hidden">
+                        <i class="fas fa-bars text-gray-700 text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative overflow-hidden py-20 lg:py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="space-y-4">
+                        <h1 class="text-5xl lg:text-7xl font-poppins font-bold leading-tight">
+                            Transform Any 
+                            <span class="gradient-text">Reel, TikTok,</span> 
+                            or Short into Fresh 
+                            <span class="gradient-text">Marketing Ideas</span>
+                        </h1>
+                        <p class="text-xl lg:text-2xl text-gray-600 font-inter leading-relaxed">
+                            Upload → AI Analyzes → Get Actionable Hooks, Scripts &amp; Captions in seconds
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="pastel-gradient text-white px-8 py-4 rounded-full font-poppins font-bold text-lg hover-scale shadow-xl">
+                            <i class="fas fa-play mr-2"></i>
+                            Start Free Analysis
+                        </button>
+                        <button class="border-2 border-pastel-blue text-gray-700 px-8 py-4 rounded-full font-poppins font-semibold text-lg hover:bg-pastel-blue/10 transition-colors">
+                            <i class="fas fa-eye mr-2"></i>
+                            Watch Demo
+                        </button>
+                    </div>
+                    
+                    <div class="flex items-center space-x-6 pt-4">
+                        <div class="flex -space-x-2">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="User">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="User">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="User">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="User">
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-800">10,000+ creators trust us</p>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="text-gray-600 ml-1 text-sm">4.9/5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="relative z-10">
+                        <img class="w-full h-96 lg:h-[500px] rounded-3xl shadow-2xl object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/b41d83299d-0640b815cb9627801370.png" alt="modern UI mockup showing video analysis dashboard with colorful pastel interface, floating AI bubbles, mobile phone displaying short video content">
+                    </div>
+                    
+                    <div class="absolute top-10 -left-10 w-20 h-20 bg-pastel-pink rounded-full floating-animation opacity-70"></div>
+                    <div class="absolute top-32 -right-8 w-16 h-16 bg-pastel-blue rounded-full floating-animation opacity-70"></div>
+                    <div class="absolute -bottom-8 left-1/4 w-24 h-24 bg-pastel-green rounded-full floating-animation opacity-70"></div>
+                    <div class="absolute top-1/2 -right-12 w-12 h-12 bg-pastel-yellow rounded-full floating-animation opacity-70"></div>
+                    <div class="absolute bottom-20 -left-6 w-18 h-18 bg-pastel-purple rounded-full floating-animation opacity-70"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-20 bg-gradient-to-br from-pastel-blue/10 to-pastel-green/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-6xl font-poppins font-bold gradient-text mb-6">
+                    How It Works
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto font-inter">
+                    Transform your short-form content into marketing gold with our AI-powered analysis in just three simple steps
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale border border-pastel-pink/20">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pastel-pink to-pastel-purple rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-upload text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-poppins font-bold text-gray-900 mb-4">Upload Video</h3>
+                    <p class="text-gray-600 font-inter leading-relaxed mb-6">
+                        Drop your Reel, TikTok, or YouTube Short directly or paste the link. We support all major platforms.
+                    </p>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-check text-pastel-green mr-2"></i>
+                            Drag &amp; drop interface
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-check text-pastel-green mr-2"></i>
+                            URL link support
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-check text-pastel-green mr-2"></i>
+                            Batch processing
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale border border-pastel-blue/20">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pastel-blue to-pastel-green rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-brain text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-poppins font-bold text-gray-900 mb-4">AI Analysis</h3>
+                    <p class="text-gray-600 font-inter leading-relaxed mb-6">
+                        Our advanced AI dissects every frame, analyzing hooks, pacing, structure, and engagement patterns.
+                    </p>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-check text-pastel-green mr-2"></i>
+                            Hook identification
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-check text-pastel-green mr-2"></i>
+                            Pacing analysis
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-check text-pastel-green mr-2"></i>
+                            Engagement prediction
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale border border-pastel-green/20">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pastel-green to-pastel-yellow rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-lightbulb text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-poppins font-bold text-gray-900 mb-4">Get Fresh Ideas</h3>
+                    <p class="text-gray-600 font-inter leading-relaxed mb-6">
+                        Receive actionable marketing ideas, hooks, scripts, captions, and hashtags tailored to your content.
+                    </p>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-check text-pastel-green mr-2"></i>
+                            Custom hooks &amp; scripts
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-check text-pastel-green mr-2"></i>
+                            Optimized captions
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-check text-pastel-green mr-2"></i>
+                            Trending hashtags
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sample Output Preview -->
+    <section id="sample-output" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-6xl font-poppins font-bold gradient-text mb-6">
+                    See What You'll Get
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto font-inter">
+                    Real examples of AI-generated marketing insights from popular short-form content
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="bg-white rounded-3xl p-6 shadow-xl border border-pastel-pink/20">
+                        <img class="w-full h-64 rounded-2xl object-cover mb-4" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/dee9afbfae-6cbfffa306ac73ace59f.png" alt="smartphone mockup showing TikTok video interface with cooking content, modern clean UI">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-semibold text-pastel-purple bg-pastel-purple/10 px-3 py-1 rounded-full">Cooking Tutorial</span>
+                                <span class="text-sm text-gray-500">2.3M views</span>
+                            </div>
+                            <h4 class="font-poppins font-semibold text-gray-900">5-Minute Pasta Recipe</h4>
+                            <p class="text-sm text-gray-600">Original TikTok by @chefmaria</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="bg-gradient-to-br from-pastel-pink/20 to-pastel-blue/20 rounded-3xl p-8 shadow-xl">
+                        <h3 class="text-2xl font-poppins font-bold text-gray-900 mb-6">AI-Generated Marketing Ideas</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="bg-white rounded-2xl p-6 shadow-lg">
+                                <div class="flex items-center mb-3">
+                                    <div class="w-8 h-8 bg-pastel-pink rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-hook text-white text-sm"></i>
+                                    </div>
+                                    <h4 class="font-poppins font-bold text-gray-900">Hook Variations</h4>
+                                </div>
+                                <div class="space-y-2">
+                                    <p class="text-sm bg-pastel-pink/10 p-3 rounded-lg">"POV: You're always hungry but have 5 minutes"</p>
+                                    <p class="text-sm bg-pastel-pink/10 p-3 rounded-lg">"This pasta hack will save your weeknight dinners"</p>
+                                    <p class="text-sm bg-pastel-pink/10 p-3 rounded-lg">"Stop ordering takeout when you can make this"</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-2xl p-6 shadow-lg">
+                                <div class="flex items-center mb-3">
+                                    <div class="w-8 h-8 bg-pastel-blue rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-list text-white text-sm"></i>
+                                    </div>
+                                    <h4 class="font-poppins font-bold text-gray-900">Content Outline</h4>
+                                </div>
+                                <div class="space-y-2 text-sm text-gray-600">
+                                    <p><strong>0-3s:</strong> Hook with problem statement</p>
+                                    <p><strong>3-8s:</strong> Ingredient reveal with quick cuts</p>
+                                    <p><strong>8-15s:</strong> Fast-paced cooking montage</p>
+                                    <p><strong>15-20s:</strong> Final reveal with CTA</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-2xl p-6 shadow-lg">
+                                <div class="flex items-center mb-3">
+                                    <div class="w-8 h-8 bg-pastel-green rounded-lg flex items-center justify-center mr-3">
+                                        <i class="fas fa-hashtag text-white text-sm"></i>
+                                    </div>
+                                    <h4 class="font-poppins font-bold text-gray-900">Optimized Hashtags</h4>
+                                </div>
+                                <p class="text-sm text-gray-600">
+                                    #quickrecipes #pasta #weeknightdinner #foodhacks #cooking101 #easymeal #5minutemeals #pastatiktok #quickcook #homecooking
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full mt-6 bg-gradient-to-r from-pastel-green to-pastel-blue text-white py-3 rounded-xl font-poppins font-semibold hover-scale">
+                            See Full Analysis
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Showcase -->
+    <section id="features" class="py-20 bg-gradient-to-br from-pastel-yellow/10 to-pastel-purple/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-6xl font-poppins font-bold gradient-text mb-6">
+                    Powerful Features
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto font-inter">
+                    Everything you need to transform short-form content into marketing success
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pastel-pink to-pastel-purple rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-magic text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-poppins font-bold text-gray-900 mb-4">AI Hook Generator</h3>
+                    <p class="text-gray-600 font-inter leading-relaxed">
+                        Generate multiple hook variations that grab attention in the first 3 seconds and boost your engagement rates.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pastel-blue to-pastel-green rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-poppins font-bold text-gray-900 mb-4">Engagement Prediction</h3>
+                    <p class="text-gray-600 font-inter leading-relaxed">
+                        Predict how well your content will perform before posting with our advanced engagement scoring algorithm.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pastel-green to-pastel-yellow rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-clock text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-poppins font-bold text-gray-900 mb-4">Optimal Timing</h3>
+                    <p class="text-gray-600 font-inter leading-relaxed">
+                        Discover the perfect pacing and timing for each segment to maximize viewer retention and completion rates.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pastel-yellow to-pastel-pink rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-palette text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-poppins font-bold text-gray-900 mb-4">Brand Style Matching</h3>
+                    <p class="text-gray-600 font-inter leading-relaxed">
+                        Adapt successful content patterns to match your unique brand voice and visual identity seamlessly.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pastel-purple to-pastel-blue rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-layer-group text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-poppins font-bold text-gray-900 mb-4">Batch Processing</h3>
+                    <p class="text-gray-600 font-inter leading-relaxed">
+                        Analyze multiple videos at once and get comprehensive insights across your entire content library.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale">
+                    <div class="w-16 h-16 bg-gradient-to-br from-pastel-green to-pastel-purple rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fas fa-download text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-poppins font-bold text-gray-900 mb-4">Export Anywhere</h3>
+                    <p class="text-gray-600 font-inter leading-relaxed">
+                        Export your insights to Notion, Google Docs, CSV, or integrate directly with your favorite tools via API.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Analytics Dashboard Preview -->
+    <section id="dashboard-preview" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-6xl font-poppins font-bold gradient-text mb-6">
+                    Your Analytics Dashboard
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto font-inter">
+                    Get deep insights into your content performance with our comprehensive analytics suite
+                </p>
+            </div>
+            
+            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-pastel-gray/20">
+                <div class="bg-gradient-to-r from-pastel-pink/20 to-pastel-blue/20 p-6 border-b border-pastel-gray/20">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-2xl font-poppins font-bold text-gray-900">Content Performance Overview</h3>
+                        <div class="flex space-x-2">
+                            <button class="w-3 h-3 bg-red-400 rounded-full"></button>
+                            <button class="w-3 h-3 bg-yellow-400 rounded-full"></button>
+                            <button class="w-3 h-3 bg-green-400 rounded-full"></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-gradient-to-br from-pastel-pink/10 to-pastel-pink/20 rounded-2xl p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 bg-pastel-pink rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-video text-white"></i>
+                                </div>
+                                <span class="text-2xl">📈</span>
+                            </div>
+                            <h4 class="text-3xl font-poppins font-bold text-gray-900 mb-1">247</h4>
+                            <p class="text-gray-600 font-inter">Videos Analyzed</p>
+                            <p class="text-pastel-pink text-sm font-semibold mt-2">+23% this month</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-pastel-blue/10 to-pastel-blue/20 rounded-2xl p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 bg-pastel-blue rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-lightbulb text-white"></i>
+                                </div>
+                                <span class="text-2xl">💡</span>
+                            </div>
+                            <h4 class="text-3xl font-poppins font-bold text-gray-900 mb-1">1,847</h4>
+                            <p class="text-gray-600 font-inter">Ideas Generated</p>
+                            <p class="text-pastel-blue text-sm font-semibold mt-2">+67% this month</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-pastel-green/10 to-pastel-green/20 rounded-2xl p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 bg-pastel-green rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-chart-line text-white"></i>
+                                </div>
+                                <span class="text-2xl">🚀</span>
+                            </div>
+                            <h4 class="text-3xl font-poppins font-bold text-gray-900 mb-1">89.4%</h4>
+                            <p class="text-gray-600 font-inter">Avg Accuracy</p>
+                            <p class="text-pastel-green text-sm font-semibold mt-2">+5.2% this month</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-pastel-yellow/10 to-pastel-yellow/20 rounded-2xl p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 bg-pastel-yellow rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-fire text-white"></i>
+                                </div>
+                                <span class="text-2xl">⭐</span>
+                            </div>
+                            <h4 class="text-3xl font-poppins font-bold text-gray-900 mb-1">156</h4>
+                            <p class="text-gray-600 font-inter">Viral Predictions</p>
+                            <p class="text-pastel-yellow text-sm font-semibold mt-2">+12% accuracy</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6">
+                            <h4 class="text-xl font-poppins font-bold text-gray-900 mb-4">Recent Analysis</h4>
+                            <div class="space-y-4">
+                                <div class="flex items-center space-x-4 bg-white rounded-xl p-4">
+                                    <img class="w-16 h-16 rounded-lg object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/dc6344f01b-a588851a551c992b0096.png" alt="TikTok video thumbnail showing dance content">
+                                    <div class="flex-1">
+                                        <h5 class="font-semibold text-gray-900">Dance Tutorial Breakdown</h5>
+                                        <p class="text-sm text-gray-600">Generated 12 hook variations</p>
+                                        <div class="flex items-center mt-2">
+                                            <span class="bg-pastel-green text-green-800 text-xs px-2 py-1 rounded-full">High Potential</span>
+                                            <span class="text-xs text-gray-500 ml-2">2 hours ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center space-x-4 bg-white rounded-xl p-4">
+                                    <img class="w-16 h-16 rounded-lg object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/a1c7a156ea-67da996dee070c9788e1.png" alt="cooking recipe video thumbnail">
+                                    <div class="flex-1">
+                                        <h5 class="font-semibold text-gray-900">Recipe Content Analysis</h5>
+                                        <p class="text-sm text-gray-600">Optimized for food niche</p>
+                                        <div class="flex items-center mt-2">
+                                            <span class="bg-pastel-blue text-blue-800 text-xs px-2 py-1 rounded-full">Trending</span>
+                                            <span class="text-xs text-gray-500 ml-2">5 hours ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6">
+                            <h4 class="text-xl font-poppins font-bold text-gray-900 mb-4">Top Performing Hooks</h4>
+                            <div class="space-y-4">
+                                <div class="bg-white rounded-xl p-4">
+                                    <p class="font-semibold text-gray-900 mb-2">"POV: You're trying this trend..."</p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-600">Success Rate: 94%</span>
+                                        <div class="flex items-center">
+                                            <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
+                                                <div class="bg-pastel-green h-2 rounded-full" style="width: 94%"></div>
+                                            </div>
+                                            <span class="text-sm font-semibold text-pastel-green">94%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white rounded-xl p-4">
+                                    <p class="font-semibold text-gray-900 mb-2">"This changed everything for me..."</p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-600">Success Rate: 87%</span>
+                                        <div class="flex items-center">
+                                            <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
+                                                <div class="bg-pastel-blue h-2 rounded-full" style="width: 87%"></div>
+                                            </div>
+                                            <span class="text-sm font-semibold text-pastel-blue">87%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white rounded-xl p-4">
+                                    <p class="font-semibold text-gray-900 mb-2">"Wait until you see this..."</p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-600">Success Rate: 82%</span>
+                                        <div class="flex items-center">
+                                            <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
+                                                <div class="bg-pastel-pink h-2 rounded-full" style="width: 82%"></div>
+                                            </div>
+                                            <span class="text-sm font-semibold text-pastel-pink">82%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-20 bg-gradient-to-br from-pastel-purple/10 to-pastel-pink/10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-6xl font-poppins font-bold gradient-text mb-6">
+                    What Creators Say
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto font-inter">
+                    Join thousands of content creators who've transformed their marketing with our AI insights
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale border border-pastel-pink/20">
+                    <div class="flex items-center mb-6">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" class="w-16 h-16 rounded-full mr-4" alt="Sarah">
+                        <div>
+                            <h4 class="font-poppins font-bold text-gray-900">Sarah Chen</h4>
+                            <p class="text-gray-600 text-sm">Food Content Creator</p>
+                            <div class="flex text-yellow-400 text-sm mt-1">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 font-inter leading-relaxed">
+                        "This tool literally 10x'd my content ideas! I went from struggling with hooks to having a library of viral-ready concepts. My engagement went up 300% in just 2 months!"
+                    </p>
+                    <div class="mt-4 flex items-center text-sm text-gray-500">
+                        <i class="fas fa-chart-line text-pastel-green mr-2"></i>
+                        <span>2.3M followers gained</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale border border-pastel-blue/20">
+                    <div class="flex items-center mb-6">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" class="w-16 h-16 rounded-full mr-4" alt="Marcus">
+                        <div>
+                            <h4 class="font-poppins font-bold text-gray-900">Marcus Rodriguez</h4>
+                            <p class="text-gray-600 text-sm">Fitness Influencer</p>
+                            <div class="flex text-yellow-400 text-sm mt-1">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 font-inter leading-relaxed">
+                        "The AI predictions are scary accurate! It told me exactly which of my videos would go viral before I even posted them. Now I create content with confidence."
+                    </p>
+                    <div class="mt-4 flex items-center text-sm text-gray-500">
+                        <i class="fas fa-fire text-pastel-pink mr-2"></i>
+                        <span>15 viral videos predicted</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale border border-pastel-green/20">
+                    <div class="flex items-center mb-6">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" class="w-16 h-16 rounded-full mr-4" alt="Emma">
+                        <div>
+                            <h4 class="font-poppins font-bold text-gray-900">Emma Thompson</h4>
+                            <p class="text-gray-600 text-sm">Beauty &amp; Lifestyle</p>
+                            <div class="flex text-yellow-400 text-sm mt-1">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 font-inter leading-relaxed">
+                        "As a busy entrepreneur, I don't have time to analyze trends manually. This AI does it all for me and suggests content that actually converts to sales!"
+                    </p>
+                    <div class="mt-4 flex items-center text-sm text-gray-500">
+                        <i class="fas fa-dollar-sign text-pastel-yellow mr-2"></i>
+                        <span>$50K+ revenue generated</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale border border-pastel-yellow/20">
+                    <div class="flex items-center mb-6">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" class="w-16 h-16 rounded-full mr-4" alt="David">
+                        <div>
+                            <h4 class="font-poppins font-bold text-gray-900">David Kim</h4>
+                            <p class="text-gray-600 text-sm">Tech Reviewer</p>
+                            <div class="flex text-yellow-400 text-sm mt-1">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 font-inter leading-relaxed">
+                        "The hook generator alone is worth the subscription. I've never had so many creative angles for the same topic. My content feels fresh and engaging again!"
+                    </p>
+                    <div class="mt-4 flex items-center text-sm text-gray-500">
+                        <i class="fas fa-lightbulb text-pastel-purple mr-2"></i>
+                        <span>500+ hooks generated</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale border border-pastel-purple/20">
+                    <div class="flex items-center mb-6">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg" class="w-16 h-16 rounded-full mr-4" alt="Lisa">
+                        <div>
+                            <h4 class="font-poppins font-bold text-gray-900">Lisa Park</h4>
+                            <p class="text-gray-600 text-sm">Travel Creator</p>
+                            <div class="flex text-yellow-400 text-sm mt-1">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 font-inter leading-relaxed">
+                        "Game changer for my travel content! The AI understands different niches and gives me location-specific hooks that resonate with my audience perfectly."
+                    </p>
+                    <div class="mt-4 flex items-center text-sm text-gray-500">
+                        <i class="fas fa-globe text-pastel-blue mr-2"></i>
+                        <span>25 countries covered</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale border border-pastel-pink/20">
+                    <div class="flex items-center mb-6">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" class="w-16 h-16 rounded-full mr-4" alt="Alex">
+                        <div>
+                            <h4 class="font-poppins font-bold text-gray-900">Alex Johnson</h4>
+                            <p class="text-gray-600 text-sm">Marketing Agency</p>
+                            <div class="flex text-yellow-400 text-sm mt-1">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 font-inter leading-relaxed">
+                        "We use this for all our clients' content strategies. The batch processing feature saves us 20+ hours per week, and the results speak for themselves!"
+                    </p>
+                    <div class="mt-4 flex items-center text-sm text-gray-500">
+                        <i class="fas fa-users text-pastel-green mr-2"></i>
+                        <span>50+ clients served</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-6xl font-poppins font-bold gradient-text mb-6">
+                    Simple, Transparent Pricing
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto font-inter">
+                    Choose the perfect plan for your content creation needs. All plans include our core AI analysis features.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale border border-pastel-green/20">
+                    <div class="text-center mb-8">
+                        <div class="w-16 h-16 bg-gradient-to-br from-pastel-green to-pastel-blue rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-seedling text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-poppins font-bold text-gray-900 mb-2">Free</h3>
+                        <p class="text-gray-600 font-inter">Perfect for getting started</p>
+                        <div class="mt-6">
+                            <span class="text-5xl font-poppins font-bold text-gray-900">$0</span>
+                            <span class="text-gray-600">/month</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-green mr-3"></i>
+                            <span class="text-gray-700">3 video analyses per month</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-green mr-3"></i>
+                            <span class="text-gray-700">Basic hook suggestions</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-green mr-3"></i>
+                            <span class="text-gray-700">Hashtag recommendations</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-green mr-3"></i>
+                            <span class="text-gray-700">Email support</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="w-full border-2 border-pastel-green text-pastel-green py-4 rounded-xl font-poppins font-semibold hover:bg-pastel-green hover:text-white transition-colors">
+                        Get Started Free
+                    </button>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-2xl hover-scale border border-pastel-blue/20 relative glow-effect">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-gradient-to-r from-pastel-blue to-pastel-purple text-white px-6 py-2 rounded-full text-sm font-poppins font-semibold">
+                            Most Popular
+                        </span>
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <div class="w-16 h-16 bg-gradient-to-br from-pastel-blue to-pastel-purple rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-rocket text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-poppins font-bold text-gray-900 mb-2">Pro</h3>
+                        <p class="text-gray-600 font-inter">For serious content creators</p>
+                        <div class="mt-6">
+                            <span class="text-5xl font-poppins font-bold text-gray-900">$29</span>
+                            <span class="text-gray-600">/month</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-blue mr-3"></i>
+                            <span class="text-gray-700">Unlimited video analyses</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-blue mr-3"></i>
+                            <span class="text-gray-700">Advanced AI insights</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-blue mr-3"></i>
+                            <span class="text-gray-700">Brand style matching</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-blue mr-3"></i>
+                            <span class="text-gray-700">Export to all platforms</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-blue mr-3"></i>
+                            <span class="text-gray-700">Priority support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-blue mr-3"></i>
+                            <span class="text-gray-700">Engagement prediction</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="w-full pastel-gradient text-white py-4 rounded-xl font-poppins font-semibold hover-scale">
+                        Start Pro Trial
+                    </button>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-scale border border-pastel-purple/20">
+                    <div class="text-center mb-8">
+                        <div class="w-16 h-16 bg-gradient-to-br from-pastel-purple to-pastel-pink rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-building text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-poppins font-bold text-gray-900 mb-2">Agency</h3>
+                        <p class="text-gray-600 font-inter">For teams and agencies</p>
+                        <div class="mt-6">
+                            <span class="text-5xl font-poppins font-bold text-gray-900">$99</span>
+                            <span class="text-gray-600">/month</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-purple mr-3"></i>
+                            <span class="text-gray-700">Everything in Pro</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-purple mr-3"></i>
+                            <span class="text-gray-700">Batch processing</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-purple mr-3"></i>
+                            <span class="text-gray-700">API access</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-purple mr-3"></i>
+                            <span class="text-gray-700">Team collaboration</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-purple mr-3"></i>
+                            <span class="text-gray-700">Custom integrations</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-pastel-purple mr-3"></i>
+                            <span class="text-gray-700">Dedicated account manager</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="w-full border-2 border-pastel-purple text-pastel-purple py-4 rounded-xl font-poppins font-semibold hover:bg-pastel-purple hover:text-white transition-colors">
+                        Contact Sales
+                    </button>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <p class="text-gray-600 font-inter mb-4">All plans include a 14-day free trial. No credit card required.</p>
+                <div class="flex items-center justify-center space-x-8">
+                    <div class="flex items-center text-gray-600">
+                        <i class="fas fa-shield-alt text-pastel-green mr-2"></i>
+                        <span class="text-sm">SSL Secured</span>
+                    </div>
+                    <div class="flex items-center text-gray-600">
+                        <i class="fas fa-credit-card text-pastel-blue mr-2"></i>
+                        <span class="text-sm">Cancel Anytime</span>
+                    </div>
+                    <div class="flex items-center text-gray-600">
+                        <i class="fas fa-money-bill-wave text-pastel-pink mr-2"></i>
+                        <span class="text-sm">30-Day Refund</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 bg-gradient-to-br from-pastel-green/10 to-pastel-blue/10">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-6xl font-poppins font-bold gradient-text mb-6">
+                    Frequently Asked Questions
+                </h2>
+                <p class="text-xl text-gray-600 font-inter">
+                    Everything you need to know about our AI-powered video analysis platform
+                </p>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover-scale">
+                    <h3 class="text-xl font-poppins font-bold text-gray-900 mb-3">How accurate are the AI predictions?</h3>
+                    <p class="text-gray-600 font-inter leading-relaxed">
+                        Our AI has been trained on millions of successful short-form videos and achieves an average accuracy rate of 89.4% in predicting engagement patterns. The more you use it, the better it gets at understanding your specific audience and niche.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover-scale">
+                    <h3 class="text-xl font-poppins font-bold text-gray-900 mb-3">Which platforms do you support?</h3>
+                    <p class="text-gray-600 font-inter leading-relaxed">
+                        We support all major short-form video platforms including TikTok, Instagram Reels, YouTube Shorts, Facebook Reels, and more. You can upload videos directly or paste links from these platforms.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover-scale">
+                    <h3 class="text-xl font-poppins font-bold text-gray-900 mb-3">Can I export the generated ideas?</h3>
+                    <p class="text-gray-600 font-inter leading-relaxed">
+                        Absolutely! Pro and Agency users can export their AI-generated insights to Notion, Google Docs, CSV files, or integrate directly with their favorite tools via our API. This makes it easy to incorporate insights into your existing workflow.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover-scale">
+                    <h3 class="text-xl font-poppins font-bold text-gray-900 mb-3">Is there a limit on video length?</h3>
+                    <p class="text-gray-600 font-inter leading-relaxed">
+                        Our platform is optimized for short-form content (15 seconds to 3 minutes). This includes TikToks, Reels, and Shorts. For longer content, we recommend breaking it into shorter segments for analysis.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover-scale">
+                    <h3 class="text-xl font-poppins font-bold text-gray-900 mb-3">Do you offer team collaboration features?</h3>
+                    <p class="text-gray-600 font-inter leading-relaxed">
+                        Yes! Our Agency plan includes team collaboration features, allowing multiple team members to work together on content analysis, share insights, and manage projects collectively with role-based permissions.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover-scale">
+                    <h3 class="text-xl font-poppins font-bold text-gray-900 mb-3">What makes your AI different from competitors?</h3>
+                    <p class="text-gray-600 font-inter leading-relaxed">
+                        Our AI doesn't just analyze what's popular - it understands the psychology behind viral content. We analyze micro-expressions, pacing, visual elements, and audience psychology to generate truly actionable insights that go beyond basic metrics.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Partners -->
+    <section id="integrations" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-6xl font-poppins font-bold gradient-text mb-6">
+                    Seamless Integrations
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto font-inter">
+                    Connect with your favorite tools and platforms to streamline your content workflow
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover-scale flex items-center justify-center">
+                    <img class="w-12 h-12 object-contain" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/62708f1b17-ebc70ee59635fac2ea92.png" alt="Notion logo clean minimal">
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover-scale flex items-center justify-center">
+                    <img class="w-12 h-12 object-contain" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/8a8dcefeaa-5aa77966af56198faac9.png" alt="Google Docs logo clean minimal">
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover-scale flex items-center justify-center">
+                    <img class="w-12 h-12 object-contain" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/e88b603365-ae49d08885457244a4d0.png" alt="Slack logo clean minimal">
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover-scale flex items-center justify-center">
+                    <img class="w-12 h-12 object-contain" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/28e3b7e382-5a4f1ac51dffa1315226.png" alt="Zapier logo clean minimal">
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover-scale flex items-center justify-center">
+                    <img class="w-12 h-12 object-contain" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/5b6322a9e1-9ea26b1a737366935318.png" alt="Airtable logo clean minimal">
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover-scale flex items-center justify-center">
+                    <img class="w-12 h-12 object-contain" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/444116b5a1-d6e545cf6d3e2fac7441.png" alt="Trello logo clean minimal">
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <p class="text-gray-600 font-inter mb-6">Don't see your tool? We're constantly adding new integrations.</p>
+                <button class="border-2 border-pastel-blue text-pastel-blue px-6 py-3 rounded-full font-poppins font-semibold hover:bg-pastel-blue hover:text-white transition-colors">
+                    Request Integration
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="final-cta" class="py-20 bg-gradient-to-br from-pastel-pink/20 via-pastel-blue/20 to-pastel-purple/20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl lg:text-6xl font-poppins font-bold gradient-text mb-6">
+                Ready to Transform Your Content?
+            </h2>
+            <p class="text-xl text-gray-600 font-inter leading-relaxed mb-8">
+                Join thousands of creators who've already revolutionized their content strategy with AI-powered insights. Start your free trial today and see the difference intelligent analysis can make.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                <button class="pastel-gradient text-white px-8 py-4 rounded-full font-poppins font-bold text-lg hover-scale shadow-xl">
+                    <i class="fas fa-rocket mr-2"></i>
+                    Start Free Trial
+                </button>
+                <button class="border-2 border-gray-700 text-gray-700 px-8 py-4 rounded-full font-poppins font-semibold text-lg hover:bg-gray-700 hover:text-white transition-colors">
+                    <i class="fas fa-calendar mr-2"></i>
+                    Book a Demo
+                </button>
+            </div>
+            
+            <div class="flex items-center justify-center space-x-8 text-sm text-gray-600">
+                <div class="flex items-center">
+                    <i class="fas fa-check text-pastel-green mr-2"></i>
+                    <span>Free 14-day trial</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check text-pastel-green mr-2"></i>
+                    <span>No credit card required</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check text-pastel-green mr-2"></i>
+                    <span>Cancel anytime</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-10 h-10 rounded-xl pastel-gradient flex items-center justify-center">
+                            <i class="fas fa-video text-white text-lg"></i>
+                        </div>
+                        <span class="text-2xl font-poppins font-bold gradient-text">VideoAI</span>
+                    </div>
+                    <p class="text-gray-400 font-inter leading-relaxed">
+                        Transform any Reel, TikTok, or Short into fresh marketing ideas with AI-powered analysis.
+                    </p>
+                    <div class="flex space-x-4">
+                        <span class="w-10 h-10 bg-pastel-pink/20 rounded-full flex items-center justify-center hover:bg-pastel-pink hover:text-white transition-colors cursor-pointer">
+                            <i class="fab fa-twitter"></i>
+                        </span>
+                        <span class="w-10 h-10 bg-pastel-blue/20 rounded-full flex items-center justify-center hover:bg-pastel-blue hover:text-white transition-colors cursor-pointer">
+                            <i class="fab fa-instagram"></i>
+                        </span>
+                        <span class="w-10 h-10 bg-pastel-purple/20 rounded-full flex items-center justify-center hover:bg-pastel-purple hover:text-white transition-colors cursor-pointer">
+                            <i class="fab fa-linkedin"></i>
+                        </span>
+                        <span class="w-10 h-10 bg-pastel-green/20 rounded-full flex items-center justify-center hover:bg-pastel-green hover:text-white transition-colors cursor-pointer">
+                            <i class="fab fa-youtube"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-poppins font-bold text-white mb-4">Product</h4>
+                    <ul class="space-y-2 font-inter">
+                        <li><span class="text-gray-400 hover:text-white transition-colors cursor-pointer">Features</span></li>
+                        <li><span class="text-gray-400 hover:text-white transition-colors cursor-pointer">Pricing</span></li>
+                        <li><span class="text-gray-400 hover:text-white transition-colors cursor-pointer">API</span></li>
+                        <li><span class="text-gray-400 hover:text-white transition-colors cursor-pointer">Integrations</span></li>
+                        <li><span class="text-gray-400 hover:text-white transition-colors cursor-pointer">Changelog</span></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-poppins font-bold text-white mb-4">Resources</h4>
+                    <ul class="space-y-2 font-inter">
+                        <li><span class="text-gray-400 hover:text-white transition-colors cursor-pointer">Blog</span></li>
+                        <li><span class="text-gray-400 hover:text-white transition-colors cursor-pointer">Help Center</span></li>
+                        <li><span class="text-gray-400 hover:text-white transition-colors cursor-pointer">Video Tutorials</span></li>
+                        <li><span class="text-gray-400 hover:text-white transition-colors cursor-pointer">Case Studies</span></li>
+                        <li><span class="text-gray-400 hover:text-white transition-colors cursor-pointer">Community</span></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-poppins font-bold text-white mb-4">Company</h4>
+                    <ul class="space-y-2 font-inter">
+                        <li><span class="text-gray-400 hover:text-white transition-colors cursor-pointer">About</span></li>
+                        <li><span class="text-gray-400 hover:text-white transition-colors cursor-pointer">Careers</span></li>
+                        <li><span class="text-gray-400 hover:text-white transition-colors cursor-pointer">Contact</span></li>
+                        <li><span class="text-gray-400 hover:text-white transition-colors cursor-pointer">Privacy Policy</span></li>
+                        <li><span class="text-gray-400 hover:text-white transition-colors cursor-pointer">Terms of Service</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between">
+                <p class="text-gray-400 font-inter text-sm">
+                    © 2024 VideoAI. All rights reserved.
+                </p>
+                <div class="flex items-center space-x-6 mt-4 md:mt-0">
+                    <span class="text-gray-400 text-sm font-inter">Made with ❤️ for creators</span>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-pastel-green rounded-full animate-pulse"></div>
+                        <span class="text-gray-400 text-sm">All systems operational</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+</body></html>

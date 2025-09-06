@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import HowItWorksStep from '@/components/landing/ui/HowItWorksStep';
+import HowItWorksStep from '@/components/landing/ui/how-it-works-step';
 import { FaUpload, FaBrain, FaLightbulb, FaBolt } from 'react-icons/fa6';
 
 const steps = [

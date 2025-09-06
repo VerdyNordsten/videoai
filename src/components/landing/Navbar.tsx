@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { FaBars, FaXmark, FaVideo } from 'react-icons/fa6';
-import { ThemeToggle } from '@/components/shared/ThemeToggle';
+import { ThemeToggle } from '@/components/shared/theme-toggle';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

@@ -1,108 +1,98 @@
 'use client';
 
-import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import React from "react";
+import { motion } from "framer-motion";
+import { TestimonialsColumn } from '@/components/landing/testimonials-column';
+
+const testimonials = [
+  {
+    text: "This tool literally 10x'd my content ideas! I went from struggling with hooks to having a library of viral-ready concepts. My engagement went up 300% in just 2 months!",
+    image: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg",
+    name: "Sarah Chen",
+    role: "Food Content Creator",
+  },
+  {
+    text: "The AI predictions are scary accurate! It told me exactly which of my videos would go viral before I even posted them. Now I create content with confidence.",
+    image: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg",
+    name: "Marcus Rodriguez",
+    role: "Fitness Influencer",
+  },
+  {
+    text: "As a busy entrepreneur, I don't have time to analyze trends manually. This AI does it all for me and suggests content that actually converts to sales!",
+    image: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg",
+    name: "Emma Thompson",
+    role: "Beauty & Lifestyle",
+  },
+  {
+    text: "The hook generator alone is worth the subscription. I've never had so many creative angles for the same topic. My content feels fresh and engaging again!",
+    image: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg",
+    name: "David Kim",
+    role: "Tech Reviewer",
+  },
+  {
+    text: "Game changer for my travel content! The AI understands different niches and gives me location-specific hooks that resonate with my audience perfectly.",
+    image: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg",
+    name: "Lisa Park",
+    role: "Travel Creator",
+  },
+  {
+    text: "We use this for all our clients' content strategies. The batch processing feature saves us 20+ hours per week, and the results speak for themselves!",
+    image: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg",
+    name: "Alex Johnson",
+    role: "Marketing Agency",
+  },
+  {
+    text: "The analytics dashboard helped us identify our best-performing content patterns. Now we create more of what works and less of what doesn't.",
+    image: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-7.jpg",
+    name: "Jennifer Wu",
+    role: "Content Strategist",
+  },
+  {
+    text: "I was skeptical about AI-generated content, but this tool exceeded my expectations. It's like having a team of experienced marketers at my fingertips.",
+    image: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg",
+    name: "Michael Torres",
+    role: "E-commerce Brand Owner",
+  },
+  {
+    text: "The trend prediction feature is gold! I'm always ahead of the curve now, creating content that's relevant before my competitors even know the trend exists.",
+    image: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-9.jpg",
+    name: "Amanda Foster",
+    role: "Social Media Manager",
+  },
+];
+
+const firstColumn = testimonials.slice(0, 3);
+const secondColumn = testimonials.slice(3, 6);
+const thirdColumn = testimonials.slice(6, 9);
 
 const Testimonials = () => {
-  const testimonials = [
-    {
-      name: "Sarah Chen",
-      role: "Food Content Creator",
-      avatar: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg",
-      rating: 5,
-      content: "This tool literally 10x'd my content ideas! I went from struggling with hooks to having a library of viral-ready concepts. My engagement went up 300% in just 2 months!",
-      stat: "2.3M followers gained",
-      statIcon: "📈",
-      statColor: "text-green-500"
-    },
-    {
-      name: "Marcus Rodriguez",
-      role: "Fitness Influencer",
-      avatar: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg",
-      rating: 5,
-      content: "The AI predictions are scary accurate! It told me exactly which of my videos would go viral before I even posted them. Now I create content with confidence.",
-      stat: "15 viral videos predicted",
-      statIcon: "🔥",
-      statColor: "text-pink-500"
-    },
-    {
-      name: "Emma Thompson",
-      role: "Beauty & Lifestyle",
-      avatar: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg",
-      rating: 5,
-      content: "As a busy entrepreneur, I don't have time to analyze trends manually. This AI does it all for me and suggests content that actually converts to sales!",
-      stat: "$50K+ revenue generated",
-      statIcon: "💰",
-      statColor: "text-yellow-500"
-    },
-    {
-      name: "David Kim",
-      role: "Tech Reviewer",
-      avatar: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg",
-      rating: 5,
-      content: "The hook generator alone is worth the subscription. I've never had so many creative angles for the same topic. My content feels fresh and engaging again!",
-      stat: "500+ hooks generated",
-      statIcon: "💡",
-      statColor: "text-blue-500"
-    },
-    {
-      name: "Lisa Park",
-      role: "Travel Creator",
-      avatar: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg",
-      rating: 5,
-      content: "Game changer for my travel content! The AI understands different niches and gives me location-specific hooks that resonate with my audience perfectly.",
-      stat: "25 countries covered",
-      statIcon: "🌍",
-      statColor: "text-purple-500"
-    },
-    {
-      name: "Alex Johnson",
-      role: "Marketing Agency",
-      avatar: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg",
-      rating: 5,
-      content: "We use this for all our clients' content strategies. The batch processing feature saves us 20+ hours per week, and the results speak for themselves!",
-      stat: "50+ clients served",
-      statIcon: "👥",
-      statColor: "text-green-500"
-    }
-  ];
-
   return (
-    <section className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600 mb-6">
-            What Creators Say
+    <section className="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-zinc-900 dark:to-zinc-900 my-20 relative py-20">
+
+      <div className="container z-10 mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+          className="flex flex-col items-center justify-center max-w-[540px] mx-auto"
+        >
+          <div className="flex justify-center">
+            <div className="border py-1 px-4 rounded-lg bg-white dark:bg-zinc-800 border-gray-200 dark:border-zinc-700">Testimonials</div>
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tighter mt-5 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600">
+            What our users say
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-            Join thousands of content creators who've transformed their marketing with our AI insights
+          <p className="text-center mt-5 opacity-75 text-gray-600 dark:text-gray-400">
+            See what our customers have to say about us.
           </p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-shadow">
-              <CardContent className="p-8">
-                <div className="flex items-center mb-6">
-                  <img src={testimonial.avatar} className="w-16 h-16 rounded-full mr-4" alt={testimonial.name} />
-                  <div>
-                    <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
-                    <p className="text-gray-600 text-sm">{testimonial.role}</p>
-                    <div className="flex text-yellow-400 text-sm mt-1">
-                      {'★'.repeat(testimonial.rating)}
-                    </div>
-                  </div>
-                </div>
-                <p className="text-gray-700 mb-6">
-                  "{testimonial.content}"
-                </p>
-                <div className="flex items-center text-sm text-gray-500">
-                  <span className="mr-2">{testimonial.statIcon}</span>
-                  <span>{testimonial.stat}</span>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+        </motion.div>
+
+        <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[740px] overflow-hidden">
+          <TestimonialsColumn testimonials={firstColumn} duration={15} />
+          <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={19} />
+          <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={17} />
         </div>
       </div>
     </section>

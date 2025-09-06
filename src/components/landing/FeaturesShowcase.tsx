@@ -2,54 +2,54 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Wand2, TrendingUp, Clock, Palette, Layers, Download, Users, Zap } from 'lucide-react';
+import { FaWandMagicSparkles, FaChartLine, FaClock, FaPalette, FaLayerGroup, FaDownload, FaUsers, FaBolt } from 'react-icons/fa6';
 
 const FeaturesShowcase = () => {
   const features = [
     {
-      icon: Wand2,
+      icon: FaWandMagicSparkles,
       title: "AI Hook Generator",
       description: "Generate multiple hook variations that grab attention in the first 3 seconds and boost your engagement rates.",
       gradient: "from-pink-500 to-purple-600"
     },
     {
-      icon: TrendingUp,
+      icon: FaChartLine,
       title: "Engagement Prediction",
       description: "Predict how well your content will perform before posting with our advanced engagement scoring algorithm.",
       gradient: "from-blue-500 to-cyan-600"
     },
     {
-      icon: Clock,
+      icon: FaClock,
       title: "Optimal Timing",
       description: "Discover the perfect pacing and timing for each segment to maximize viewer retention and completion rates.",
       gradient: "from-green-500 to-emerald-600"
     },
     {
-      icon: Palette,
+      icon: FaPalette,
       title: "Brand Style Matching",
       description: "Adapt successful content patterns to match your unique brand voice and visual identity seamlessly.",
       gradient: "from-yellow-500 to-orange-600"
     },
     {
-      icon: Layers,
+      icon: FaLayerGroup,
       title: "Batch Processing",
       description: "Analyze multiple videos at once and get comprehensive insights across your entire content library.",
       gradient: "from-purple-500 to-pink-600"
     },
     {
-      icon: Download,
+      icon: FaDownload,
       title: "Export Anywhere",
       description: "Export your insights to Notion, Google Docs, CSV, or integrate directly with your favorite tools via API.",
       gradient: "from-teal-500 to-green-600"
     },
     {
-      icon: Users,
+      icon: FaUsers,
       title: "Team Collaboration",
       description: "Work together with your team members to analyze content, share insights, and manage projects.",
       gradient: "from-indigo-500 to-blue-600"
     },
     {
-      icon: Zap,
+      icon: FaBolt,
       title: "Real-time Analysis",
       description: "Get instant insights as soon as you upload your video with our lightning-fast processing engine.",
       gradient: "from-red-500 to-orange-600"

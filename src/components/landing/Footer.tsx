@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Video, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
+import { FaVideo, FaTwitter, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa6';
 
 const Footer = () => {
   const productLinks = [
@@ -30,10 +30,10 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: Twitter, href: "#" },
-    { icon: Instagram, href: "#" },
-    { icon: Linkedin, href: "#" },
-    { icon: Youtube, href: "#" }
+    { icon: FaTwitter, href: "#" },
+    { icon: FaInstagram, href: "#" },
+    { icon: FaLinkedin, href: "#" },
+    { icon: FaYoutube, href: "#" }
   ];
 
   return (
@@ -43,7 +43,7 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="bg-gradient-to-r from-pink-500 to-purple-600 w-10 h-10 rounded-xl flex items-center justify-center">
-                <Video className="h-6 w-6 text-white" />
+                <FaVideo className="h-6 w-6 text-white" />
               </div>
               <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-purple-500">
                 VideoAI

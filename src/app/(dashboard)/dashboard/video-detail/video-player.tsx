@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Share2, Play } from 'lucide-react';
+import { FaArrowLeft, FaShare, FaPlay } from 'react-icons/fa6';
 
 interface VideoData {
   id: number;
@@ -17,7 +17,7 @@ export default function VideoPlayer({ videoData }: { videoData: VideoData }) {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="flex items-center space-x-4">
           <Button variant="outline" size="icon" className="rounded-full">
-            <ArrowLeft className="h-5 w-5 text-blue-500" />
+            <FaArrowLeft className="h-5 w-5 text-blue-500" />
           </Button>
           <div>
             <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600">
@@ -36,7 +36,7 @@ export default function VideoPlayer({ videoData }: { videoData: VideoData }) {
           </div>
           
           <Button variant="outline" size="icon" className="rounded-full">
-            <Share2 className="h-5 w-5 text-yellow-500" />
+            <FaShare className="h-5 w-5 text-yellow-500" />
           </Button>
         </div>
       </div>

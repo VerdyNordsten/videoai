@@ -2,11 +2,11 @@
 
 import React from 'react';
 import HowItWorksStep from '@/components/landing/ui/HowItWorksStep';
-import { Upload, Brain, Lightbulb, Zap } from 'lucide-react';
+import { FaUpload, FaBrain, FaLightbulb, FaBolt } from 'react-icons/fa6';
 
 const steps = [
   {
-    icon: Upload,
+    icon: FaUpload,
     title: "Upload Video",
     description: "Drop your Reel, TikTok, or YouTube Short directly or paste the link. We support all major platforms.",
     features: [
@@ -17,7 +17,7 @@ const steps = [
     ]
   },
   {
-    icon: Brain,
+    icon: FaBrain,
     title: "AI Analysis",
     description: "Our advanced AI dissects every frame, analyzing hooks, pacing, structure, and engagement patterns.",
     features: [
@@ -28,7 +28,7 @@ const steps = [
     ]
   },
   {
-    icon: Lightbulb,
+    icon: FaLightbulb,
     title: "Get Fresh Ideas",
     description: "Receive actionable marketing ideas, hooks, scripts, captions, and hashtags tailored to your content.",
     features: [
@@ -39,7 +39,7 @@ const steps = [
     ]
   },
   {
-    icon: Zap,
+    icon: FaBolt,
     title: "Implement & Track",
     description: "Apply the insights to your content and track performance with our analytics dashboard.",
     features: [

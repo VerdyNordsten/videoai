@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { Loader2 } from 'lucide-react';
+import { FaSpinner } from 'react-icons/fa6';
 import { updateAccount, updatePassword } from '@/app/(login)/actions';
 import { User } from '@/lib/db/schema';
 import useSWR from 'swr';
@@ -121,7 +121,7 @@ export default function GeneralPage() {
               >
                 {isAccountPending ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <FaSpinner className="mr-2 h-4 w-4 animate-spin" />
                     Saving...
                   </>
                 ) : (
@@ -188,7 +188,7 @@ export default function GeneralPage() {
               >
                 {isPasswordPending ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <FaSpinner className="mr-2 h-4 w-4 animate-spin" />
                     Updating...
                   </>
                 ) : (

@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Home, QuestionCircle, Headset, Bug } from 'lucide-react';
+import { FaHouse, FaCircleQuestion, FaHeadphones, FaBug } from 'react-icons/fa6';
 import Link from 'next/link';
 
 export default function NotFound() {
@@ -97,7 +97,7 @@ export default function NotFound() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative flex items-center">
-                <Home className="h-6 w-6 mr-3 transition-transform duration-300 group-hover:rotate-12" />
+                <FaHouse className="h-6 w-6 mr-3 transition-transform duration-300 group-hover:rotate-12" />
                 <span className="transition-all duration-300">Back to Home</span>
               </div>
               <div className="absolute bottom-0 left-0 w-full h-1 bg-white/30 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
@@ -110,15 +110,15 @@ export default function NotFound() {
           <p className="text-muted-foreground mb-4">Need help? We're here for you!</p>
           <div className="flex flex-wrap justify-center gap-6 text-sm">
             <span className="text-blue-500 hover:text-purple-500 transition-colors font-semibold hover:underline cursor-pointer">
-              <QuestionCircle className="h-4 w-4 mr-2 inline" />
+              <FaCircleQuestion className="h-4 w-4 mr-2 inline" />
               Help Center
             </span>
             <span className="text-green-500 hover:text-blue-500 transition-colors font-semibold hover:underline cursor-pointer">
-              <Headset className="h-4 w-4 mr-2 inline" />
+              <FaHeadphones className="h-4 w-4 mr-2 inline" />
               Contact Support
             </span>
             <span className="text-pink-500 hover:text-purple-500 transition-colors font-semibold hover:underline cursor-pointer">
-              <Bug className="h-4 w-4 mr-2 inline" />
+              <FaBug className="h-4 w-4 mr-2 inline" />
               Report Issue
             </span>
           </div>

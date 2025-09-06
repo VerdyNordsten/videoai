@@ -5,20 +5,20 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
-  ArrowLeft, 
-  Share2, 
-  Play, 
-  Clock, 
-  Fish, 
-  Gem, 
-  Megaphone, 
-  ChevronDown,
-  Scissors, 
-  Type, 
-  Volume2, 
-  Rocket,
-  Download
-} from 'lucide-react';
+  FaArrowLeft, 
+  FaShare, 
+  FaPlay, 
+  FaClock, 
+  FaFish, 
+  FaGem, 
+  FaBullhorn, 
+  FaChevronDown,
+  FaScissors, 
+  FaFont, 
+  FaVolumeHigh, 
+  FaRocket,
+  FaDownload
+} from 'react-icons/fa6';
 import { videoAnalysisData } from '../data';
 
 interface VideoData {
@@ -64,7 +64,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
   const overviewData = [
     {
       title: "Duration Analysis",
-      icon: Clock,
+      icon: FaClock,
       color: "from-pink-500/10 to-pink-500/5",
       items: [
         { label: "Total Duration", value: videoData.duration },
@@ -74,7 +74,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
     },
     {
       title: "Hook Analysis",
-      icon: Fish,
+      icon: FaFish,
       color: "from-blue-500/10 to-blue-500/5",
       items: [
         { label: "Hook Type", value: "Visual Pattern" },
@@ -84,7 +84,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
     },
     {
       title: "Content Pace",
-      icon: Clock,
+      icon: FaClock,
       color: "from-green-500/10 to-green-500/5",
       items: [
         { label: "Overall Pace", value: "Fast" },
@@ -94,7 +94,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
     },
     {
       title: "Call to Action",
-      icon: Megaphone,
+      icon: FaBullhorn,
       color: "from-purple-500/10 to-purple-500/5",
       items: [
         { label: "CTA Present", value: "✓ Yes" },
@@ -117,7 +117,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
       id: 'hook-section',
       title: 'Hook Section (0-3s)',
       description: 'Opening visual pattern that grabs attention',
-      icon: Fish,
+      icon: FaFish,
       color: 'bg-pink-500',
       currentStructure: 'Quick dance moves with upbeat music to immediately capture attention.',
       tags: [
@@ -134,7 +134,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
       id: 'value-section',
       title: 'Value Section (3-18s)',
       description: 'Main content delivering the promised value',
-      icon: Gem,
+      icon: FaGem,
       color: 'bg-green-500',
       currentStructure: 'Step-by-step dance tutorial with clear movements and rhythm.',
       tags: [
@@ -151,7 +151,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
       id: 'cta-section',
       title: 'CTA Section (18-24s)',
       description: 'Call-to-action to drive engagement',
-      icon: Megaphone,
+      icon: FaBullhorn,
       color: 'bg-purple-500',
       currentStructure: 'Simple "follow for more" with final dance pose.',
       tags: [
@@ -233,7 +233,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
   const checklistItems = [
     {
       title: 'Editing Techniques',
-      icon: Scissors,
+      icon: FaScissors,
       color: 'text-pink-500',
       items: [
         { label: 'Cut every 1.5-2 seconds to maintain attention', checked: true },
@@ -245,7 +245,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
     },
     {
       title: 'Text & Graphics',
-      icon: Type,
+      icon: FaFont,
       color: 'text-blue-500',
       items: [
         { label: 'Bold, readable captions throughout', checked: true },
@@ -257,7 +257,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
     },
     {
       title: 'Audio & Music',
-      icon: Volume2,
+      icon: FaVolumeHigh,
       color: 'text-green-500',
       items: [
         { label: 'Use trending or upbeat music', checked: true },
@@ -269,7 +269,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
     },
     {
       title: 'Optimization Tips',
-      icon: Rocket,
+      icon: FaRocket,
       color: 'text-purple-500',
       items: [
         { label: 'Keep first 3 seconds captivating', checked: true },
@@ -288,7 +288,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="flex items-center space-x-4">
             <Button variant="outline" size="icon" className="rounded-full" onClick={() => router.back()}>
-              <ArrowLeft className="h-5 w-5 text-blue-500" />
+              <FaArrowLeft className="h-5 w-5 text-blue-500" />
             </Button>
             <div>
               <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600">
@@ -307,7 +307,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
             </div>
             
             <Button variant="outline" size="icon" className="rounded-full">
-              <Share2 className="h-5 w-5 text-yellow-500" />
+              <FaShare className="h-5 w-5 text-yellow-500" />
             </Button>
           </div>
         </div>
@@ -329,7 +329,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
                   />
                   <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
                     <Button className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center hover:bg-white">
-                      <Play className="h-8 w-8 text-gray-700 ml-1" />
+                      <FaPlay className="h-8 w-8 text-gray-700 ml-1" />
                     </Button>
                   </div>
                 </div>
@@ -487,7 +487,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
                                 <p className="text-gray-600 text-sm">{section.description}</p>
                               </div>
                             </div>
-                            <ChevronDown 
+                            <FaChevronDown 
                               className={`h-5 w-5 text-gray-400 transition-transform ${
                                 openAccordion === section.id ? 'rotate-180' : ''
                               }`} 
@@ -655,7 +655,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
       {/* Export CTA */}
       <div className="text-center mt-8">
         <Button className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-12 py-4 rounded-full font-bold text-lg hover:from-pink-600 hover:to-purple-700 shadow-xl">
-          <Download className="h-5 w-5 mr-3" />
+          <FaDownload className="h-5 w-5 mr-3" />
           Export All Ideas
         </Button>
         <p className="text-gray-600 text-sm mt-3">Export to Notion, Google Docs, or CSV format</p>

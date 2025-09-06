@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Rocket, Calendar, Play } from 'lucide-react';
+import { FaRocket, FaCalendar, FaPlay } from 'react-icons/fa6';
 
 const FinalCTA = () => {
   return (
@@ -17,16 +17,16 @@ const FinalCTA = () => {
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
           <Button className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-8 py-6 rounded-full font-bold text-lg">
-            <Rocket className="mr-2 h-5 w-5" /> Start Free Trial
+            <FaRocket className="mr-2 h-5 w-5" /> Start Free Trial
           </Button>
           <Button variant="outline" className="border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 px-8 py-6 rounded-full font-semibold text-lg">
-            <Calendar className="mr-2 h-5 w-5" /> Book a Demo
+            <FaCalendar className="mr-2 h-5 w-5" /> Book a Demo
           </Button>
         </div>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
           <Button variant="ghost" className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 px-8 py-6 rounded-full font-semibold text-lg">
-            <Play className="mr-2 h-5 w-5" /> Watch Tutorial
+            <FaPlay className="mr-2 h-5 w-5" /> Watch Tutorial
           </Button>
         </div>
         

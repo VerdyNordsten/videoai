@@ -3,7 +3,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Check } from 'lucide-react';
+import { FaCheck } from 'react-icons/fa6';
 
 const Pricing = () => {
   const plans = [
@@ -88,7 +88,7 @@ const Pricing = () => {
                 <ul className="space-y-4">
                   {plan.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-center">
-                      <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0" />
+                      <FaCheck className="h-5 w-5 text-green-500 mr-2 flex-shrink-0" />
                       <span className="text-gray-700 dark:text-gray-300">{feature}</span>
                     </li>
                   ))}

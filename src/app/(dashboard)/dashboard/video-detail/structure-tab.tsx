@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { 
-  Fish, 
-  Gem, 
-  Megaphone, 
-  ChevronDown
-} from 'lucide-react';
+  FaFish, 
+  FaGem, 
+  FaMegaphone, 
+  FaChevronDown
+} from 'react-icons/fa6';
 
 export default function StructureTab() {
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);

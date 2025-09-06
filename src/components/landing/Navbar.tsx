@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Video } from 'lucide-react';
+import { FaBars, FaXmark, FaVideo } from 'react-icons/fa6';
 import { ThemeToggle } from '@/components/shared/ThemeToggle';
 
 const Navbar = () => {
@@ -19,7 +19,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
               <div className="bg-gradient-to-r from-pink-500 to-purple-600 w-8 h-8 rounded-lg flex items-center justify-center">
-                <Video className="h-5 w-5 text-white" />
+                <FaVideo className="h-5 w-5 text-white" />
               </div>
               <span className="ml-2 text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600">
                 VideoAI
@@ -53,7 +53,7 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <ThemeToggle />
             <Button variant="ghost" size="icon" onClick={toggleMobileMenu} aria-label="Toggle mobile menu" className="ml-2">
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {mobileMenuOpen ? <FaXmark className="h-6 w-6" /> : <FaBars className="h-6 w-6" />}
             </Button>
           </div>
         </div>

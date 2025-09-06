@@ -2,17 +2,17 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { 
-  Scissors, 
-  Type, 
-  Volume2, 
-  Rocket
-} from 'lucide-react';
+  FaScissors, 
+  FaFont, 
+  FaVolumeHigh, 
+  FaRocket
+} from 'react-icons/fa6';
 
 export default function ChecklistTab() {
   const checklistItems = [
     {
       title: 'Editing Techniques',
-      icon: Scissors,
+      icon: FaScissors,
       color: 'text-pink-500',
       items: [
         { label: 'Cut every 1.5-2 seconds to maintain attention', checked: true },
@@ -24,7 +24,7 @@ export default function ChecklistTab() {
     },
     {
       title: 'Text & Graphics',
-      icon: Type,
+      icon: FaFont,
       color: 'text-blue-500',
       items: [
         { label: 'Bold, readable captions throughout', checked: true },
@@ -36,7 +36,7 @@ export default function ChecklistTab() {
     },
     {
       title: 'Audio & Music',
-      icon: Volume2,
+      icon: FaVolumeHigh,
       color: 'text-green-500',
       items: [
         { label: 'Use trending or upbeat music', checked: true },
@@ -48,7 +48,7 @@ export default function ChecklistTab() {
     },
     {
       title: 'Optimization Tips',
-      icon: Rocket,
+      icon: FaRocket,
       color: 'text-purple-500',
       items: [
         { label: 'Keep first 3 seconds captivating', checked: true },

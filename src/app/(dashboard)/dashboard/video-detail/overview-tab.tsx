@@ -2,11 +2,11 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { 
-  Clock, 
-  Fish, 
-  Gem, 
-  Megaphone
-} from 'lucide-react';
+  FaClock, 
+  FaFish, 
+  FaGem, 
+  FaBullhorn
+} from 'react-icons/fa6';
 
 interface VideoData {
   id: number;
@@ -20,7 +20,7 @@ export default function OverviewTab({ videoData }: { videoData: VideoData }) {
   const overviewData = [
     {
       title: "Duration Analysis",
-      icon: Clock,
+      icon: FaClock,
       color: "from-pink-500/10 to-pink-500/5",
       items: [
         { label: "Total Duration", value: "24 seconds" },
@@ -30,7 +30,7 @@ export default function OverviewTab({ videoData }: { videoData: VideoData }) {
     },
     {
       title: "Hook Analysis",
-      icon: Fish,
+      icon: FaFish,
       color: "from-blue-500/10 to-blue-500/5",
       items: [
         { label: "Hook Type", value: "Visual Pattern" },
@@ -40,7 +40,7 @@ export default function OverviewTab({ videoData }: { videoData: VideoData }) {
     },
     {
       title: "Content Pace",
-      icon: Gem,
+      icon: FaGem,
       color: "from-green-500/10 to-green-500/5",
       items: [
         { label: "Overall Pace", value: "Fast" },
@@ -50,7 +50,7 @@ export default function OverviewTab({ videoData }: { videoData: VideoData }) {
     },
     {
       title: "Call to Action",
-      icon: Megaphone,
+      icon: FaBullhorn,
       color: "from-purple-500/10 to-purple-500/5",
       items: [
         { label: "CTA Present", value: "✓ Yes" },

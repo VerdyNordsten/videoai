@@ -5,20 +5,20 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
-  Video, 
-  Lightbulb, 
-  Flame, 
-  Trophy, 
-  CloudUpload, 
-  FolderOpen, 
-  Link as LinkIcon, 
-  Filter, 
-  Sparkles,
-  Bell,
-  ChevronDown,
-  FileText,
-  LineChart
-} from 'lucide-react';
+  FaVideo, 
+  FaLightbulb, 
+  FaFire, 
+  FaTrophy, 
+  FaCloudArrowUp, 
+  FaFolderOpen, 
+  FaLink, 
+  FaFilter, 
+  FaWandMagicSparkles,
+  FaBell,
+  FaChevronDown,
+  FaFileLines,
+  FaChartLine
+} from 'react-icons/fa6';
 import { videoAnalysisData } from './video-detail/data';
 
 export default function DashboardPage() {
@@ -30,7 +30,7 @@ export default function DashboardPage() {
       title: 'Videos Analyzed', 
       value: '247', 
       change: '+23% this month', 
-      icon: Video, 
+      icon: FaVideo, 
       color: 'from-pink-500 to-pink-400',
       changeColor: 'text-pink-500'
     },
@@ -38,7 +38,7 @@ export default function DashboardPage() {
       title: 'Ideas Generated', 
       value: '1,847', 
       change: '+67% this month', 
-      icon: Lightbulb, 
+      icon: FaLightbulb, 
       color: 'from-blue-500 to-blue-400',
       changeColor: 'text-blue-500'
     },
@@ -46,7 +46,7 @@ export default function DashboardPage() {
       title: 'Success Rate', 
       value: '89.4%', 
       change: '+5.2% this month', 
-      icon: Flame, 
+      icon: FaFire, 
       color: 'from-green-500 to-green-400',
       changeColor: 'text-green-500'
     },
@@ -54,7 +54,7 @@ export default function DashboardPage() {
       title: 'Viral Predictions', 
       value: '156', 
       change: '+12% accuracy', 
-      icon: Trophy, 
+      icon: FaTrophy, 
       color: 'from-yellow-500 to-yellow-400',
       changeColor: 'text-yellow-500'
     }
@@ -65,10 +65,10 @@ export default function DashboardPage() {
 
   // Quick actions data
   const quickActions = [
-    { title: 'Batch Upload', icon: CloudUpload, color: 'from-pink-500/10 to-pink-500/5' },
-    { title: 'Export Ideas', icon: FolderOpen, color: 'from-blue-500/10 to-blue-500/5' },
-    { title: 'Browse Templates', icon: FileText, color: 'from-green-500/10 to-green-500/5' },
-    { title: 'View Analytics', icon: LineChart, color: 'from-purple-500/10 to-purple-500/5' }
+    { title: 'Batch Upload', icon: FaCloudArrowUp, color: 'from-pink-500/10 to-pink-500/5' },
+    { title: 'Export Ideas', icon: FaFolderOpen, color: 'from-blue-500/10 to-blue-500/5' },
+    { title: 'Browse Templates', icon: FaFileLines, color: 'from-green-500/10 to-green-500/5' },
+    { title: 'View Analytics', icon: FaChartLine, color: 'from-purple-500/10 to-purple-500/5' }
   ];
 
   return (
@@ -92,7 +92,7 @@ export default function DashboardPage() {
             </div>
             
             <button className="w-10 h-10 bg-yellow-500/20 rounded-full flex items-center justify-center hover:bg-yellow-500/40 transition-colors">
-              <Bell className="h-5 w-5 text-yellow-500" />
+              <FaBell className="h-5 w-5 text-yellow-500" />
             </button>
           </div>
         </div>
@@ -140,7 +140,7 @@ export default function DashboardPage() {
             
             <div className="bg-gradient-to-br from-blue-500/5 to-green-500/5 rounded-2xl p-12 text-center mb-6 border-2 border-dashed border-blue-300 hover:border-pink-300 transition-colors">
               <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <CloudUpload className="h-10 w-10 text-white" />
+                <FaCloudArrowUp className="h-10 w-10 text-white" />
               </div>
               
               <h3 className="text-xl font-bold text-gray-900 mb-2">Drop your video here</h3>
@@ -148,12 +148,12 @@ export default function DashboardPage() {
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
                 <Button className="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-600 transition-colors">
-                  <FolderOpen className="h-4 w-4 mr-2" />
+                  <FaFolderOpen className="h-4 w-4 mr-2" />
                   Browse Files
                 </Button>
                 <span className="text-gray-400">or</span>
                 <Button variant="outline" className="border-2 border-purple-500 text-purple-500 px-6 py-3 rounded-full font-semibold hover:bg-purple-500 hover:text-white transition-colors">
-                  <LinkIcon className="h-4 w-4 mr-2" />
+                  <FaLink className="h-4 w-4 mr-2" />
                   Paste Link
                 </Button>
               </div>
@@ -161,7 +161,7 @@ export default function DashboardPage() {
             
             <div className="text-center">
               <Button className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:from-pink-600 hover:to-purple-700 shadow-xl">
-                <Sparkles className="h-5 w-5 mr-2" />
+                <FaWandMagicSparkles className="h-5 w-5 mr-2" />
                 Analyze with AI
               </Button>
             </div>
@@ -189,7 +189,7 @@ export default function DashboardPage() {
             </div>
             
             <button className="text-gray-600 hover:text-gray-900 transition-colors">
-              <Filter className="h-5 w-5" />
+              <FaFilter className="h-5 w-5" />
             </button>
           </div>
         </div>
@@ -246,7 +246,7 @@ export default function DashboardPage() {
         {/* Load More Button */}
         <div className="text-center mt-8">
           <Button variant="outline" className="border-2 border-blue-500 text-blue-500 px-8 py-3 rounded-full font-semibold hover:bg-blue-500 hover:text-white transition-colors">
-            <ChevronDown className="h-4 w-4 mr-2" />
+            <FaChevronDown className="h-4 w-4 mr-2" />
             Load More Analyses
           </Button>
         </div>

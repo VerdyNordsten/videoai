@@ -1,1 +1,1 @@
-sekarang tambahkan rework total untuk login page kita ke dashboard , sebagai acuan yg ada di source/login convert html tersebut dan sesuaikan stylenya sama dengan landing style yg kita punya, dan juga kamu lihat di folder (login) sudah terdapat schema dll , sesuaikan dengan yg baru agar kita dapat tetap pakai logic schema nya walaupun kita ubah total penampilannya, delete aja login yg sudah ada kalau sudah tidak dipakai
+buang button github di form auth , jangan lupa tambahkan icon Google , buat agar button google berada pada kotak login/register form 

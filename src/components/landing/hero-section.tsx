@@ -71,7 +71,7 @@ export function HeroSection() {
                             <img
                                 src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2700&q=80"
                                 alt="background"
-                                className="absolute inset-x-0 top-56 -z-20 hidden lg:top-32 dark:block"
+                                className="absolute inset-x-0 top-56 -z-20 hidden lg:top-32"
                                 width="3276"
                                 height="4095"
                             />
@@ -82,9 +82,9 @@ export function HeroSection() {
                                 <AnimatedGroup variants={transitionVariants}>
                                     <Link
                                         href="#link"
-                                        className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-black/5 transition-all duration-300 dark:border-t-white/5 dark:shadow-zinc-950">
+                                        className="hover:bg-background bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-black/5 transition-all duration-300">
                                         <span className="text-foreground text-sm">Introducing Support for AI Models</span>
-                                        <span className="dark:border-background block h-4 w-0.5 border-l bg-white dark:bg-zinc-700"></span>
+                                        <span className="block h-4 w-0.5 border-l bg-white"></span>
 
                                         <div className="bg-background group-hover:bg-muted size-6 overflow-hidden rounded-full duration-500">
                                             <div className="flex w-12 -translate-x-1/2 duration-500 ease-in-out group-hover:translate-x-0">
@@ -164,16 +164,16 @@ export function HeroSection() {
                                     aria-hidden
                                     className="bg-gradient-to-b to-background absolute inset-0 z-10 from-transparent from-35%"
                                 />
-                                <div className="inset-shadow-2xs ring-background dark:inset-shadow-white/20 bg-background relative mx-auto max-w-6xl overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1">
+                                <div className="inset-shadow-2xs ring-background bg-background relative mx-auto max-w-6xl overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1">
                                     <img
-                                        className="bg-background aspect-15/8 relative hidden rounded-2xl dark:block"
+                                        className="bg-background aspect-15/8 relative hidden rounded-2xl"
                                         src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2700&q=80"
                                         alt="app screen"
                                         width="2700"
                                         height="1440"
                                     />
                                     <img
-                                        className="z-2 border-border/25 aspect-15/8 relative rounded-2xl border dark:hidden"
+                                        className="z-2 border-border/25 aspect-15/8 relative rounded-2xl border"
                                         src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2700&q=80"
                                         alt="app screen"
                                         width="2700"
@@ -198,7 +198,7 @@ export function HeroSection() {
                         <div className="group-hover:blur-xs mx-auto mt-12 grid max-w-2xl grid-cols-4 gap-x-12 gap-y-8 transition-all duration-500 group-hover:opacity-50 sm:gap-x-16 sm:gap-y-14">
                             <div className="flex">
                                 <img
-                                    className="mx-auto h-5 w-fit dark:invert"
+                                    className="mx-auto h-5 w-fit"
                                     src="https://images.unsplash.com/photo-1675456735779-7eb244f8ffff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
                                     alt="Company Logo"
                                     height="20"
@@ -208,7 +208,7 @@ export function HeroSection() {
 
                             <div className="flex">
                                 <img
-                                    className="mx-auto h-4 w-fit dark:invert"
+                                    className="mx-auto h-4 w-fit"
                                     src="https://images.unsplash.com/photo-1675456735779-7eb244f8ffff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
                                     alt="Company Logo"
                                     height="16"
@@ -217,7 +217,7 @@ export function HeroSection() {
                             </div>
                             <div className="flex">
                                 <img
-                                    className="mx-auto h-4 w-fit dark:invert"
+                                    className="mx-auto h-4 w-fit"
                                     src="https://images.unsplash.com/photo-1675456735779-7eb244f8ffff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
                                     alt="Company Logo"
                                     height="16"
@@ -226,7 +226,7 @@ export function HeroSection() {
                             </div>
                             <div className="flex">
                                 <img
-                                    className="mx-auto h-5 w-fit dark:invert"
+                                    className="mx-auto h-5 w-fit"
                                     src="https://images.unsplash.com/photo-1675456735779-7eb244f8ffff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
                                     alt="Company Logo"
                                     height="20"
@@ -235,7 +235,7 @@ export function HeroSection() {
                             </div>
                             <div className="flex">
                                 <img
-                                    className="mx-auto h-5 w-fit dark:invert"
+                                    className="mx-auto h-5 w-fit"
                                     src="https://images.unsplash.com/photo-1675456735779-7eb244f8ffff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
                                     alt="Company Logo"
                                     height="20"
@@ -244,7 +244,7 @@ export function HeroSection() {
                             </div>
                             <div className="flex">
                                 <img
-                                    className="mx-auto h-4 w-fit dark:invert"
+                                    className="mx-auto h-4 w-fit"
                                     src="https://images.unsplash.com/photo-1675456735779-7eb244f8ffff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
                                     alt="Company Logo"
                                     height="16"
@@ -253,7 +253,7 @@ export function HeroSection() {
                             </div>
                             <div className="flex">
                                 <img
-                                    className="mx-auto h-7 w-fit dark:invert"
+                                    className="mx-auto h-7 w-fit"
                                     src="https://images.unsplash.com/photo-1675456735779-7eb244f8ffff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
                                     alt="Company Logo"
                                     height="28"
@@ -263,7 +263,7 @@ export function HeroSection() {
 
                             <div className="flex">
                                 <img
-                                    className="mx-auto h-6 w-fit dark:invert"
+                                    className="mx-auto h-6 w-fit"
                                     src="https://images.unsplash.com/photo-1675456735779-7eb244f8ffff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80"
                                     alt="Company Logo"
                                     height="24"
@@ -334,7 +334,7 @@ const HeroHeader = () => {
                             </ul>
                         </div>
 
-                        <div className="bg-background group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
+                        <div className="bg-background group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none">
                             <div className="lg:hidden">
                                 <ul className="space-y-6 text-base">
                                     {menuItems.map((item, index) => (

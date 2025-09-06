@@ -15,7 +15,7 @@ import Footer from '@/components/landing/footer';
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="min-h-screen bg-white">
       <main>
         <HeroSection />
         <HowItWorks />

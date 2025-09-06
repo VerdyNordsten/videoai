@@ -60,7 +60,7 @@ VideoAI is a cutting-edge SaaS platform that transforms any Reel, TikTok, or Sho
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) >= 18.x
-- [pnpm](https://pnpm.io/) >= 8.x
+- [npm](https://www.npmjs.com/) >= 8.x
 - [PostgreSQL](https://www.postgresql.org/) database
 
 ### Installation
@@ -70,7 +70,7 @@ Clone the repository and install dependencies:
 ```bash
 git clone <repository-url>
 cd videoai
-pnpm install
+npm install
 ```
 
 ### Environment Setup
@@ -102,8 +102,8 @@ STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
 Initialize the database:
 
 ```bash
-pnpm db:setup
-pnpm db:seed
+npm run db:setup
+npm run db:seed
 ```
 
 ### Development
@@ -111,24 +111,64 @@ pnpm db:seed
 Run the Next.js development server:
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to see the app in action.
+
+## 🐳 Docker Development
+
+You can also run the application using Docker for a consistent environment across all development machines.
+
+### Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) for Windows or Mac
+- For Linux, install both [Docker Engine](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/)
+
+### Running with Docker
+
+```bash
+# Start the development environment
+docker-compose -f docker-compose.dev.yml up
+
+# Stop the development environment
+docker-compose -f docker-compose.dev.yml down
+```
+
+This will start both the Next.js application and PostgreSQL database in separate containers. The application will be available at [http://localhost:3000](http://localhost:3000).
 
 ## 🏗️ Building for Production
 
 Create an optimized production build:
 
 ```bash
-pnpm build
+npm run build
 ```
 
 Start the production server:
 
 ```bash
-pnpm start
+npm run start
 ```
+
+## 🐳 Docker Production Deployment
+
+To deploy the application using Docker:
+
+```bash
+# Build and start the production environment
+docker-compose up --build
+
+# Stop the production environment
+docker-compose down
+```
+
+For production deployments, make sure to update the environment variables in the `docker-compose.yml` file with your actual secrets and configuration.
+
+### Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) for Windows or Mac
+- For Linux, install both [Docker Engine](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## ☁️ Deployment
 

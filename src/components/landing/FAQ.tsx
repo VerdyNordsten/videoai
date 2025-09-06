@@ -32,25 +32,25 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section className="py-20 bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600 mb-6">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300">
+          <p className="text-lg sm:text-xl text-gray-600">
             Everything you need to know about our AI-powered video analysis platform
           </p>
         </div>
         
         <div className="space-y-6">
           {faqs.map((faq, index) => (
-            <Card key={index} className="border border-gray-200 dark:border-gray-700">
+            <Card key={index} className="border border-gray-200">
               <CardHeader>
-                <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">{faq.question}</CardTitle>
+                <CardTitle className="text-xl font-bold text-gray-900">{faq.question}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-gray-600">
                   {faq.answer}
                 </p>
               </CardContent>

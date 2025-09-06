@@ -68,35 +68,35 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-900 dark:to-gray-950">
+    <section className="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600 mb-6">
             What Creators Say
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
             Join thousands of content creators who've transformed their marketing with our AI insights
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
+            <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-shadow">
               <CardContent className="p-8">
                 <div className="flex items-center mb-6">
                   <img src={testimonial.avatar} className="w-16 h-16 rounded-full mr-4" alt={testimonial.name} />
                   <div>
-                    <h4 className="font-bold text-gray-900 dark:text-white">{testimonial.name}</h4>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">{testimonial.role}</p>
+                    <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
+                    <p className="text-gray-600 text-sm">{testimonial.role}</p>
                     <div className="flex text-yellow-400 text-sm mt-1">
                       {'★'.repeat(testimonial.rating)}
                     </div>
                   </div>
                 </div>
-                <p className="text-gray-700 dark:text-gray-300 mb-6">
+                <p className="text-gray-700 mb-6">
                   "{testimonial.content}"
                 </p>
-                <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                <div className="flex items-center text-sm text-gray-500">
                   <span className="mr-2">{testimonial.statIcon}</span>
                   <span>{testimonial.stat}</span>
                 </div>

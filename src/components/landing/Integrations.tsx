@@ -47,14 +47,14 @@ const Integrations = () => {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600 mb-6">
             Seamless Integrations
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
             Connect with your favorite tools and platforms to streamline your content workflow
           </p>
         </div>
         
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
           {integrations.map((integration, index) => (
-            <Card key={index} className="border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
+            <Card key={index} className="border border-gray-200 hover:shadow-lg transition-shadow">
               <CardContent className="p-6 flex items-center justify-center">
                 <img className="w-12 h-12 object-contain" src={integration.logo} alt={`${integration.name} logo`} />
               </CardContent>
@@ -63,9 +63,9 @@ const Integrations = () => {
         </div>
         
         <div className="text-center mt-12">
-          <p className="text-gray-600 dark:text-gray-400 mb-6">Don't see your tool? We're constantly adding new integrations.</p>
+          <p className="text-gray-600 mb-6">Don't see your tool? We're constantly adding new integrations.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="outline" className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
+            <Button variant="outline" className="border border-gray-300 text-gray-700 hover:bg-gray-100">
               Request Integration
             </Button>
             <Button className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white">

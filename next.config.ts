@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
     ppr: true,
     clientSegmentCache: true,
     nodeMiddleware: true
+  },
+  images: {
+    domains: ['cdn1.iconfinder.com'],
   }
 };
 

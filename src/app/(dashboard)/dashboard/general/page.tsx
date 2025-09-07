@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { FaSpinner } from 'react-icons/fa6';
-import { updateAccount, updatePassword } from '@/app/(login)/actions';
+import { updateAccount, updatePassword } from '@/lib/auth/actions';
 import { User } from '@/lib/db/schema';
 import useSWR from 'swr';
 import { Suspense } from 'react';

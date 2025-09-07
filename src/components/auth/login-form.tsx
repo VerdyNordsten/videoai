@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useActionState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -13,6 +13,8 @@ import {
   AuthFormWrapper 
 } from '@/components/auth';
 import { signIn, signUp } from '@/lib/auth/actions';
+import { AuthTabs } from '@/components/blocks/modern-animated-sign-in';
+import { FaInstagram, FaTiktok, FaYoutube, FaFacebook, FaSnapchat } from 'react-icons/fa';
 
 interface LoginProps {
   mode?: 'signin' | 'signup';
@@ -28,184 +30,285 @@ export function Login({ mode = 'signin' }: LoginProps) {
     { error: '' }
   );
 
-  // Floating animation classes
-  const floatingAnimation = "absolute inset-0 pointer-events-none";
-  const floatingElement = "absolute rounded-full bg-white/20 dark:bg-white/10 floating-animation";
+  // Form state
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  // Handle form input changes
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    name: string
+  ) => {
+    const value = event.target.value;
+
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Create a new FormData object and append the form data
+    const form = new FormData();
+    form.append('email', formData.email);
+    form.append('password', formData.password);
+    
+    // Call the appropriate action
+    if (mode === 'signin') {
+      await signIn(state, form);
+    } else {
+      await signUp(state, form);
+    }
+  };
+
+  // Handle "forgot password" click
+  const goToForgotPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    console.log('forgot password');
+  };
+
+  // Form fields configuration
+  const formFields = {
+    header: mode === 'signin' ? 'Welcome back' : 'Create your account',
+    subHeader: mode === 'signin' 
+      ? 'Sign in to turn videos into fresh ideas.' 
+      : 'Sign up to start turning videos into fresh ideas.',
+    fields: [
+      {
+        label: 'Email',
+        required: true,
+        type: 'email' as const,
+        placeholder: 'Enter your email address',
+        onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
+          handleInputChange(event, 'email'),
+      },
+      {
+        label: 'Password',
+        required: true,
+        type: 'password' as const,
+        placeholder: 'Enter your password',
+        onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
+          handleInputChange(event, 'password'),
+      },
+    ],
+    submitButton: mode === 'signin' ? 'Sign In' : 'Sign Up',
+    textVariantButton: mode === 'signin' ? 'Forgot password?' : undefined,
+  };
 
   return (
-    <div className="min-h-screen grid lg:grid-cols-2 bg-background">
-      {/* Left Panel - Product Value */}
-      <div className="hidden lg:flex flex-col justify-center items-center p-12 relative overflow-hidden bg-gradient-to-br from-pink-500 via-blue-500 to-purple-500 dark:from-pink-900 dark:via-blue-900 dark:to-purple-900">
-        {/* Floating Elements */}
-        <div className={floatingAnimation}>
-          <div className={`${floatingElement} top-20 left-16 w-16 h-16 opacity-20 dark:opacity-10 animate-float`} style={{ animationDelay: '0s' }}></div>
-          <div className={`${floatingElement} top-40 right-20 w-12 h-12 opacity-25 dark:opacity-15 animate-float`} style={{ animationDelay: '-1.5s' }}></div>
-          <div className={`${floatingElement} bottom-32 left-24 w-20 h-20 opacity-15 dark:opacity-10 animate-float`} style={{ animationDelay: '-3s' }}></div>
-          <div className={`${floatingElement} bottom-20 right-16 w-14 h-14 opacity-30 dark:opacity-20 animate-float`} style={{ animationDelay: '-4.5s' }}></div>
+    <div className="min-h-screen flex bg-background">
+      {/* Left Panel - Ripple background with orbital icons */}
+      <div className="hidden lg:flex flex-col justify-center items-center w-1/2 p-12 relative overflow-hidden">
+        {/* Full ripple effect background from QWEN.md */}
+        <div className="absolute inset-0 flex items-center justify-center dark:bg-white/5 bg-neutral-50 [mask-image:linear-gradient(to_bottom,black,transparent)] dark:[mask-image:linear-gradient(to_bottom,white,transparent)]">
+          {Array.from({ length: 11 }, (_, i) => {
+            const size = 210 + i * 70;
+            const opacity = 0.24 - i * 0.03;
+            const animationDelay = `${i * 0.06}s`;
+            const borderStyle = i === 10 ? 'dashed' : 'solid';
+            const borderOpacity = 5 + i * 5;
+
+            return (
+              <span
+                key={i}
+                className="absolute animate-ripple rounded-full bg-foreground/15 border"
+                style={{
+                  width: `${size}px`,
+                  height: `${size}px`,
+                  opacity: opacity,
+                  animationDelay: animationDelay,
+                  borderStyle: borderStyle,
+                  borderWidth: '1px',
+                  borderColor: `hsl(0 0% 0% / ${borderOpacity / 100})`,
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                }}
+              />
+            );
+          })}
         </div>
+        
+        {/* Orbital icons that orbit on the ripple background */}
+        <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg">
+          <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-7xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10 z-10">
+            {mode === 'signin' ? 'Welcome Back' : 'Join Us'}
+          </span>
 
-        {/* Content */}
-        <div className="relative z-10 max-w-md text-center">
-          {/* Logo/Brand */}
-          <div className="mb-8">
-            <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm dark:bg-white/10">
-              <FaVideo className="h-8 w-8 text-white" />
+          {/* Orbit 1 - Aligned with ripple circle */}
+          <div
+            style={
+              {
+                '--duration': 20,
+                '--radius': 140,
+                '--delay': -10,
+              } as React.CSSProperties
+            }
+            className="absolute flex size-full transform-gpu animate-orbit items-center justify-center rounded-full border-0 bg-transparent [animation-delay:calc(var(--delay)*1000ms)]"
+          >
+            <div className="absolute bg-white dark:bg-gray-800 rounded-full p-2 shadow-md"
+              style={{
+                left: '50%',
+                top: '0%',
+                transform: "translate(-50%, -50%)",
+              }}>
+              <FaInstagram className="w-6 h-6" style={{ color: "#E1306C" }} />
             </div>
-            <h3 className="font-bold text-xl text-white">VideoAI</h3>
+            <div className="absolute bg-white dark:bg-gray-800 rounded-full p-2 shadow-md"
+              style={{
+                left: '100%',
+                top: '50%',
+                transform: "translate(-50%, -50%)",
+              }}>
+              <FaTiktok className="w-6 h-6" style={{ color: "#000000" }} />
+            </div>
+            <div className="absolute bg-white dark:bg-gray-800 rounded-full p-2 shadow-md"
+              style={{
+                left: '50%',
+                top: '100%',
+                transform: "translate(-50%, -50%)",
+              }}>
+              <FaYoutube className="w-6 h-6" style={{ color: "#FF0000" }} />
+            </div>
+            <div className="absolute bg-white dark:bg-gray-800 rounded-full p-2 shadow-md"
+              style={{
+                left: '0%',
+                top: '50%',
+                transform: "translate(-50%, -50%)",
+              }}>
+              <FaFacebook className="w-6 h-6" style={{ color: "#1877F2" }} />
+            </div>
+            <div className="absolute bg-white dark:bg-gray-800 rounded-full p-2 shadow-md"
+              style={{
+                left: '25%',
+                top: '15%',
+                transform: "translate(-50%, -50%)",
+              }}>
+              <FaSnapchat className="w-6 h-6" style={{ color: "#FFFC00" }} />
+            </div>
           </div>
 
-          {/* Main Pitch */}
-          <h2 className="font-bold text-3xl lg:text-4xl mb-6 leading-tight text-white">
-            Turn Reels into Fresh Marketing Ideas
-          </h2>
-
-          <p className="text-white/90 text-lg mb-8 leading-relaxed">
-            Upload any short video and get AI-powered hooks, scripts, and captions that convert.
-          </p>
-
-          {/* Benefits */}
-          <div className="space-y-4 mb-8">
-            <div className="flex items-center text-left">
-              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mr-4 backdrop-blur-sm dark:bg-white/10">
-                <span className="text-sm">✨</span>
-              </div>
-              <span className="text-white/95 dark:text-white/85">AI analyzes video structure & hooks</span>
+          {/* Orbit 2 - Aligned with ripple circle */}
+          <div
+            style={
+              {
+                '--duration': 25,
+                '--radius': 210,
+                '--delay': -15,
+              } as React.CSSProperties
+            }
+            className="absolute flex size-full transform-gpu animate-orbit items-center justify-center rounded-full border-0 bg-transparent [animation-delay:calc(var(--delay)*1000ms)] [animation-direction:reverse]"
+          >
+            <div className="absolute bg-white dark:bg-gray-800 rounded-full p-2 shadow-md"
+              style={{
+                left: '50%',
+                top: '0%',
+                transform: "translate(-50%, -50%)",
+              }}>
+              <FaYoutube className="w-6 h-6" style={{ color: "#FF0000" }} />
             </div>
-            <div className="flex items-center text-left">
-              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mr-4 backdrop-blur-sm dark:bg-white/10">
-                <span className="text-sm">🚀</span>
-              </div>
-              <span className="text-white/95 dark:text-white/85">Generate viral marketing variations</span>
+            <div className="absolute bg-white dark:bg-gray-800 rounded-full p-2 shadow-md"
+              style={{
+                left: '100%',
+                top: '50%',
+                transform: "translate(-50%, -50%)",
+              }}>
+              <FaInstagram className="w-6 h-6" style={{ color: "#E1306C" }} />
             </div>
-            <div className="flex items-center text-left">
-              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center mr-4 backdrop-blur-sm dark:bg-white/10">
-                <span className="text-sm">📊</span>
-              </div>
-              <span className="text-white/95 dark:text-white/85">Export to Notion, Docs & more</span>
+            <div className="absolute bg-white dark:bg-gray-800 rounded-full p-2 shadow-md"
+              style={{
+                left: '50%',
+                top: '100%',
+                transform: "translate(-50%, -50%)",
+              }}>
+              <FaTiktok className="w-6 h-6" style={{ color: "#000000" }} />
+            </div>
+            <div className="absolute bg-white dark:bg-gray-800 rounded-full p-2 shadow-md"
+              style={{
+                left: '0%',
+                top: '50%',
+                transform: "translate(-50%, -50%)",
+              }}>
+              <FaFacebook className="w-6 h-6" style={{ color: "#1877F2" }} />
+            </div>
+            <div className="absolute bg-white dark:bg-gray-800 rounded-full p-2 shadow-md"
+              style={{
+                left: '25%',
+                top: '15%',
+                transform: "translate(-50%, -50%)",
+              }}>
+              <FaSnapchat className="w-6 h-6" style={{ color: "#FFFC00" }} />
             </div>
           </div>
 
-          {/* Illustration Icons */}
-          <div className="flex justify-center space-x-6 opacity-80">
-            <div className="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center backdrop-blur-sm dark:bg-white/10">
-              <span>📤</span>
+          {/* Orbit 3 - Aligned with ripple circle */}
+          <div
+            style={
+              {
+                '--duration': 30,
+                '--radius': 280,
+                '--delay': -20,
+              } as React.CSSProperties
+            }
+            className="absolute flex size-full transform-gpu animate-orbit items-center justify-center rounded-full border-0 bg-transparent [animation-delay:calc(var(--delay)*1000ms)]"
+          >
+            <div className="absolute bg-white dark:bg-gray-800 rounded-full p-2 shadow-md"
+              style={{
+                left: '50%',
+                top: '0%',
+                transform: "translate(-50%, -50%)",
+              }}>
+              <FaFacebook className="w-6 h-6" style={{ color: "#1877F2" }} />
             </div>
-            <div className="w-2 h-2 bg-white/40 rounded-full self-center dark:bg-white/30"></div>
-            <div className="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center backdrop-blur-sm dark:bg-white/10">
-              <span>🧠</span>
+            <div className="absolute bg-white dark:bg-gray-800 rounded-full p-2 shadow-md"
+              style={{
+                left: '100%',
+                top: '50%',
+                transform: "translate(-50%, -50%)",
+              }}>
+              <FaSnapchat className="w-6 h-6" style={{ color: "#FFFC00" }} />
             </div>
-            <div className="w-2 h-2 bg-white/40 rounded-full self-center dark:bg-white/30"></div>
-            <div className="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center backdrop-blur-sm dark:bg-white/10">
-              <span>💡</span>
+            <div className="absolute bg-white dark:bg-gray-800 rounded-full p-2 shadow-md"
+              style={{
+                left: '50%',
+                top: '100%',
+                transform: "translate(-50%, -50%)",
+              }}>
+              <FaInstagram className="w-6 h-6" style={{ color: "#E1306C" }} />
+            </div>
+            <div className="absolute bg-white dark:bg-gray-800 rounded-full p-2 shadow-md"
+              style={{
+                left: '0%',
+                top: '50%',
+                transform: "translate(-50%, -50%)",
+              }}>
+              <FaTiktok className="w-6 h-6" style={{ color: "#000000" }} />
+            </div>
+            <div className="absolute bg-white dark:bg-gray-800 rounded-full p-2 shadow-md"
+              style={{
+                left: '25%',
+                top: '15%',
+                transform: "translate(-50%, -50%)",
+              }}>
+              <FaYoutube className="w-6 h-6" style={{ color: "#FF0000" }} />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Right Panel - Login Form */}
-      <div className="flex flex-col justify-center items-center p-6 lg:p-12 relative">
-        {/* Mobile Header */}
-        <div className="lg:hidden w-full mb-8 text-center">
-          <div className="w-12 h-12 bg-gradient-to-r from-pink-400 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
-            <FaVideo className="h-6 w-6 text-white" />
-          </div>
-          <h3 className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600">VideoAI</h3>
-        </div>
-
-        {/* Updated Login Form using reusable components */}
-        <AuthFormWrapper
-          title={mode === 'signin' ? 'Welcome back' : 'Create your account'}
-          description={
-            mode === 'signin' 
-              ? 'Sign in to turn videos into fresh ideas.' 
-              : 'Sign up to start turning videos into fresh ideas.'
-          }
-          mode={mode}
-          redirect={redirect}
-          priceId={priceId}
-          error={state?.error}
-          action={formAction}
-          socialLoginButtons={<SocialLoginButtons />}
-        >
-          <input type="hidden" name="redirect" value={redirect || ''} />
-          <input type="hidden" name="priceId" value={priceId || ''} />
-          <input type="hidden" name="inviteId" value={inviteId || ''} />
-          
-          {/* Email Field */}
-          <EmailInput
-            id="email"
-            name="email"
-            label="Email Address"
-            defaultValue={state.email}
-            required
-            maxLength={50}
-            placeholder="creator@example.com"
-            autoComplete={mode === 'signin' ? 'email' : 'email'}
-          />
-
-          {/* Password Field */}
-          <PasswordInput
-            id="password"
-            name="password"
-            label="Password"
-            defaultValue={state.password}
-            required
-            minLength={8}
-            maxLength={100}
-            placeholder="Enter your password"
-            autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
-          />
-
-          {/* Actions Row */}
-          <div className="flex items-center justify-between text-sm">
-            {mode === 'signin' ? (
-              <>
-                <label className="flex items-center text-muted-foreground cursor-pointer dark:text-muted-foreground/80">
-                  <input
-                    type="checkbox"
-                    id="remember"
-                    name="remember"
-                    className="mr-2 rounded border-gray-300 text-blue-400 focus:ring-blue-400 focus:ring-2 dark:border-gray-600 dark:bg-gray-800"
-                  />
-                  Remember me
-                </label>
-                <span className="text-blue-500 hover:text-purple-500 transition-colors font-semibold cursor-pointer dark:text-blue-400 dark:hover:text-purple-400">
-                  Forgot password?
-                </span>
-              </>
-            ) : (
-              <div></div>
-            )}
-          </div>
-
-          {/* Sign In Button */}
-          <Button
-            type="submit"
-            disabled={pending}
-            className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-4 rounded-xl font-bold text-lg hover:scale-105 shadow-lg transition-all focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {pending ? (
-              <>
-                <FaSpinner className="animate-spin mr-2 h-4 w-4" />
-                {mode === 'signin' ? 'Signing In...' : 'Signing Up...'}
-              </>
-            ) : mode === 'signin' ? (
-              'Sign In'
-            ) : (
-              'Sign Up'
-            )}
-          </Button>
-        </AuthFormWrapper>
-
-        {/* Footer */}
-        <div className="mt-8 text-center text-sm text-muted-foreground dark:text-muted-foreground/80">
-          <p>© 2024 VideoAI. All rights reserved.</p>
-          <div className="mt-2 space-x-4">
-            <span className="hover:text-blue-500 transition-colors cursor-pointer dark:hover:text-blue-400">Privacy</span>
-            <span className="hover:text-blue-500 transition-colors cursor-pointer dark:hover:text-blue-400">Terms</span>
-            <span className="hover:text-blue-500 transition-colors cursor-pointer dark:hover:text-blue-400">Support</span>
-          </div>
-        </div>
+      {/* Right Panel - Modern Animated Form */}
+      <div className="flex flex-col justify-center items-center w-full lg:w-1/2 p-6 lg:p-12 relative">
+        <AuthTabs
+          formFields={formFields}
+          goTo={goToForgotPassword}
+          handleSubmit={handleSubmit}
+        />
       </div>
     </div>
   );

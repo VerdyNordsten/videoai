@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 import { SWRConfig } from 'swr';
 import { Button } from '@/components/ui/button';
 import { FaUsers, FaGear, FaShield, FaChartLine, FaBars, FaVideo, FaUpload, FaLightbulb, FaFileLines } from 'react-icons/fa6';
-import { getUser, getTeamForUser } from '@/lib/db/queries';
 
 export default function DashboardLayout({
   children
@@ -29,8 +28,8 @@ export default function DashboardLayout({
     <SWRConfig
       value={{
         fallback: {
-          '/api/user': getUser(),
-          '/api/team': getTeamForUser(),
+          '/api/user': fetch('/api/user').then(res => res.json()),
+          '/api/team': fetch('/api/team').then(res => res.json()),
         },
       }}
     >

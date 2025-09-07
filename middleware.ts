@@ -3,6 +3,15 @@ import type { NextRequest } from 'next/server';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 
 export async function middleware(request: NextRequest) {
+  // Set COOP headers to fix Google OAuth popup issues
+  const response = NextResponse.next();
+  
+  // Set Cross-Origin-Opener-Policy header
+  response.headers.set('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+  
+  // Set Cross-Origin-Embedder-Policy header to allow loading images from external domains
+  response.headers.set('Cross-Origin-Embedder-Policy', 'credentialless');
+  
   // Create a Supabase client configured to use cookies
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -57,7 +66,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {

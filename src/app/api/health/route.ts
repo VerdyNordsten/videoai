@@ -1,6 +1,8 @@
 // Health check endpoint for Docker
-export default function handler(req, res) {
-  res.status(200).json({ 
+import { NextResponse } from 'next/server';
+
+export function GET() {
+  return NextResponse.json({ 
     status: 'ok', 
     timestamp: new Date().toISOString(),
     service: 'videoai'

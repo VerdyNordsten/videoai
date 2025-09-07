@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Image from 'next/image';
 
 const DashboardPreview = () => {
   return (
@@ -94,7 +95,15 @@ const DashboardPreview = () => {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center space-x-4 bg-white rounded-xl p-4 border border-gray-200">
-                    <img className="w-16 h-16 rounded-lg object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/dc6344f01b-a588851a551c992b0096.png" alt="TikTok video thumbnail showing dance content" />
+                    <div className="w-16 h-16 rounded-lg overflow-hidden">
+                      <Image 
+                        className="object-cover" 
+                        src="https://storage.googleapis.com/uxpilot-auth.appspot.com/dc6344f01b-a588851a551c992b0096.png" 
+                        alt="TikTok video thumbnail showing dance content" 
+                        width={64} 
+                        height={64} 
+                      />
+                    </div>
                     <div className="flex-1">
                       <h5 className="font-semibold text-gray-900">Dance Tutorial Breakdown</h5>
                       <p className="text-sm text-gray-600">Generated 12 hook variations</p>
@@ -106,7 +115,15 @@ const DashboardPreview = () => {
                   </div>
                   
                   <div className="flex items-center space-x-4 bg-white rounded-xl p-4 border border-gray-200">
-                    <img className="w-16 h-16 rounded-lg object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/a1c7a156ea-67da996dee070c9788e1.png" alt="cooking recipe video thumbnail" />
+                    <div className="w-16 h-16 rounded-lg overflow-hidden">
+                      <Image 
+                        className="object-cover" 
+                        src="https://storage.googleapis.com/uxpilot-auth.appspot.com/a1c7a156ea-67da996dee070c9788e1.png" 
+                        alt="cooking recipe video thumbnail" 
+                        width={64} 
+                        height={64} 
+                      />
+                    </div>
                     <div className="flex-1">
                       <h5 className="font-semibold text-gray-900">Recipe Content Analysis</h5>
                       <p className="text-sm text-gray-600">Optimized for food niche</p>
@@ -118,7 +135,15 @@ const DashboardPreview = () => {
                   </div>
                   
                   <div className="flex items-center space-x-4 bg-white rounded-xl p-4 border border-gray-200">
-                    <img className="w-16 h-16 rounded-lg object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/7b8f1a04d0-17d8627913d5d96a013d.png" alt="beauty tutorial video thumbnail" />
+                    <div className="w-16 h-16 rounded-lg overflow-hidden">
+                      <Image 
+                        className="object-cover" 
+                        src="https://storage.googleapis.com/uxpilot-auth.appspot.com/7b8f1a04d0-17d8627913d5d96a013d.png" 
+                        alt="beauty tutorial video thumbnail" 
+                        width={64} 
+                        height={64} 
+                      />
+                    </div>
                     <div className="flex-1">
                       <h5 className="font-semibold text-gray-900">Beauty Routine Analysis</h5>
                       <p className="text-sm text-gray-600">High engagement potential</p>

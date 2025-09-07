@@ -18,16 +18,7 @@ export async function signInWithEmail(email: string, password: string) {
             return cookieStore.get(name)?.value
           },
           set(name: string, value: string, options: CookieOptions) {
-            // Ensure the cookie is set with proper domain and path
-            const cookieOptions = {
-              ...options,
-              domain: undefined, // Don't set domain in development
-              path: '/',
-              sameSite: 'lax',
-              httpOnly: true,
-              secure: process.env.NODE_ENV === 'production', // Set secure flag in production
-            };
-            cookieStore.set(name, value, cookieOptions)
+            cookieStore.set(name, value, options)
           },
           remove(name: string, options: CookieOptions) {
             cookieStore.delete(name)
@@ -65,16 +56,7 @@ export async function signUpWithEmail(email: string, password: string) {
             return cookieStore.get(name)?.value
           },
           set(name: string, value: string, options: CookieOptions) {
-            // Ensure the cookie is set with proper domain and path
-            const cookieOptions = {
-              ...options,
-              domain: undefined, // Don't set domain in development
-              path: '/',
-              sameSite: 'lax',
-              httpOnly: true,
-              secure: process.env.NODE_ENV === 'production', // Set secure flag in production
-            };
-            cookieStore.set(name, value, cookieOptions)
+            cookieStore.set(name, value, options)
           },
           remove(name: string, options: CookieOptions) {
             cookieStore.delete(name)
@@ -112,16 +94,7 @@ export async function getGoogleSignInUrl() {
             return cookieStore.get(name)?.value
           },
           set(name: string, value: string, options: CookieOptions) {
-            // Ensure the cookie is set with proper domain and path
-            const cookieOptions = {
-              ...options,
-              domain: undefined, // Don't set domain in development
-              path: '/',
-              sameSite: 'lax',
-              httpOnly: true,
-              secure: process.env.NODE_ENV === 'production', // Set secure flag in production
-            };
-            cookieStore.set(name, value, cookieOptions)
+            cookieStore.set(name, value, options)
           },
           remove(name: string, options: CookieOptions) {
             cookieStore.delete(name)
@@ -130,8 +103,8 @@ export async function getGoogleSignInUrl() {
       }
     )
     
-    // Log the redirect URL we're using
-    const redirectUrl = `${process.env.BASE_URL}/api/auth/callback`;
+    // Use the correct redirect URL for our callback
+    const redirectUrl = `${process.env.NEXT_PUBLIC_BASE_URL || process.env.BASE_URL || 'http://localhost:3000'}/api/auth/callback`;
     
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -165,16 +138,7 @@ export async function getGoogleSignUpUrl() {
             return cookieStore.get(name)?.value
           },
           set(name: string, value: string, options: CookieOptions) {
-            // Ensure the cookie is set with proper domain and path
-            const cookieOptions = {
-              ...options,
-              domain: undefined, // Don't set domain in development
-              path: '/',
-              sameSite: 'lax',
-              httpOnly: true,
-              secure: process.env.NODE_ENV === 'production', // Set secure flag in production
-            };
-            cookieStore.set(name, value, cookieOptions)
+            cookieStore.set(name, value, options)
           },
           remove(name: string, options: CookieOptions) {
             cookieStore.delete(name)
@@ -183,8 +147,8 @@ export async function getGoogleSignUpUrl() {
       }
     )
     
-    // Log the redirect URL we're using
-    const redirectUrl = `${process.env.BASE_URL}/api/auth/callback`;
+    // Use the correct redirect URL for our callback
+    const redirectUrl = `${process.env.NEXT_PUBLIC_BASE_URL || process.env.BASE_URL || 'http://localhost:3000'}/api/auth/callback`;
     
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -218,16 +182,7 @@ export async function signOut() {
             return cookieStore.get(name)?.value
           },
           set(name: string, value: string, options: CookieOptions) {
-            // Ensure the cookie is set with proper domain and path
-            const cookieOptions = {
-              ...options,
-              domain: undefined, // Don't set domain in development
-              path: '/',
-              sameSite: 'lax',
-              httpOnly: true,
-              secure: process.env.NODE_ENV === 'production', // Set secure flag in production
-            };
-            cookieStore.set(name, value, cookieOptions)
+            cookieStore.set(name, value, options)
           },
           remove(name: string, options: CookieOptions) {
             cookieStore.delete(name)
@@ -262,16 +217,7 @@ export async function getCurrentUser() {
             return cookieStore.get(name)?.value
           },
           set(name: string, value: string, options: CookieOptions) {
-            // Ensure the cookie is set with proper domain and path
-            const cookieOptions = {
-              ...options,
-              domain: undefined, // Don't set domain in development
-              path: '/',
-              sameSite: 'lax',
-              httpOnly: true,
-              secure: process.env.NODE_ENV === 'production', // Set secure flag in production
-            };
-            cookieStore.set(name, value, cookieOptions)
+            cookieStore.set(name, value, options)
           },
           remove(name: string, options: CookieOptions) {
             cookieStore.delete(name)
@@ -306,16 +252,7 @@ export async function resetPassword(email: string) {
             return cookieStore.get(name)?.value
           },
           set(name: string, value: string, options: CookieOptions) {
-            // Ensure the cookie is set with proper domain and path
-            const cookieOptions = {
-              ...options,
-              domain: undefined, // Don't set domain in development
-              path: '/',
-              sameSite: 'lax',
-              httpOnly: true,
-              secure: process.env.NODE_ENV === 'production', // Set secure flag in production
-            };
-            cookieStore.set(name, value, cookieOptions)
+            cookieStore.set(name, value, options)
           },
           remove(name: string, options: CookieOptions) {
             cookieStore.delete(name)

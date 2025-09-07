@@ -3,6 +3,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 const SampleOutputPreview = () => {
   return (
@@ -21,7 +22,15 @@ const SampleOutputPreview = () => {
           <div className="space-y-6">
             <Card className="border border-gray-200 dark:border-gray-700">
               <CardContent className="p-6">
-                <img className="w-full h-64 rounded-2xl object-cover mb-4" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/dee9afbfae-6cbfffa306ac73ace59f.png" alt="smartphone mockup showing TikTok video interface with cooking content, modern clean UI" />
+                <div className="w-full h-64 rounded-2xl overflow-hidden mb-4">
+                  <Image 
+                    className="object-cover" 
+                    src="https://storage.googleapis.com/uxpilot-auth.appspot.com/dee9afbfae-6cbfffa306ac73ace59f.png" 
+                    alt="smartphone mockup showing TikTok video interface with cooking content, modern clean UI" 
+                    width={500} 
+                    height={256} 
+                  />
+                </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-semibold text-purple-600 bg-purple-100 dark:bg-purple-900/50 px-3 py-1 rounded-full">Cooking Tutorial</span>

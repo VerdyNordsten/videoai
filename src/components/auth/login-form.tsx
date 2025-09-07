@@ -6,12 +6,6 @@ import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { FaSpinner, FaVideo } from 'react-icons/fa6';
 import { ActionState } from '@/lib/auth/middleware';
-import { 
-  EmailInput, 
-  PasswordInput, 
-  SocialLoginButtons, 
-  AuthFormWrapper 
-} from '@/components/auth';
 import { signInWithEmail, signUpWithEmail, getGoogleSignInUrl, getGoogleSignUpUrl } from '@/lib/supabase/auth';
 import { AuthTabs } from '@/components/blocks/modern-animated-sign-in';
 import { FaInstagram, FaTiktok, FaYoutube, FaFacebook, FaSnapchat } from 'react-icons/fa';
@@ -80,7 +74,6 @@ export function Login({ mode = 'signin' }: LoginProps) {
 
   // Handle Google authentication
   const handleGoogleAuth = async () => {
-    console.log("Google login button clicked");
     try {
       let result;
       if (mode === 'signin') {
@@ -90,7 +83,6 @@ export function Login({ mode = 'signin' }: LoginProps) {
       }
 
       if (result.error) {
-        console.error("Google auth error:", result.error);
         return;
       }
 
@@ -102,6 +94,7 @@ export function Login({ mode = 'signin' }: LoginProps) {
         const top = (window.screen.height / 2) - (height / 2);
         
         // Open the Google OAuth URL in a centered popup window
+        // Using noopener to prevent COOP issues
         const authWindow = window.open(
           result.url, 
           'google-auth-popup', 
@@ -109,7 +102,6 @@ export function Login({ mode = 'signin' }: LoginProps) {
         );
         
         if (!authWindow) {
-          console.error("Failed to open popup window");
           return;
         }
         
@@ -122,7 +114,6 @@ export function Login({ mode = 'signin' }: LoginProps) {
           
           // Check if the message indicates successful authentication
           if (event.data?.type === 'google-auth-success') {
-            console.log("Received auth success message from popup");
             // Clean up the event listener
             window.removeEventListener('message', handleAuthSuccess);
             // Redirect to dashboard
@@ -136,7 +127,6 @@ export function Login({ mode = 'signin' }: LoginProps) {
         // Set up polling method to check if popup is closed
         const checkClosed = setInterval(() => {
           if (authWindow.closed) {
-            console.log("Popup window closed");
             clearInterval(checkClosed);
             window.removeEventListener('message', handleAuthSuccess);
             // Redirect to dashboard
@@ -145,7 +135,7 @@ export function Login({ mode = 'signin' }: LoginProps) {
         }, 1000);
       }
     } catch (error) {
-      console.error('Error in handleGoogleAuth:', error);
+      // Silent error handling
     }
   };
 
@@ -174,7 +164,7 @@ export function Login({ mode = 'signin' }: LoginProps) {
     if (mode === 'signin') {
       const result = await signInWithEmail(formData.email, formData.password);
       if (result.error) {
-        console.error('signInWithEmail error:', result.error);
+        // Silent error handling
       } else {
         // Redirect to dashboard on successful sign in
         window.location.href = '/dashboard';
@@ -182,7 +172,7 @@ export function Login({ mode = 'signin' }: LoginProps) {
     } else {
       const result = await signUpWithEmail(formData.email, formData.password);
       if (result.error) {
-        console.error('signUpWithEmail error:', result.error);
+        // Silent error handling
       } else {
         // Redirect to dashboard on successful sign up
         window.location.href = '/dashboard';

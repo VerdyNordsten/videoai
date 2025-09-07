@@ -8,13 +8,12 @@ import {
   FaCircleExclamation,
   FaUserMinus,
   FaEnvelope,
-  FaCheckCircle,
-  type IconType,
+  FaCircleCheck,
 } from 'react-icons/fa6';
 import { ActivityType } from '@/lib/db/schema';
 import { getActivityLogs } from '@/lib/db/queries';
 
-const iconMap: Record<ActivityType, IconType> = {
+const iconMap: Record<ActivityType, React.ComponentType<{className?: string}>> = {
   [ActivityType.SIGN_UP]: FaUserPlus,
   [ActivityType.SIGN_IN]: FaUserGear,
   [ActivityType.SIGN_OUT]: FaRightFromBracket,
@@ -24,7 +23,7 @@ const iconMap: Record<ActivityType, IconType> = {
   [ActivityType.CREATE_TEAM]: FaUserPlus,
   [ActivityType.REMOVE_TEAM_MEMBER]: FaUserMinus,
   [ActivityType.INVITE_TEAM_MEMBER]: FaEnvelope,
-  [ActivityType.ACCEPT_INVITATION]: FaCheckCircle,
+  [ActivityType.ACCEPT_INVITATION]: FaCircleCheck,
 };
 
 function getRelativeTime(date: Date) {
@@ -84,7 +83,7 @@ export default async function ActivityPage() {
           {logs.length > 0 ? (
             <ul className="space-y-4">
               {logs.map((log) => {
-                const Icon = iconMap[log.action as ActivityType] || Settings;
+                const Icon = iconMap[log.action as ActivityType] || FaCircleExclamation;
                 const formattedAction = formatAction(
                   log.action as ActivityType
                 );

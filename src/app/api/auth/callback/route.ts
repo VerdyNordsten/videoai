@@ -19,16 +19,7 @@ export async function GET(request: Request) {
             return cookieStore.get(name)?.value;
           },
           set(name: string, value: string, options: CookieOptions) {
-            // Ensure the cookie is set with proper domain and path
-            const cookieOptions = {
-              ...options,
-              domain: undefined, // Don't set domain in development
-              path: '/',
-              sameSite: 'lax',
-              httpOnly: true,
-              secure: process.env.NODE_ENV === 'production', // Set secure flag in production
-            }
-            cookieStore.set(name, value, cookieOptions);
+            cookieStore.set(name, value, options);
           },
           remove(name: string, options: CookieOptions) {
             cookieStore.delete(name);

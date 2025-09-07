@@ -1,114 +1,31 @@
-'use client';
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+import DashboardClientLayout from './layout-client'
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { SWRConfig } from 'swr';
-import { Button } from '@/components/ui/button';
-import { FaUsers, FaGear, FaShield, FaChartLine, FaBars, FaVideo, FaUpload, FaLightbulb, FaFileLines } from 'react-icons/fa6';
-
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const navItems = [
-    { href: '/dashboard', icon: FaVideo, label: 'Home' },
-    { href: '/dashboard/upload', icon: FaUpload, label: 'Upload Video' },
-    { href: '/dashboard/ideas', icon: FaLightbulb, label: 'My Ideas' },
-    { href: '/dashboard/templates', icon: FaFileLines, label: 'Templates' },
-    { href: '/dashboard/general', icon: FaGear, label: 'General' },
-    { href: '/dashboard/activity', icon: FaChartLine, label: 'Activity' }
-  ];
-
-  return (
-    <SWRConfig
-      value={{
-        fallback: {
-          '/api/user': fetch('/api/user').then(res => res.json()),
-          '/api/team': fetch('/api/team').then(res => res.json()),
+  const cookieStore = await cookies()
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value
         },
-      }}
-    >
-      <div className="flex h-screen">
-        {/* Sidebar */}
-        <aside className={`w-64 bg-gradient-to-b from-pink-500 via-purple-500 to-indigo-500 text-white shadow-2xl ${isSidebarOpen ? 'block' : 'hidden'} lg:block absolute lg:relative inset-y-0 left-0 z-50 transform transition-transform duration-300 ease-in-out`}>
-          <div className="p-6">
-            <div className="flex items-center space-x-3 mb-8">
-              <div className="w-12 h-12 rounded-xl bg-white/30 backdrop-blur-sm flex items-center justify-center">
-                <FaVideo className="h-6 w-6 text-white" />
-              </div>
-              <span className="text-2xl font-bold text-white">VideoAI</span>
-            </div>
-            
-            <nav className="space-y-2">
-              {navItems.map((item) => {
-                const Icon = item.icon;
-                const isActive = pathname === item.href;
-                
-                return (
-                  <Link key={item.href} href={item.href} passHref>
-                    <div 
-                      className={`flex items-center space-x-3 p-4 rounded-xl cursor-pointer transition-all duration-300 ${
-                        isActive 
-                          ? 'bg-white/40 backdrop-blur-sm border-r-4 border-white' 
-                          : 'hover:bg-white/20'
-                      }`}
-                      onClick={() => setIsSidebarOpen(false)}
-                    >
-                      <Icon className="h-5 w-5" />
-                      <span className="font-semibold">{item.label}</span>
-                    </div>
-                  </Link>
-                );
-              })}
-            </nav>
-          </div>
-          
-          {/* User Profile in Sidebar */}
-          <div className="absolute bottom-6 left-6 right-6">
-            <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4">
-              <div className="flex items-center space-x-3">
-                <img 
-                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" 
-                  className="w-10 h-10 rounded-full border-2 border-white" 
-                  alt="User"
-                />
-                <div>
-                  <p className="font-semibold text-sm">Sarah Chen</p>
-                  <p className="text-xs text-white/70">Pro Plan</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </aside>
+      },
+    }
+  )
 
-        {/* Main Content */}
-        <div className="flex-1 flex flex-col overflow-hidden">
-          {/* Mobile header */}
-          <div className="lg:hidden flex items-center justify-between bg-white border-b border-gray-200 p-4">
-            <div className="flex items-center">
-              <span className="font-medium">Dashboard</span>
-            </div>
-            <Button
-              className="-mr-3"
-              variant="ghost"
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            >
-              <FaBars className="h-6 w-6" />
-              <span className="sr-only">Toggle sidebar</span>
-            </Button>
-          </div>
+  const { data: { session } } = await supabase.auth.getSession()
 
-          {/* Main content */}
-          <main className="flex-1 overflow-y-auto bg-gray-50 p-4 lg:p-6">
-            {children}
-          </main>
-        </div>
-      </div>
-    </SWRConfig>
-  );
+  if (!session) {
+    redirect('/login')
+  }
+
+  return <DashboardClientLayout>{children}</DashboardClientLayout>
 }

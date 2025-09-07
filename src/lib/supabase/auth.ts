@@ -1,147 +1,205 @@
 'use server'
 
-import { createClient } from '@supabase/supabase-js'
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-// Initialize Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables')
-}
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
-
 // Sign in with email and password
 export async function signInWithEmail(email: string, password: string) {
-  console.log('signInWithEmail called with email:', email);
   try {
+    // Create Supabase client with cookie handling
+    const cookieStore = await cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value
+          },
+          set(name: string, value: string, options: CookieOptions) {
+            // Ensure the cookie is set with proper domain and path
+            const cookieOptions = {
+              ...options,
+              domain: undefined, // Don't set domain in development
+              path: '/',
+              sameSite: 'lax',
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production', // Set secure flag in production
+            };
+            cookieStore.set(name, value, cookieOptions)
+          },
+          remove(name: string, options: CookieOptions) {
+            cookieStore.delete(name)
+          },
+        },
+      }
+    )
+    
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
 
     if (error) {
-      console.error('signInWithEmail error:', error.message);
       return { error: error.message }
     }
 
-    console.log('signInWithEmail successful');
-    // Set session cookies
-    const cookieStore = await cookies()
-    cookieStore.set('sb-access-token', data.session?.access_token || '', {
-      maxAge: 60 * 60 * 24 * 7, // 1 week
-      path: '/',
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-    })
-
-    cookieStore.set('sb-refresh-token', data.session?.refresh_token || '', {
-      maxAge: 60 * 60 * 24 * 7, // 1 week
-      path: '/',
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-    })
-
     return { success: true }
   } catch (error: any) {
-    console.error('signInWithEmail exception:', error);
     return { error: error.message || 'An unexpected error occurred' }
   }
 }
 
 // Sign up with email and password
 export async function signUpWithEmail(email: string, password: string) {
-  console.log('signUpWithEmail called with email:', email);
   try {
+    // Create Supabase client with cookie handling
+    const cookieStore = await cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value
+          },
+          set(name: string, value: string, options: CookieOptions) {
+            // Ensure the cookie is set with proper domain and path
+            const cookieOptions = {
+              ...options,
+              domain: undefined, // Don't set domain in development
+              path: '/',
+              sameSite: 'lax',
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production', // Set secure flag in production
+            };
+            cookieStore.set(name, value, cookieOptions)
+          },
+          remove(name: string, options: CookieOptions) {
+            cookieStore.delete(name)
+          },
+        },
+      }
+    )
+    
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
     })
 
     if (error) {
-      console.error('signUpWithEmail error:', error.message);
       return { error: error.message }
-    }
-
-    console.log('signUpWithEmail successful');
-    // If email confirmation is enabled, the user will receive an email
-    // Otherwise, they'll be signed in immediately
-    if (data.session) {
-      // Set session cookie
-      const cookieStore = await cookies()
-      cookieStore.set('sb-access-token', data.session.access_token, {
-        maxAge: 60 * 60 * 24 * 7, // 1 week
-        path: '/',
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-      })
-
-      cookieStore.set('sb-refresh-token', data.session.refresh_token, {
-        maxAge: 60 * 60 * 24 * 7, // 1 week
-        path: '/',
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-      })
     }
 
     return { success: true, requiresEmailConfirmation: !data.session }
   } catch (error: any) {
-    console.error('signUpWithEmail exception:', error);
     return { error: error.message || 'An unexpected error occurred' }
   }
 }
 
 // Sign in with Google
 export async function getGoogleSignInUrl() {
-  console.log('getGoogleSignInUrl called');
   try {
+    // Create Supabase client with cookie handling
+    const cookieStore = await cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value
+          },
+          set(name: string, value: string, options: CookieOptions) {
+            // Ensure the cookie is set with proper domain and path
+            const cookieOptions = {
+              ...options,
+              domain: undefined, // Don't set domain in development
+              path: '/',
+              sameSite: 'lax',
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production', // Set secure flag in production
+            };
+            cookieStore.set(name, value, cookieOptions)
+          },
+          remove(name: string, options: CookieOptions) {
+            cookieStore.delete(name)
+          },
+        },
+      }
+    )
+    
+    // Log the redirect URL we're using
+    const redirectUrl = `${process.env.BASE_URL}/api/auth/callback`;
+    
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${process.env.BASE_URL}/dashboard`,
+        redirectTo: redirectUrl,
+        skipBrowserRedirect: true,
       }
     })
 
     if (error) {
-      console.error('getGoogleSignInUrl error:', error.message);
       return { error: error.message }
     }
 
-    console.log('getGoogleSignInUrl successful, url:', data.url);
     return { url: data.url }
   } catch (error: any) {
-    console.error('getGoogleSignInUrl exception:', error);
     return { error: error.message || 'An unexpected error occurred' }
   }
 }
 
 // Sign up with Google
 export async function getGoogleSignUpUrl() {
-  console.log('getGoogleSignUpUrl called');
   try {
+    // Create Supabase client with cookie handling
+    const cookieStore = await cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value
+          },
+          set(name: string, value: string, options: CookieOptions) {
+            // Ensure the cookie is set with proper domain and path
+            const cookieOptions = {
+              ...options,
+              domain: undefined, // Don't set domain in development
+              path: '/',
+              sameSite: 'lax',
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production', // Set secure flag in production
+            };
+            cookieStore.set(name, value, cookieOptions)
+          },
+          remove(name: string, options: CookieOptions) {
+            cookieStore.delete(name)
+          },
+        },
+      }
+    )
+    
+    // Log the redirect URL we're using
+    const redirectUrl = `${process.env.BASE_URL}/api/auth/callback`;
+    
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${process.env.BASE_URL}/dashboard`,
+        redirectTo: redirectUrl,
+        skipBrowserRedirect: true,
       }
     })
 
     if (error) {
-      console.error('getGoogleSignUpUrl error:', error.message);
       return { error: error.message }
     }
 
-    console.log('getGoogleSignUpUrl successful, url:', data.url);
     return { url: data.url }
   } catch (error: any) {
-    console.error('getGoogleSignUpUrl exception:', error);
     return { error: error.message || 'An unexpected error occurred' }
   }
 }
@@ -149,16 +207,40 @@ export async function getGoogleSignUpUrl() {
 // Sign out
 export async function signOut() {
   try {
+    // Create Supabase client with cookie handling
+    const cookieStore = await cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value
+          },
+          set(name: string, value: string, options: CookieOptions) {
+            // Ensure the cookie is set with proper domain and path
+            const cookieOptions = {
+              ...options,
+              domain: undefined, // Don't set domain in development
+              path: '/',
+              sameSite: 'lax',
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production', // Set secure flag in production
+            };
+            cookieStore.set(name, value, cookieOptions)
+          },
+          remove(name: string, options: CookieOptions) {
+            cookieStore.delete(name)
+          },
+        },
+      }
+    )
+    
     const { error } = await supabase.auth.signOut()
 
     if (error) {
       return { error: error.message }
     }
-
-    // Clear session cookies
-    const cookieStore = await cookies()
-    cookieStore.delete('sb-access-token')
-    cookieStore.delete('sb-refresh-token')
 
     redirect('/login')
   } catch (error: any) {
@@ -169,14 +251,36 @@ export async function signOut() {
 // Get current user
 export async function getCurrentUser() {
   try {
-    const cookieStore = await cookies()
-    const accessToken = cookieStore.get('sb-access-token')?.value
-
-    if (!accessToken) {
-      return null
-    }
-
-    const { data, error } = await supabase.auth.getUser(accessToken)
+    // Create Supabase client with cookie handling
+    const cookieStore = await cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value
+          },
+          set(name: string, value: string, options: CookieOptions) {
+            // Ensure the cookie is set with proper domain and path
+            const cookieOptions = {
+              ...options,
+              domain: undefined, // Don't set domain in development
+              path: '/',
+              sameSite: 'lax',
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production', // Set secure flag in production
+            };
+            cookieStore.set(name, value, cookieOptions)
+          },
+          remove(name: string, options: CookieOptions) {
+            cookieStore.delete(name)
+          },
+        },
+      }
+    )
+    
+    const { data, error } = await supabase.auth.getUser()
 
     if (error) {
       return null
@@ -191,6 +295,35 @@ export async function getCurrentUser() {
 // Reset password
 export async function resetPassword(email: string) {
   try {
+    // Create Supabase client with cookie handling
+    const cookieStore = await cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value
+          },
+          set(name: string, value: string, options: CookieOptions) {
+            // Ensure the cookie is set with proper domain and path
+            const cookieOptions = {
+              ...options,
+              domain: undefined, // Don't set domain in development
+              path: '/',
+              sameSite: 'lax',
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production', // Set secure flag in production
+            };
+            cookieStore.set(name, value, cookieOptions)
+          },
+          remove(name: string, options: CookieOptions) {
+            cookieStore.delete(name)
+          },
+        },
+      }
+    )
+    
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${process.env.BASE_URL}/reset-password`,
     })

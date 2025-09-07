@@ -108,13 +108,7 @@ npm run db:seed
 
 ### Development
 
-Run the Next.js development server:
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the app in action.
+> ⚠️ **Important**: Do not run `npm run dev` directly. Use the proper development workflow as specified in the [development workflow guidelines](rules/development-workflow.md).
 
 ## 🐳 Docker Development
 
@@ -139,11 +133,7 @@ This will start both the Next.js application and PostgreSQL database in separate
 
 ## 🏗️ Building for Production
 
-Create an optimized production build:
-
-```bash
-npm run build
-```
+> ⚠️ **Important**: Do not run `npm run build` directly. Use the proper build workflow as specified in the [development workflow guidelines](rules/development-workflow.md).
 
 Start the production server:
 

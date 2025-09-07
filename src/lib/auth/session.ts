@@ -38,22 +38,30 @@ export async function verifyToken(input: string) {
 }
 
 export async function getSession() {
-  const session = (await cookies()).get('session')?.value;
+  const cookieStore = await cookies();
+  const session = cookieStore.get('session')?.value;
   if (!session) return null;
   return await verifyToken(session);
 }
 
 export async function setSession(user: NewUser) {
+  const cookieStore = await cookies();
   const expiresInOneDay = new Date(Date.now() + 24 * 60 * 60 * 1000);
   const session: SessionData = {
     user: { id: user.id! },
     expires: expiresInOneDay.toISOString(),
   };
   const encryptedSession = await signToken(session);
-  (await cookies()).set('session', encryptedSession, {
+  cookieStore.set('session', encryptedSession, {
     expires: expiresInOneDay,
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
+    path: '/',
   });
+}
+
+export async function deleteSession() {
+  const cookieStore = await cookies();
+  cookieStore.delete('session');
 }

@@ -80,26 +80,69 @@ export function Login({ mode = 'signin' }: LoginProps) {
 
   // Handle Google authentication
   const handleGoogleAuth = async () => {
-    console.log('handleGoogleAuth called with mode:', mode);
+    console.log("Google login button clicked");
     try {
       let result;
       if (mode === 'signin') {
-        console.log('Calling getGoogleSignInUrl');
         result = await getGoogleSignInUrl();
       } else {
-        console.log('Calling getGoogleSignUpUrl');
         result = await getGoogleSignUpUrl();
       }
 
       if (result.error) {
-        console.error('Google auth error:', result.error);
+        console.error("Google auth error:", result.error);
         return;
       }
 
       if (result.url) {
-        console.log('Opening Google auth URL in new window:', result.url);
-        // Open the Google OAuth URL in a new window/tab
-        window.open(result.url, '_blank', 'width=600,height=700');
+        // Calculate centered position for the popup
+        const width = 600;
+        const height = 700;
+        const left = (window.screen.width / 2) - (width / 2);
+        const top = (window.screen.height / 2) - (height / 2);
+        
+        // Open the Google OAuth URL in a centered popup window
+        const authWindow = window.open(
+          result.url, 
+          'google-auth-popup', 
+          `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`
+        );
+        
+        if (!authWindow) {
+          console.error("Failed to open popup window");
+          return;
+        }
+        
+        // Listen for successful authentication message from the popup
+        const handleAuthSuccess = (event: MessageEvent) => {
+          // Verify the message is from our domain
+          if (event.origin !== window.location.origin) {
+            return;
+          }
+          
+          // Check if the message indicates successful authentication
+          if (event.data?.type === 'google-auth-success') {
+            console.log("Received auth success message from popup");
+            // Clean up the event listener
+            window.removeEventListener('message', handleAuthSuccess);
+            // Redirect to dashboard
+            window.location.href = '/dashboard';
+          }
+        };
+        
+        // Add the event listener
+        window.addEventListener('message', handleAuthSuccess);
+        
+        // Set up polling method to check if popup is closed
+        const checkClosed = setInterval(() => {
+          if (authWindow.closed) {
+            console.log("Popup window closed");
+            clearInterval(checkClosed);
+            window.removeEventListener('message', handleAuthSuccess);
+            // Redirect to dashboard
+            window.location.href = '/dashboard';
+          }
+        }, 1000);
       }
     } catch (error) {
       console.error('Error in handleGoogleAuth:', error);
@@ -108,18 +151,13 @@ export function Login({ mode = 'signin' }: LoginProps) {
 
   // Add event listener for Google login click
   useEffect(() => {
-    console.log('Setting up Google login event listener');
-    
     const handleGoogleLoginClick = () => {
-      console.log('Google login button clicked');
       handleGoogleAuth();
     };
 
     window.addEventListener('google-login-click', handleGoogleLoginClick);
-    console.log('Google login event listener added');
 
     return () => {
-      console.log('Cleaning up Google login event listener');
       window.removeEventListener('google-login-click', handleGoogleLoginClick);
     };
   }, [mode]);
@@ -127,7 +165,6 @@ export function Login({ mode = 'signin' }: LoginProps) {
   // Handle form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Form submitted with mode:', mode);
     // Create a new FormData object and append the form data
     const form = new FormData();
     form.append('email', formData.email);
@@ -135,23 +172,19 @@ export function Login({ mode = 'signin' }: LoginProps) {
     
     // Call the appropriate action
     if (mode === 'signin') {
-      console.log('Calling signInWithEmail');
       const result = await signInWithEmail(formData.email, formData.password);
       if (result.error) {
         console.error('signInWithEmail error:', result.error);
       } else {
         // Redirect to dashboard on successful sign in
-        console.log('Redirecting to dashboard');
         window.location.href = '/dashboard';
       }
     } else {
-      console.log('Calling signUpWithEmail');
       const result = await signUpWithEmail(formData.email, formData.password);
       if (result.error) {
         console.error('signUpWithEmail error:', result.error);
       } else {
         // Redirect to dashboard on successful sign up
-        console.log('Redirecting to dashboard');
         window.location.href = '/dashboard';
       }
     }
@@ -162,7 +195,6 @@ export function Login({ mode = 'signin' }: LoginProps) {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    console.log('Forgot password clicked');
   };
 
   // Form fields configuration
@@ -192,8 +224,6 @@ export function Login({ mode = 'signin' }: LoginProps) {
     submitButton: mode === 'signin' ? 'Sign In' : 'Sign Up',
     textVariantButton: mode === 'signin' ? 'Forgot password?' : undefined,
   };
-
-  console.log('Login component rendered with mode:', mode);
 
   return (
     <div className="min-h-screen flex bg-background">

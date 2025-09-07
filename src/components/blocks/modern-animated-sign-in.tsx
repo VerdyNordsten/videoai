@@ -411,7 +411,7 @@ const AnimatedForm = memo(function AnimatedForm({
         </BoxReveal>
       )}
 
-      {googleLogin && (
+            {googleLogin && (
         <>
           <BoxReveal
             boxColor='var(--skeleton)'
@@ -422,7 +422,12 @@ const AnimatedForm = memo(function AnimatedForm({
             <button
               className='g-button group/btn bg-transparent w-full rounded-md border h-10 font-medium outline-hidden hover:cursor-pointer'
               type='button'
-              onClick={() => console.log('Google login clicked')}
+              onClick={() => {
+                console.log('Google login button clicked');
+                // Dispatch custom event for Google login
+                const event = new CustomEvent('google-login-click');
+                window.dispatchEvent(event);
+              }}
             >
               <span className='flex items-center justify-center w-full h-full gap-3'>
                 <FcGoogle className="h-6 w-6" />
@@ -572,12 +577,14 @@ interface AuthTabsProps {
   };
   goTo: (event: React.MouseEvent<HTMLButtonElement>) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  googleLogin?: string;
 }
 
 const AuthTabs = memo(function AuthTabs({
   formFields,
   goTo,
   handleSubmit,
+  googleLogin,
 }: AuthTabsProps) {
   return (
     <div className='flex max-lg:justify-center w-full md:w-auto'>
@@ -588,7 +595,7 @@ const AuthTabs = memo(function AuthTabs({
           fieldPerRow={1}
           onSubmit={handleSubmit}
           goTo={goTo}
-          googleLogin='Login with Google'
+          googleLogin={googleLogin}
         />
       </div>
     </div>

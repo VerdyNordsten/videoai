@@ -12,9 +12,10 @@ import {
   SocialLoginButtons, 
   AuthFormWrapper 
 } from '@/components/auth';
-import { signIn, signUp } from '@/lib/auth/actions';
+import { signInWithEmail, signUpWithEmail, getGoogleSignInUrl, getGoogleSignUpUrl } from '@/lib/supabase/auth';
 import { AuthTabs } from '@/components/blocks/modern-animated-sign-in';
 import { FaInstagram, FaTiktok, FaYoutube, FaFacebook, FaSnapchat } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
 
 interface LoginProps {
   mode?: 'signin' | 'signup';
@@ -26,7 +27,35 @@ export function Login({ mode = 'signin' }: LoginProps) {
   const priceId = searchParams.get('priceId');
   const inviteId = searchParams.get('inviteId');
   const [state, formAction, pending] = useActionState<ActionState, FormData>(
-    mode === 'signin' ? signIn : signUp,
+    mode === 'signin' ? 
+      async (prevState: ActionState, formData: FormData) => {
+        const email = formData.get('email') as string;
+        const password = formData.get('password') as string;
+        
+        const result = await signInWithEmail(email, password);
+        
+        if (result.error) {
+          return { error: result.error };
+        }
+        
+        // Redirect to dashboard on successful sign in
+        window.location.href = '/dashboard';
+        return { error: '' };
+      } : 
+      async (prevState: ActionState, formData: FormData) => {
+        const email = formData.get('email') as string;
+        const password = formData.get('password') as string;
+        
+        const result = await signUpWithEmail(email, password);
+        
+        if (result.error) {
+          return { error: result.error };
+        }
+        
+        // Redirect to dashboard on successful sign up
+        window.location.href = '/dashboard';
+        return { error: '' };
+      },
     { error: '' }
   );
 
@@ -49,9 +78,56 @@ export function Login({ mode = 'signin' }: LoginProps) {
     }));
   };
 
+  // Handle Google authentication
+  const handleGoogleAuth = async () => {
+    console.log('handleGoogleAuth called with mode:', mode);
+    try {
+      let result;
+      if (mode === 'signin') {
+        console.log('Calling getGoogleSignInUrl');
+        result = await getGoogleSignInUrl();
+      } else {
+        console.log('Calling getGoogleSignUpUrl');
+        result = await getGoogleSignUpUrl();
+      }
+
+      if (result.error) {
+        console.error('Google auth error:', result.error);
+        return;
+      }
+
+      if (result.url) {
+        console.log('Opening Google auth URL in new window:', result.url);
+        // Open the Google OAuth URL in a new window/tab
+        window.open(result.url, '_blank', 'width=600,height=700');
+      }
+    } catch (error) {
+      console.error('Error in handleGoogleAuth:', error);
+    }
+  };
+
+  // Add event listener for Google login click
+  useEffect(() => {
+    console.log('Setting up Google login event listener');
+    
+    const handleGoogleLoginClick = () => {
+      console.log('Google login button clicked');
+      handleGoogleAuth();
+    };
+
+    window.addEventListener('google-login-click', handleGoogleLoginClick);
+    console.log('Google login event listener added');
+
+    return () => {
+      console.log('Cleaning up Google login event listener');
+      window.removeEventListener('google-login-click', handleGoogleLoginClick);
+    };
+  }, [mode]);
+
   // Handle form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log('Form submitted with mode:', mode);
     // Create a new FormData object and append the form data
     const form = new FormData();
     form.append('email', formData.email);
@@ -59,9 +135,25 @@ export function Login({ mode = 'signin' }: LoginProps) {
     
     // Call the appropriate action
     if (mode === 'signin') {
-      await signIn(state, form);
+      console.log('Calling signInWithEmail');
+      const result = await signInWithEmail(formData.email, formData.password);
+      if (result.error) {
+        console.error('signInWithEmail error:', result.error);
+      } else {
+        // Redirect to dashboard on successful sign in
+        console.log('Redirecting to dashboard');
+        window.location.href = '/dashboard';
+      }
     } else {
-      await signUp(state, form);
+      console.log('Calling signUpWithEmail');
+      const result = await signUpWithEmail(formData.email, formData.password);
+      if (result.error) {
+        console.error('signUpWithEmail error:', result.error);
+      } else {
+        // Redirect to dashboard on successful sign up
+        console.log('Redirecting to dashboard');
+        window.location.href = '/dashboard';
+      }
     }
   };
 
@@ -70,7 +162,7 @@ export function Login({ mode = 'signin' }: LoginProps) {
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    console.log('forgot password');
+    console.log('Forgot password clicked');
   };
 
   // Form fields configuration
@@ -100,6 +192,8 @@ export function Login({ mode = 'signin' }: LoginProps) {
     submitButton: mode === 'signin' ? 'Sign In' : 'Sign Up',
     textVariantButton: mode === 'signin' ? 'Forgot password?' : undefined,
   };
+
+  console.log('Login component rendered with mode:', mode);
 
   return (
     <div className="min-h-screen flex bg-background">
@@ -308,6 +402,7 @@ export function Login({ mode = 'signin' }: LoginProps) {
           formFields={formFields}
           goTo={goToForgotPassword}
           handleSubmit={handleSubmit}
+          googleLogin="Continue with Google"
         />
       </div>
     </div>

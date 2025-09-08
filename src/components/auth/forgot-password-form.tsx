@@ -1,77 +1,41 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useActionState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { FaSpinner, FaVideo } from 'react-icons/fa6';
-import { ActionState } from '@/lib/auth/middleware';
-import { signInWithEmail, signUpWithEmail, getGoogleSignInUrl, getGoogleSignUpUrl } from '@/lib/supabase/auth';
-import { AuthTabs } from '@/components/blocks/modern-animated-sign-in';
 import { FaInstagram, FaTiktok, FaYoutube, FaFacebook, FaSnapchat } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
+import { ActionState } from '@/lib/auth/middleware';
+import { AuthTabs } from '@/components/blocks/modern-animated-sign-in';
 
-interface LoginProps {
-  mode?: 'signin' | 'signup';
-}
+interface ForgotPasswordProps {}
 
-export function Login({ mode = 'signin' }: LoginProps) {
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get('redirect');
-  const priceId = searchParams.get('priceId');
-  const inviteId = searchParams.get('inviteId');
+export function ForgotPassword() {
   const [state, formAction, pending] = useActionState<ActionState, FormData>(
-    mode === 'signin' ? 
-      async (prevState: ActionState, formData: FormData) => {
-        const email = formData.get('email') as string;
-        const password = formData.get('password') as string;
-        
-        const result = await signInWithEmail(email, password);
-        
-        if (result.error) {
-          toast.error('Login failed', {
-            description: result.error,
-          });
-          return { error: result.error };
-        }
-        
-        toast.success('Login successful', {
-          description: 'Welcome back! Redirecting to dashboard...',
-        });
-        
-        // Redirect to dashboard on successful sign in
-        window.location.href = '/dashboard';
-        return { error: '' };
-      } : 
-      async (prevState: ActionState, formData: FormData) => {
-        const email = formData.get('email') as string;
-        const password = formData.get('password') as string;
-        
-        const result = await signUpWithEmail(email, password);
-        
-        if (result.error) {
-          toast.error('Registration failed', {
-            description: result.error,
-          });
-          return { error: result.error };
-        }
-        
-        toast.success('Account created successfully', {
-          description: 'Welcome! Redirecting to dashboard...',
-        });
-        
-        // Redirect to dashboard on successful sign up
-        window.location.href = '/dashboard';
-        return { error: '' };
-      },
+    async (prevState: ActionState, formData: FormData) => {
+      // Implement forgot password logic here
+      const email = formData.get('email') as string;
+      
+      // Show loading toast
+      const toastId = toast.loading('Sending password reset instructions...');
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast.success('Password reset instructions sent', {
+        description: `We've sent password reset instructions to ${email}`,
+        id: toastId,
+      });
+      
+      return { error: '' };
+    },
     { error: '' }
   );
 
   // Form state
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
   });
 
   // Handle form input changes
@@ -87,172 +51,45 @@ export function Login({ mode = 'signin' }: LoginProps) {
     }));
   };
 
-  // Handle Google authentication
-  const handleGoogleAuth = async () => {
-    const toastId = toast.loading('Redirecting to Google for authentication...');
-    try {
-      let result;
-      if (mode === 'signin') {
-        result = await getGoogleSignInUrl();
-      } else {
-        result = await getGoogleSignUpUrl();
-      }
-
-      if (result.error) {
-        toast.error('Google authentication failed', {
-          description: result.error,
-          id: toastId,
-        });
-        return;
-      }
-
-      if (result.url) {
-        // Update toast to show we're redirecting
-        toast.loading('Opening Google authentication window...', { id: toastId });
-        
-        // Calculate centered position for the popup
-        const width = 600;
-        const height = 700;
-        const left = (window.screen.width / 2) - (width / 2);
-        const top = (window.screen.height / 2) - (height / 2);
-        
-        // Open the Google OAuth URL in a centered popup window
-        // Using noopener to prevent COOP issues
-        const authWindow = window.open(
-          result.url, 
-          'google-auth-popup', 
-          `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`
-        );
-        
-        if (!authWindow) {
-          toast.error('Failed to open Google authentication popup', { id: toastId });
-          return;
-        }
-        
-        // Listen for successful authentication message from the popup
-        const handleAuthSuccess = (event: MessageEvent) => {
-          // Verify the message is from our domain
-          if (event.origin !== window.location.origin) {
-            return;
-          }
-          
-          // Check if the message indicates successful authentication
-          if (event.data?.type === 'google-auth-success') {
-            // Clean up the event listener
-            window.removeEventListener('message', handleAuthSuccess);
-            // Show success message
-            toast.success('Google authentication successful', {
-              description: 'Redirecting...',
-              id: toastId,
-            });
-            // Redirect to dashboard - the server-side callback will handle the interstitial for existing users
-            window.location.href = '/dashboard';
-          }
-        };
-        
-        // Add the event listener
-        window.addEventListener('message', handleAuthSuccess);
-        
-        // Set up polling method to check if popup is closed
-        const checkClosed = setInterval(() => {
-          if (authWindow.closed) {
-            clearInterval(checkClosed);
-            window.removeEventListener('message', handleAuthSuccess);
-            // Show success message
-            toast.success('Google authentication successful', {
-              description: 'Redirecting...',
-              id: toastId,
-            });
-            // Redirect to dashboard - the server-side callback will handle the interstitial for existing users
-            window.location.href = '/dashboard';
-          }
-        }, 1000);
-      }
-    } catch (error: any) {
-      toast.error('Google authentication failed', {
-        description: error.message || 'An unexpected error occurred',
-        id: toastId,
-      });
-    }
-  };
-
-  // Add event listener for Google login click
-  useEffect(() => {
-    const handleGoogleLoginClick = () => {
-      handleGoogleAuth();
-    };
-
-    window.addEventListener('google-login-click', handleGoogleLoginClick);
-
-    return () => {
-      window.removeEventListener('google-login-click', handleGoogleLoginClick);
-    };
-  }, [mode]);
-
   // Handle form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     
     // Show loading toast
-    const toastId = toast.loading(
-      mode === 'signin' 
-        ? 'Logging in...' 
-        : 'Creating account...'
-    );
+    const toastId = toast.loading('Sending password reset instructions...');
     
     // Create a new FormData object and append the form data
     const form = new FormData();
     form.append('email', formData.email);
-    form.append('password', formData.password);
     
-    // Call the appropriate action
-    if (mode === 'signin') {
-      const result = await signInWithEmail(formData.email, formData.password);
-      if (result.error) {
-        toast.error('Login failed', {
-          description: result.error,
-          id: toastId,
-        });
-      } else {
-        toast.success('Login successful', {
-          description: 'Welcome back! Redirecting to dashboard...',
-          id: toastId,
-        });
-        // Redirect to dashboard on successful sign in
-        window.location.href = '/dashboard';
-      }
+    // Call the action
+    const result = await formAction(form);
+    
+    if (result?.error) {
+      toast.error('Failed to send password reset instructions', {
+        description: result.error,
+        id: toastId,
+      });
     } else {
-      const result = await signUpWithEmail(formData.email, formData.password);
-      if (result.error) {
-        toast.error('Registration failed', {
-          description: result.error,
-          id: toastId,
-        });
-      } else {
-        toast.success('Account created successfully', {
-          description: 'Welcome! Redirecting to dashboard...',
-          id: toastId,
-        });
-        // Redirect to dashboard on successful sign up
-        window.location.href = '/dashboard';
-      }
+      toast.success('Password reset instructions sent', {
+        description: `We've sent password reset instructions to ${formData.email}`,
+        id: toastId,
+      });
     }
   };
 
-  // Handle "forgot password" click
-  const goToForgotPassword = (
+  // Handle "back to login" click
+  const goToLogin = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    window.location.href = '/forgot-password';
+    window.location.href = '/login';
   };
 
   // Form fields configuration
   const formFields = {
-    header: mode === 'signin' ? 'Welcome back' : 'Create your account',
-    subHeader: mode === 'signin' 
-      ? 'Sign in to turn videos into fresh ideas.' 
-      : 'Sign up to start turning videos into fresh ideas.',
+    header: 'Forgot Password',
+    subHeader: 'Enter your email address and we will send you a link to reset your password.',
     fields: [
       {
         label: 'Email',
@@ -262,16 +99,9 @@ export function Login({ mode = 'signin' }: LoginProps) {
         onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
           handleInputChange(event, 'email'),
       },
-      {
-        label: 'Password',
-        required: true,
-        type: 'password' as const,
-        placeholder: 'Enter your password',
-        onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
-          handleInputChange(event, 'password'),
-      },
     ],
-    submitButton: mode === 'signin' ? 'Sign In' : 'Sign Up',
+    submitButton: 'Send Reset Link',
+    textVariantButton: 'Back to Login',
   };
 
   return (
@@ -311,7 +141,7 @@ export function Login({ mode = 'signin' }: LoginProps) {
         {/* Orbital icons that orbit on the ripple background */}
         <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg">
           <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-7xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10 z-10">
-            {mode === 'signin' ? 'Welcome Back' : 'Join Us'}
+            Reset Password
           </span>
 
           {/* Orbit 1 - Aligned with ripple circle */}
@@ -479,28 +309,13 @@ export function Login({ mode = 'signin' }: LoginProps) {
       <div className="flex flex-col justify-center items-center w-full p-6 relative">
         <AuthTabs
           formFields={formFields}
-          goTo={goToForgotPassword}
+          goTo={goToLogin}
           handleSubmit={handleSubmit}
-          googleLogin="Continue with Google"
-          additionalLink={
-            mode === 'signin' 
-              ? {
-                  text: "Don't have an account yet?",
-                  href: "/register"
-                }
-              : {
-                  text: "Already have an account?",
-                  href: "/login"
-                }
-          }
-          forgotPasswordLink={
-            mode === 'signin' 
-              ? {
-                  text: 'Forgot Password?',
-                  href: '/forgot-password'
-                }
-              : undefined
-          }
+          bottomLink={{
+            text: 'Remember your password?',
+            linkText: 'Sign in here',
+            href: '/login'
+          }}
         />
       </div>
     </div>

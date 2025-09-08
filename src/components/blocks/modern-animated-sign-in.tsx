@@ -339,6 +339,10 @@ type AnimatedFormProps = {
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   googleLogin?: string;
   goTo?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  forgotPasswordLink?: {
+    text: string;
+    href: string;
+  };
 };
 
 type Errors = {
@@ -356,6 +360,7 @@ const AnimatedForm = memo(function AnimatedForm({
   onSubmit,
   googleLogin,
   goTo,
+  forgotPasswordLink,
 }: AnimatedFormProps) {
   const [visible, setVisible] = useState<boolean>(false);
   const [errors, setErrors] = useState<Errors>({});
@@ -515,6 +520,19 @@ const AnimatedForm = memo(function AnimatedForm({
           )}
         </BoxReveal>
 
+        {forgotPasswordLink && forgotPasswordLink.text && forgotPasswordLink.href && (
+          <BoxReveal boxColor='var(--skeleton)' duration={0.3} className="mb-2">
+            <div className="text-left">
+              <a 
+                href={forgotPasswordLink.href}
+                className="text-sm text-blue-500 hover:underline"
+              >
+                {forgotPasswordLink.text}
+              </a>
+            </div>
+          </BoxReveal>
+        )}
+
         <BoxReveal
           width='100%'
           boxColor='var(--skeleton)'
@@ -533,18 +551,6 @@ const AnimatedForm = memo(function AnimatedForm({
           </button>
         </BoxReveal>
 
-        {textVariantButton && goTo && (
-          <BoxReveal boxColor='var(--skeleton)' duration={0.3}>
-            <section className='mt-4 text-center hover:cursor-pointer'>
-              <button
-                className='text-sm text-blue-500 hover:cursor-pointer outline-hidden'
-                onClick={goTo}
-              >
-                {textVariantButton}
-              </button>
-            </section>
-          </BoxReveal>
-        )}
       </form>
     </section>
   );
@@ -578,6 +584,19 @@ interface AuthTabsProps {
   goTo: (event: React.MouseEvent<HTMLButtonElement>) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   googleLogin?: string;
+  additionalLink?: {
+    text: string;
+    href: string;
+  };
+  forgotPasswordLink?: {
+    text: string;
+    href: string;
+  };
+  bottomLink?: {
+    text: string;
+    linkText: string;
+    href: string;
+  };
 }
 
 const AuthTabs = memo(function AuthTabs({
@@ -585,18 +604,62 @@ const AuthTabs = memo(function AuthTabs({
   goTo,
   handleSubmit,
   googleLogin,
+  additionalLink,
+  forgotPasswordLink,
+  bottomLink,
 }: AuthTabsProps) {
   return (
-    <div className='flex max-lg:justify-center w-full md:w-auto'>
+    <div className='flex justify-center w-full'>
       {/* Right Side */}
-      <div className='w-full lg:w-1/2 h-[100dvh] flex flex-col justify-center items-center max-lg:px-[10%]'>
+      <div className='w-full h-[100dvh] flex flex-col justify-center items-center px-4'>
         <AnimatedForm
           {...formFields}
           fieldPerRow={1}
           onSubmit={handleSubmit}
           goTo={goTo}
           googleLogin={googleLogin}
+          forgotPasswordLink={forgotPasswordLink}
         />
+        {additionalLink && (
+          <BoxReveal boxColor='var(--skeleton)' duration={0.3} className='mt-4'>
+            <div className='flex justify-center items-center text-sm w-full'>
+              {additionalLink.text.startsWith("Don't have an account yet?") ? (
+                <div className='flex'>
+                  <span>Don't have an account yet?</span>
+                  <a 
+                    href={additionalLink.href} 
+                    className='ml-1 text-blue-500 hover:underline'
+                  >
+                    Sign up
+                  </a>
+                </div>
+              ) : (
+                <div className='flex'>
+                  <span>Already have an account?</span>
+                  <a 
+                    href={additionalLink.href} 
+                    className='ml-1 text-blue-500 hover:underline'
+                  >
+                    Login
+                  </a>
+                </div>
+              )}
+            </div>
+          </BoxReveal>
+        )}
+        {bottomLink && (
+          <BoxReveal boxColor='var(--skeleton)' duration={0.3} className='mt-4'>
+            <div className='text-center text-sm'>
+              <span>{bottomLink.text} </span>
+              <a 
+                href={bottomLink.href} 
+                className='text-blue-500 hover:underline'
+              >
+                {bottomLink.linkText}
+              </a>
+            </div>
+          </BoxReveal>
+        )}
       </div>
     </div>
   );

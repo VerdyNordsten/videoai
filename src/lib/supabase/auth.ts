@@ -111,6 +111,11 @@ export async function getGoogleSignInUrl() {
       options: {
         redirectTo: redirectUrl,
         skipBrowserRedirect: true,
+        queryParams: {
+          prompt: 'select_account consent',
+          access_type: 'offline',
+          include_granted_scopes: 'true'
+        }
       }
     })
 
@@ -155,6 +160,11 @@ export async function getGoogleSignUpUrl() {
       options: {
         redirectTo: redirectUrl,
         skipBrowserRedirect: true,
+        queryParams: {
+          prompt: 'select_account consent',
+          access_type: 'offline',
+          include_granted_scopes: 'true'
+        }
       }
     })
 

@@ -1,206 +1,167 @@
 # Qwen Code - Task List and Improvements
-You are given a task to integrate an existing React component in the codebase
+Prompt: OAuth “You’re signing back in” Interstitial
 
-The codebase should support:
-- shadcn project structure  
-- Tailwind CSS
-- Typescript
+Goal
 
-If it doesn't, provide instructions on how to setup project via shadcn CLI, install Tailwind or Typescript.
+Setelah user memilih akun di Google OAuth (/oauthchooseaccount), jika email sudah terdaftar, JANGAN langsung ke /dashboard.
 
-Determine the default path for components and styles. 
-If default path for components is not /components/ui, provide instructions on why it's important to create this folder
-Copy-paste this component to /components/ui folder:
-```tsx
-sonner.tsx
-"use client"
+Tampilkan halaman konfirmasi “You’re signing back in to <APP_NAME>” (mirip Google signin/oauth/id) dengan tombol Continue dan Cancel.
 
-import { useTheme } from "next-themes"
-import { Toaster as Sonner } from "sonner"
+Jika email belum terdaftar, lanjutkan flow sign-up seperti biasa.
 
-type ToasterProps = React.ComponentProps<typeof Sonner>
+Stack
 
-const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
+Next.js App Router + TypeScript + Tailwind + shadcn/ui.
 
-  return (
-    <Sonner
-      theme={theme as ToasterProps["theme"]}
-      className="toaster group"
-      toastOptions={{
-        classNames: {
-          toast:
-            "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
-          description: "group-[.toast]:text-muted-foreground",
-          actionButton:
-            "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
-          cancelButton:
-            "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
-        },
-      }}
-      {...props}
-    />
-  )
-}
+Provider Google OAuth (boleh NextAuth atau Supabase Auth – sediakan dua implementasi).
 
-export { Toaster }
+Pastikan session tetap ada sehingga saat klik Continue tidak perlu re-auth.
 
+Routes & Flow
 
-demo.tsx
-"use client";
+/api/auth/callback/google (atau callback yang setara) menangkap profil Google.
 
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { Toaster } from "@/components/ui/sonner";
+Cek di DB:
 
-export default function ToasterDemo() {
-  return (
-    <div className="flex flex-col gap-2">
-      <Toaster />
-      <div className="flex flex-row gap-2">
-        <Button
-          variant="outline"
-          onClick={() =>
-            toast("Event has been created", {
-              description: "Sunday, December 03, 2023 at 9:00 AM",
-              action: {
-                label: "Undo",
-                onClick: () => console.log("Undo"),
-              },
-            })
-          }
-        >
-          Default Toast
-        </Button>
+exists(email) ?
 
-        <Button
-          variant="outline"
-          onClick={() =>
-            toast.success("Success!", {
-              description: "Your action was completed successfully",
-            })
-          }
-        >
-          Success Toast
-        </Button>
+true → redirect ke /signing-back?email=<email>&provider=google.
 
-        <Button
-          variant="outline"
-          onClick={() =>
-            toast.error("Error!", {
-              description: "Something went wrong. Please try again.",
-            })
-          }
-        >
-          Error Toast
-        </Button>
+false → lanjut registrasi/ onboarding /onboarding.
 
-        <Button
-          variant="outline"
-          onClick={() =>
-            toast.promise(
-              new Promise((resolve) => setTimeout(resolve, 2000)),
-              {
-                loading: "Loading...",
-                success: "Promise resolved",
-                error: "Promise rejected",
-              }
-            )
-          }
-        >
-          Promise Toast
-        </Button>
-      </div>
-    </div>
-  );
-}
+Page /signing-back:
 
-export { ToasterDemo };
-```
+Headline: “You’re signing back in to <APP_NAME>”
 
-Copy-paste these files for dependencies:
-```tsx
-shadcn/button
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+Subtext menampilkan email dan avatar jika tersedia.
 
-import { cn } from "@/lib/utils"
+Link ke Privacy Policy & Terms.
 
-const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-  {
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  },
-)
+Tombol:
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean
-}
+Cancel → signOut & redirect ke /login.
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
-    return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      />
-    )
-  },
-)
-Button.displayName = "Button"
+Continue → redirect ke /dashboard.
 
-export { Button, buttonVariants }
+Akses langsung ke /dashboard tetap dilindungi session guard.
 
-```
+Acceptance Criteria
 
-Install NPM dependencies:
-```bash
-sonner, @radix-ui/react-slot, class-variance-authority
-```
+User existing selalu melihat halaman interstitial terlebih dulu.
 
-Implementation Guidelines
- 1. Analyze the component structure and identify all required dependencies
- 2. Review the component's argumens and state
- 3. Identify any required context providers or hooks and install them
- 4. Questions to Ask
- - What data/props will be passed to this component?
- - Are there any specific state management requirements?
- - Are there any required assets (images, icons, etc.)?
- - What is the expected responsive behavior?
- - What is the best place to use this component in the app?
+Klik Continue → masuk ke /dashboard tanpa re-auth.
 
-Steps to integrate
- 0. Copy paste all the code above in the correct directories
- 1. Install external dependencies
- 2. Fill image assets with Unsplash stock images you know exist
- 3. Use lucide-react icons for svgs or logos if component requires them
+Klik Cancel → kembali ke /login (session dibersihkan).
+
+Halaman responsif & tema gelap/terang mengikuti sistem.
+
+UI
+
+Gunakan Card, Avatar, Button, Separator dari shadcn/ui.
+
+Layout mirip Google: judul besar, email pill, dua tombol (Cancel/Continue), links kecil di footer.
+
+Security
+
+Jangan menaruh data sensitif di query selain email bertipe display; gunakan session/CSRF token untuk aksi Continue.
+
+Validasi bahwa /signing-back hanya bisa diakses jika baru selesai login (mis. flag postAuth=true di cookie selama 5 menit).
+
+Implementasi – NextAuth (pilihan 1)
+
+next-auth config
+
+pages (App Router gunakan callbacks.redirect).
+
+Di callbacks.signIn → setelah sukses & user exists, set cookie postAuth=true dan redirect ke /signing-back.
+
+Di callbacks.session pastikan email & image tersedia.
+
+OIDC params: set authorization dengan prompt: "select_account consent", access_type: "offline", include_granted_scopes: true.
+
+DB check
+
+Fungsi findUserByEmail(email).
+
+/signing-back page
+
+Server component yang membaca session. Jika !cookie.postAuth → redirect ke /dashboard.
+
+Tampilkan UI.
+
+Action:
+
+POST /api/auth/continue → hapus cookie postAuth lalu redirect('/dashboard').
+
+POST /api/auth/cancel → signOut({ callbackUrl: '/login' }).
+
+Middleware
+
+Proteksi /dashboard dkk untuk butuh session, tapi biarkan /signing-back diakses saat postAuth=true.
+
+Implementasi – Supabase Auth (pilihan 2)
+
+Gunakan PKCE + signInWithOAuth({ provider: 'google', options: { queryParams: { prompt: 'select_account consent', access_type: 'offline', include_granted_scopes: 'true' }}}).
+
+Auth callback handler
+
+Setelah supabase.auth.exchangeCodeForSession(), cek user.email.
+
+Jika user exists → set cookie postAuth=true dan redirect('/signing-back').
+
+Jika tidak → redirect('/onboarding').
+
+/signing-back page
+
+Ambil user dari supabase.auth.getUser().
+
+UI sama seperti di atas.
+
+Continue → router.replace('/dashboard') lalu hapus cookie postAuth.
+
+Cancel → supabase.auth.signOut() lalu router.replace('/login').
+
+Route Guard
+
+Middleware yang menolak akses /dashboard bila tidak ada session; /signing-back hanya valid saat postAuth=true.
+
+Komponen UI (ringkas)
+
+SigningBackCard:
+
+Avatar (dari user.image), Email pill.
+
+Title, subtitle.
+
+Buttons: Cancel (ghost) | Continue (primary).
+
+Footer links: Privacy, Terms.
+
+Catatan Parameter OAuth
+
+Gunakan kombinasi prompt=select_account consent agar Google selalu menampilkan pemilihan akun dan konsen granular (mirip URL contoh), namun interstitial “You’re signing back” ditangani DI APLIKASI melalui /signing-back seperti brief ini (jangan bergantung pada variasi halaman Google).
+
+Tambahkan include_granted_scopes=true dan access_type=offline bila perlu refresh token.
+
+Testing
+
+Kasus: existing user (lihat interstitial → Continue/Cancel).
+
+Kasus: new user (langsung onboarding).
+
+Kasus: deep link ke /dashboard tanpa session (harus ke /login).
+
+Kasus: akses /signing-back tanpa postAuth (redirect aman).
+
+Output yang diharapkan
+
+File/komponen untuk page /signing-back.
+
+Handler (NextAuth callbacks atau Supabase callback) yang mengarahkan ke interstitial berdasarkan user exists.
+
+Middleware/guards.
+
+Snippet konfigurasi OAuth (query params seperti di atas).
 
 ## Fixed Issues
 

@@ -34,8 +34,34 @@ export async function GET(request: Request) {
     if (error) {
       return NextResponse.redirect(`${requestUrl.origin}/login?error=auth_failed&message=${encodeURIComponent(error.message)}`);
     }
+    
+    // If we have a user, check if they already exist in our database using Supabase
+    if (data.user) {
+      // Check if user already exists in our users table
+      const { data: userData, error: userError } = await supabase
+        .from('users')
+        .select('id')
+        .eq('email', data.user.email)
+        .single();
+      
+      // If user exists, set postAuth cookie and redirect to signing-back page
+      if (userData && !userError) {
+        // Set postAuth cookie that expires in 5 minutes
+        const expires = new Date(Date.now() + 5 * 60 * 1000);
+        cookieStore.set('postAuth', 'true', {
+          path: '/',
+          expires,
+          httpOnly: true,
+          sameSite: 'lax',
+        });
+        
+        return NextResponse.redirect(`${requestUrl.origin}/signing-back?email=${encodeURIComponent(data.user.email || '')}&provider=google`);
+      }
+      // If user doesn't exist, they will be redirected to the client-side callback
+      // which will handle the redirect to dashboard for new users
+    }
   }
 
-  // Redirect to the client-side callback page
+  // Redirect to the client-side callback page for new users or cases where we need client-side handling
   return NextResponse.redirect(`${requestUrl.origin}/auth/callback`);
 }

@@ -142,10 +142,10 @@ export function Login({ mode = 'signin' }: LoginProps) {
             window.removeEventListener('message', handleAuthSuccess);
             // Show success message
             toast.success('Google authentication successful', {
-              description: 'Welcome back! Redirecting to dashboard...',
+              description: 'Redirecting...',
               id: toastId,
             });
-            // Redirect to dashboard
+            // Redirect to dashboard - the server-side callback will handle the interstitial for existing users
             window.location.href = '/dashboard';
           }
         };
@@ -160,10 +160,10 @@ export function Login({ mode = 'signin' }: LoginProps) {
             window.removeEventListener('message', handleAuthSuccess);
             // Show success message
             toast.success('Google authentication successful', {
-              description: 'Welcome! Redirecting to dashboard...',
+              description: 'Redirecting...',
               id: toastId,
             });
-            // Redirect to dashboard
+            // Redirect to dashboard - the server-side callback will handle the interstitial for existing users
             window.location.href = '/dashboard';
           }
         }, 1000);

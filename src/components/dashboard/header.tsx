@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { 
   PanelLeft, 
@@ -14,9 +15,30 @@ export function Header() {
   const router = useRouter();
 
   const handleSignOut = async () => {
-    await logout();
-    router.push('/login');
-    router.refresh();
+    // Show loading toast
+    const toastId = toast.loading('Logging out...');
+    
+    try {
+      const result = await logout();
+      if (result?.error) {
+        toast.error('Logout failed', {
+          description: result.error,
+          id: toastId,
+        });
+      } else {
+        toast.success('Logged out successfully', {
+          description: 'You have been logged out successfully.',
+          id: toastId,
+        });
+        router.push('/login');
+        router.refresh();
+      }
+    } catch (error: any) {
+      toast.error('Logout failed', {
+        description: error.message || 'An unexpected error occurred',
+        id: toastId,
+      });
+    }
   };
 
   return (

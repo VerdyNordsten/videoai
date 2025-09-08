@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useActionState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { FaSpinner, FaVideo } from 'react-icons/fa6';
 import { ActionState } from '@/lib/auth/middleware';
@@ -29,8 +30,15 @@ export function Login({ mode = 'signin' }: LoginProps) {
         const result = await signInWithEmail(email, password);
         
         if (result.error) {
+          toast.error('Login failed', {
+            description: result.error,
+          });
           return { error: result.error };
         }
+        
+        toast.success('Login successful', {
+          description: 'Welcome back! Redirecting to dashboard...',
+        });
         
         // Redirect to dashboard on successful sign in
         window.location.href = '/dashboard';
@@ -43,8 +51,15 @@ export function Login({ mode = 'signin' }: LoginProps) {
         const result = await signUpWithEmail(email, password);
         
         if (result.error) {
+          toast.error('Registration failed', {
+            description: result.error,
+          });
           return { error: result.error };
         }
+        
+        toast.success('Account created successfully', {
+          description: 'Welcome! Redirecting to dashboard...',
+        });
         
         // Redirect to dashboard on successful sign up
         window.location.href = '/dashboard';
@@ -74,6 +89,7 @@ export function Login({ mode = 'signin' }: LoginProps) {
 
   // Handle Google authentication
   const handleGoogleAuth = async () => {
+    const toastId = toast.loading('Redirecting to Google for authentication...');
     try {
       let result;
       if (mode === 'signin') {
@@ -83,10 +99,17 @@ export function Login({ mode = 'signin' }: LoginProps) {
       }
 
       if (result.error) {
+        toast.error('Google authentication failed', {
+          description: result.error,
+          id: toastId,
+        });
         return;
       }
 
       if (result.url) {
+        // Update toast to show we're redirecting
+        toast.loading('Opening Google authentication window...', { id: toastId });
+        
         // Calculate centered position for the popup
         const width = 600;
         const height = 700;
@@ -102,6 +125,7 @@ export function Login({ mode = 'signin' }: LoginProps) {
         );
         
         if (!authWindow) {
+          toast.error('Failed to open Google authentication popup', { id: toastId });
           return;
         }
         
@@ -116,6 +140,11 @@ export function Login({ mode = 'signin' }: LoginProps) {
           if (event.data?.type === 'google-auth-success') {
             // Clean up the event listener
             window.removeEventListener('message', handleAuthSuccess);
+            // Show success message
+            toast.success('Google authentication successful', {
+              description: 'Welcome back! Redirecting to dashboard...',
+              id: toastId,
+            });
             // Redirect to dashboard
             window.location.href = '/dashboard';
           }
@@ -129,13 +158,21 @@ export function Login({ mode = 'signin' }: LoginProps) {
           if (authWindow.closed) {
             clearInterval(checkClosed);
             window.removeEventListener('message', handleAuthSuccess);
+            // Show success message
+            toast.success('Google authentication successful', {
+              description: 'Welcome! Redirecting to dashboard...',
+              id: toastId,
+            });
             // Redirect to dashboard
             window.location.href = '/dashboard';
           }
         }, 1000);
       }
-    } catch (error) {
-      // Silent error handling
+    } catch (error: any) {
+      toast.error('Google authentication failed', {
+        description: error.message || 'An unexpected error occurred',
+        id: toastId,
+      });
     }
   };
 
@@ -155,6 +192,14 @@ export function Login({ mode = 'signin' }: LoginProps) {
   // Handle form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    
+    // Show loading toast
+    const toastId = toast.loading(
+      mode === 'signin' 
+        ? 'Logging in...' 
+        : 'Creating account...'
+    );
+    
     // Create a new FormData object and append the form data
     const form = new FormData();
     form.append('email', formData.email);
@@ -164,16 +209,30 @@ export function Login({ mode = 'signin' }: LoginProps) {
     if (mode === 'signin') {
       const result = await signInWithEmail(formData.email, formData.password);
       if (result.error) {
-        // Silent error handling
+        toast.error('Login failed', {
+          description: result.error,
+          id: toastId,
+        });
       } else {
+        toast.success('Login successful', {
+          description: 'Welcome back! Redirecting to dashboard...',
+          id: toastId,
+        });
         // Redirect to dashboard on successful sign in
         window.location.href = '/dashboard';
       }
     } else {
       const result = await signUpWithEmail(formData.email, formData.password);
       if (result.error) {
-        // Silent error handling
+        toast.error('Registration failed', {
+          description: result.error,
+          id: toastId,
+        });
       } else {
+        toast.success('Account created successfully', {
+          description: 'Welcome! Redirecting to dashboard...',
+          id: toastId,
+        });
         // Redirect to dashboard on successful sign up
         window.location.href = '/dashboard';
       }

@@ -6,6 +6,7 @@ import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { FaVideo } from 'react-icons/fa6';
+import { useAuth } from '@/hooks/use-auth';
 
 const menuItems = [
     { name: 'Features', href: '#link' },
@@ -17,6 +18,7 @@ const menuItems = [
 export const Navigation = () => {
     const [menuState, setMenuState] = React.useState(false);
     const [isScrolled, setIsScrolled] = React.useState(false);
+    const { user, loading } = useAuth();
 
     React.useEffect(() => {
         const handleScroll = () => {
@@ -79,31 +81,38 @@ export const Navigation = () => {
                                 </ul>
                             </div>
                             <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                                <Button
-                                    asChild
-                                    variant="outline"
-                                    size="sm"
-                                    className={cn(isScrolled && 'lg:hidden')}>
-                                    <Link href="/login">
-                                        <span>Login</span>
-                                    </Link>
-                                </Button>
-                                <Button
-                                    asChild
-                                    size="sm"
-                                    className={cn(isScrolled && 'lg:hidden')}>
-                                    <Link href="/register">
-                                        <span>Sign Up</span>
-                                    </Link>
-                                </Button>
-                                <Button
-                                    asChild
-                                    size="sm"
-                                    className={cn(isScrolled ? 'lg:inline-flex' : 'hidden')}>
-                                    <Link href="#link">
-                                        <span>Get Started</span>
-                                    </Link>
-                                </Button>
+                                {loading ? (
+                                    // Loading state
+                                    <div className="h-8 w-24 bg-gray-200 rounded animate-pulse" />
+                                ) : user ? (
+                                    // Authenticated user - show dashboard button
+                                    <Button
+                                        asChild
+                                        size="sm">
+                                        <Link href="/dashboard">
+                                            <span>Dashboard</span>
+                                        </Link>
+                                    </Button>
+                                ) : (
+                                    // Unauthenticated user - show login/signup buttons
+                                    <>
+                                        <Button
+                                            asChild
+                                            variant="outline"
+                                            size="sm">
+                                            <Link href="/login">
+                                                <span>Login</span>
+                                            </Link>
+                                        </Button>
+                                        <Button
+                                            asChild
+                                            size="sm">
+                                            <Link href="/register">
+                                                <span>Try for Free</span>
+                                            </Link>
+                                        </Button>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>

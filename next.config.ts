@@ -7,7 +7,16 @@ const nextConfig: NextConfig = {
     nodeMiddleware: true
   },
   images: {
-    domains: ['cdn1.iconfinder.com', 'storage.googleapis.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn1.iconfinder.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'storage.googleapis.com',
+      },
+    ],
   },
   async headers() {
     return [

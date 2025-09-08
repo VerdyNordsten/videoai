@@ -99,10 +99,22 @@ export function Login({ mode = 'signin' }: LoginProps) {
       }
 
       if (result.error) {
-        toast.error('Google authentication failed', {
-          description: result.error,
-          id: toastId,
-        });
+        // If the error indicates that the account already exists, show a specific message
+        if (result.error.includes('already exists')) {
+          toast.error('Account already exists', {
+            description: 'An account with this email already exists. Redirecting to login...',
+            id: toastId,
+          });
+          // Redirect to login after a short delay
+          setTimeout(() => {
+            window.location.href = '/login';
+          }, 2000);
+        } else {
+          toast.error('Google authentication failed', {
+            description: result.error,
+            id: toastId,
+          });
+        }
         return;
       }
 
@@ -224,10 +236,22 @@ export function Login({ mode = 'signin' }: LoginProps) {
     } else {
       const result = await signUpWithEmail(formData.email, formData.password);
       if (result.error) {
-        toast.error('Registration failed', {
-          description: result.error,
-          id: toastId,
-        });
+        // If the error indicates that the account already exists, show a specific message
+        if (result.error.includes('already exists')) {
+          toast.error('Account already exists', {
+            description: 'An account with this email already exists. Redirecting to login...',
+            id: toastId,
+          });
+          // Redirect to login after a short delay
+          setTimeout(() => {
+            window.location.href = '/login';
+          }, 2000);
+        } else {
+          toast.error('Registration failed', {
+            description: result.error,
+            id: toastId,
+          });
+        }
       } else {
         toast.success('Account created successfully', {
           description: 'Welcome! Redirecting to dashboard...',

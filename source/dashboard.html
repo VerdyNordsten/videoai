@@ -1,0 +1,1041 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <style>
+        ::-webkit-scrollbar { display: none;}
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .gradient-sidebar { background: linear-gradient(135deg, #6366F1 0%, #06B6D4 100%); }
+        .gradient-progress { background: linear-gradient(90deg, #6366F1 0%, #06B6D4 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        .btn-hover { transition: all 0.2s ease; }
+        .btn-hover:hover { transform: scale(1.02); }
+    </style>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "background": "#F9FAFB",
+        "surface": "#FFFFFF",
+        "primary": "#6366F1",
+        "secondary": "#06B6D4",
+        "accent1": "#F59E0B",
+        "accent2": "#10B981",
+        "danger": "#EF4444",
+        "muted": "#9CA3AF"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body class="bg-background font-sans">
+
+<!-- Sidebar -->
+<div id="sidebar" class="fixed left-0 top-0 h-full w-64 gradient-sidebar shadow-xl z-40">
+    <div class="p-6">
+        <div class="flex items-center space-x-3 mb-8">
+            <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                <i class="fa-solid fa-video text-white text-lg"></i>
+            </div>
+            <div class="text-white">
+                <h1 class="font-poppins font-semibold text-lg">AI VideoGen</h1>
+                <p class="text-white/70 text-sm">Marketing Ideas</p>
+            </div>
+        </div>
+
+        <nav class="space-y-2">
+            <span class="flex items-center space-x-3 px-4 py-3 text-white bg-white/20 rounded-xl backdrop-blur-sm cursor-pointer">
+                <i class="fa-solid fa-home text-lg"></i>
+                <span class="font-medium">Dashboard</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-lightbulb text-lg"></i>
+                <span class="font-medium">AI Ideas</span>
+                <span class="ml-auto bg-accent1 text-white text-xs px-2 py-1 rounded-full">New</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-play-circle text-lg"></i>
+                <span class="font-medium">Video Library</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-template text-lg"></i>
+                <span class="font-medium">Templates</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-chart-line text-lg"></i>
+                <span class="font-medium">Analytics</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-cog text-lg"></i>
+                <span class="font-medium">Settings</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-sign-out-alt text-lg"></i>
+                <span class="font-medium">Log Out</span>
+            </span>
+        </nav>
+
+        <div class="mt-8 p-4 bg-white/10 rounded-xl backdrop-blur-sm">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-white/90 text-sm font-medium">Monthly Usage</span>
+                <span class="text-white/70 text-xs">85%</span>
+            </div>
+            <div class="w-full bg-white/20 rounded-full h-2">
+                <div class="gradient-progress h-2 rounded-full" style="width: 85%"></div>
+            </div>
+            <p class="text-white/70 text-xs mt-2">850 / 1000 videos generated</p>
+            <button class="w-full mt-3 bg-accent1 text-white text-sm font-medium py-2 px-4 rounded-lg hover:bg-yellow-500 transition-colors">
+                Upgrade Plan
+            </button>
+        </div>
+    </div>
+
+    <div class="absolute bottom-6 left-6 right-6">
+        <div class="flex items-center space-x-3 p-3 bg-white/10 rounded-xl backdrop-blur-sm">
+            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="User Avatar" class="w-10 h-10 rounded-lg">
+            <div class="text-white">
+                <p class="font-medium text-sm">Sarah Chen</p>
+                <p class="text-white/70 text-xs">Pro Member</p>
+            </div>
+            <i class="fa-solid fa-chevron-up text-white/70 ml-auto"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Top Header -->
+<header id="header" class="fixed top-0 left-64 right-0 bg-surface border-b border-gray-200 z-30">
+    <div class="flex items-center justify-between px-6 py-4">
+        <div class="flex items-center space-x-4">
+            <h1 class="font-poppins font-semibold text-2xl text-gray-900">Dashboard</h1>
+            <span class="text-muted">/</span>
+            <span class="text-muted">Overview</span>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <div class="relative">
+                <input type="text" placeholder="Search ideas, templates..." class="w-80 pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-muted"></i>
+            </div>
+            
+            <button class="relative p-2 text-muted hover:text-gray-900 transition-colors">
+                <i class="fa-regular fa-bell text-lg"></i>
+                <span class="absolute -top-1 -right-1 w-5 h-5 bg-danger text-white text-xs rounded-full flex items-center justify-center">3</span>
+            </button>
+
+            <button class="p-2 text-muted hover:text-gray-900 transition-colors">
+                <i class="fa-solid fa-question-circle text-lg"></i>
+            </button>
+
+            <div class="flex items-center space-x-3">
+                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Profile" class="w-8 h-8 rounded-lg">
+                <i class="fa-solid fa-chevron-down text-muted"></i>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main id="main-content" class="ml-64 pt-20 p-6">
+    
+    <!-- Welcome Section -->
+    <section id="welcome-section" class="mb-8">
+        <div class="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-white">
+            <div class="flex items-center justify-between">
+                <div class="flex-1">
+                    <h2 class="font-poppins font-bold text-3xl mb-2">Welcome back, Sarah! 👋</h2>
+                    <p class="text-white/90 text-lg mb-4">Ready to create amazing marketing videos? You've generated 12 videos this week!</p>
+                    <div class="flex items-center space-x-4">
+                        <button class="bg-white text-primary font-semibold px-6 py-3 rounded-xl btn-hover">
+                            <i class="fa-solid fa-plus mr-2"></i>
+                            Create New Video
+                        </button>
+                        <button class="border-2 border-white/30 text-white font-semibold px-6 py-3 rounded-xl btn-hover hover:bg-white/10">
+                            View Templates
+                        </button>
+                    </div>
+                </div>
+                <div class="hidden lg:block">
+                    <img class="w-48 h-48 rounded-xl opacity-90" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/db28acd4f7-5572c2896c88bcbf6356.png" alt="creative marketing video dashboard illustration, modern gradient style">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section id="stats-section" class="mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-surface border border-gray-200 rounded-xl p-6 card-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-video text-primary text-xl"></i>
+                    </div>
+                    <span class="text-accent2 text-sm font-medium">+23%</span>
+                </div>
+                <h3 class="font-poppins font-semibold text-2xl text-gray-900 mb-1">847</h3>
+                <p class="text-muted">Videos Generated</p>
+            </div>
+
+            <div class="bg-surface border border-gray-200 rounded-xl p-6 card-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-lightbulb text-secondary text-xl"></i>
+                    </div>
+                    <span class="text-accent2 text-sm font-medium">+15%</span>
+                </div>
+                <h3 class="font-poppins font-semibold text-2xl text-gray-900 mb-1">1,234</h3>
+                <p class="text-muted">AI Ideas Created</p>
+            </div>
+
+            <div class="bg-surface border border-gray-200 rounded-xl p-6 card-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-accent1/10 rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-eye text-accent1 text-xl"></i>
+                    </div>
+                    <span class="text-danger text-sm font-medium">-5%</span>
+                </div>
+                <h3 class="font-poppins font-semibold text-2xl text-gray-900 mb-1">2.4M</h3>
+                <p class="text-muted">Total Views</p>
+            </div>
+
+            <div class="bg-surface border border-gray-200 rounded-xl p-6 card-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-accent2/10 rounded-xl flex items-center justify-center">
+                        <i class="fa-solid fa-heart text-accent2 text-xl"></i>
+                    </div>
+                    <span class="text-accent2 text-sm font-medium">+31%</span>
+                </div>
+                <h3 class="font-poppins font-semibold text-2xl text-gray-900 mb-1">89.2%</h3>
+                <p class="text-muted">Engagement Rate</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Video Ideas Generator -->
+    <section id="ai-generator-section" class="mb-8">
+        <div class="bg-surface border border-gray-200 rounded-xl p-8">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="font-poppins font-semibold text-xl text-gray-900 mb-2">AI Video Ideas Generator</h2>
+                    <p class="text-muted">Generate creative marketing video concepts with AI</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="bg-accent2 text-white text-xs px-3 py-1 rounded-full font-medium">✨ AI Powered</span>
+                    <button class="text-muted hover:text-gray-900">
+                        <i class="fa-solid fa-question-circle"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-900 mb-2">Industry/Niche</label>
+                        <select class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option>E-commerce &amp; Retail</option>
+                            <option>SaaS &amp; Technology</option>
+                            <option>Healthcare &amp; Wellness</option>
+                            <option>Education &amp; Training</option>
+                            <option>Real Estate</option>
+                            <option>Food &amp; Restaurant</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-900 mb-2">Video Type</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button class="p-3 border-2 border-primary bg-primary/5 text-primary rounded-xl text-sm font-medium">Product Demo</button>
+                            <button class="p-3 border border-gray-200 text-gray-600 rounded-xl text-sm font-medium hover:border-primary hover:text-primary">Testimonial</button>
+                            <button class="p-3 border border-gray-200 text-gray-600 rounded-xl text-sm font-medium hover:border-primary hover:text-primary">Tutorial</button>
+                            <button class="p-3 border border-gray-200 text-gray-600 rounded-xl text-sm font-medium hover:border-primary hover:text-primary">Brand Story</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-900 mb-2">Target Audience</label>
+                        <input type="text" placeholder="e.g., Young professionals, Parents, Small business owners" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+
+                    <button class="w-full bg-primary text-white font-semibold py-4 px-6 rounded-xl btn-hover flex items-center justify-center">
+                        <i class="fa-solid fa-magic-wand-sparkles mr-2"></i>
+                        Generate AI Ideas
+                    </button>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <h3 class="font-poppins font-semibold text-lg text-gray-900 mb-4">Recent AI Generated Ideas</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-xl border border-gray-200">
+                            <div class="flex items-start justify-between mb-2">
+                                <h4 class="font-medium text-gray-900">"30-Second Product Showcase"</h4>
+                                <span class="text-xs text-accent1 bg-accent1/10 px-2 py-1 rounded-full">Trending</span>
+                            </div>
+                            <p class="text-sm text-muted mb-3">Quick product demo highlighting key features with dynamic transitions and call-to-action overlay.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-xs text-muted">E-commerce</span>
+                                    <span class="w-1 h-1 bg-muted rounded-full"></span>
+                                    <span class="text-xs text-muted">2 min read</span>
+                                </div>
+                                <button class="text-primary text-sm font-medium hover:underline">Use Template</button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-gray-200">
+                            <div class="flex items-start justify-between mb-2">
+                                <h4 class="font-medium text-gray-900">"Customer Success Story"</h4>
+                                <span class="text-xs text-accent2 bg-accent2/10 px-2 py-1 rounded-full">Popular</span>
+                            </div>
+                            <p class="text-sm text-muted mb-3">Authentic testimonial format with before/after scenarios and emotional storytelling.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-xs text-muted">SaaS</span>
+                                    <span class="w-1 h-1 bg-muted rounded-full"></span>
+                                    <span class="text-xs text-muted">3 min read</span>
+                                </div>
+                                <button class="text-primary text-sm font-medium hover:underline">Use Template</button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-xl border border-gray-200">
+                            <div class="flex items-start justify-between mb-2">
+                                <h4 class="font-medium text-gray-900">"Behind-the-Scenes Tour"</h4>
+                                <span class="text-xs text-secondary bg-secondary/10 px-2 py-1 rounded-full">New</span>
+                            </div>
+                            <p class="text-sm text-muted mb-3">Humanize your brand with workplace culture and team introduction content.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-xs text-muted">Brand Story</span>
+                                    <span class="w-1 h-1 bg-muted rounded-full"></span>
+                                    <span class="text-xs text-muted">1 min read</span>
+                                </div>
+                                <button class="text-primary text-sm font-medium hover:underline">Use Template</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Projects -->
+    <section id="recent-projects-section" class="mb-8">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="font-poppins font-semibold text-xl text-gray-900">Recent Projects</h2>
+            <div class="flex items-center space-x-3">
+                <button class="text-muted hover:text-gray-900">
+                    <i class="fa-solid fa-filter"></i>
+                </button>
+                <button class="text-muted hover:text-gray-900">
+                    <i class="fa-solid fa-sort"></i>
+                </button>
+                <button class="text-primary font-medium hover:underline">View All</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover">
+                <div class="relative">
+                    <img class="w-full h-48 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/f951e6eff0-9d098ab095a6cea66e18.png" alt="modern product showcase video thumbnail, sleek design">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-accent2 text-white text-xs px-2 py-1 rounded-full">Completed</span>
+                    </div>
+                    <div class="absolute inset-0 bg-black/0 hover:bg-black/20 transition-all flex items-center justify-center opacity-0 hover:opacity-100">
+                        <button class="bg-white text-primary w-12 h-12 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="font-poppins font-semibold text-lg text-gray-900">Summer Collection Launch</h3>
+                        <button class="text-muted hover:text-gray-900">
+                            <i class="fa-solid fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted text-sm mb-4">Product showcase video for fashion e-commerce brand featuring new summer collection with dynamic transitions.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs text-muted">Duration: 45s</span>
+                            <span class="w-1 h-1 bg-muted rounded-full"></span>
+                            <span class="text-xs text-muted">1080p</span>
+                        </div>
+                        <span class="text-xs text-muted">2 days ago</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button class="flex-1 bg-primary text-white font-medium py-2 px-4 rounded-lg btn-hover">
+                            <i class="fa-solid fa-download mr-2"></i>
+                            Download
+                        </button>
+                        <button class="px-4 py-2 border border-gray-200 rounded-lg hover:border-primary hover:text-primary transition-colors">
+                            <i class="fa-solid fa-share"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover">
+                <div class="relative">
+                    <img class="w-full h-48 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/974db16bf6-a870629074c822f15c0a.png" alt="customer testimonial video thumbnail, professional business style">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-accent1 text-white text-xs px-2 py-1 rounded-full">In Progress</span>
+                    </div>
+                    <div class="absolute inset-0 bg-black/0 hover:bg-black/20 transition-all flex items-center justify-center opacity-0 hover:opacity-100">
+                        <button class="bg-white text-primary w-12 h-12 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="font-poppins font-semibold text-lg text-gray-900">Client Testimonials</h3>
+                        <button class="text-muted hover:text-gray-900">
+                            <i class="fa-solid fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted text-sm mb-4">Customer success stories compilation for SaaS platform featuring real client experiences and results.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs text-muted">Duration: 2m 15s</span>
+                            <span class="w-1 h-1 bg-muted rounded-full"></span>
+                            <span class="text-xs text-muted">4K</span>
+                        </div>
+                        <span class="text-xs text-muted">5 hours ago</span>
+                    </div>
+                    <div class="mb-3">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xs text-muted">Progress</span>
+                            <span class="text-xs text-muted">78%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="gradient-progress h-2 rounded-full" style="width: 78%"></div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button class="flex-1 bg-secondary text-white font-medium py-2 px-4 rounded-lg btn-hover">
+                            <i class="fa-solid fa-edit mr-2"></i>
+                            Continue Editing
+                        </button>
+                        <button class="px-4 py-2 border border-gray-200 rounded-lg hover:border-primary hover:text-primary transition-colors">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover">
+                <div class="relative">
+                    <img class="w-full h-48 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/d97f711dac-f9914c2d5c258ee3fd8c.png" alt="brand story video thumbnail, corporate modern design">
+                    <div class="absolute top-3 right-3">
+                        <span class="bg-muted text-white text-xs px-2 py-1 rounded-full">Draft</span>
+                    </div>
+                    <div class="absolute inset-0 bg-black/0 hover:bg-black/20 transition-all flex items-center justify-center opacity-0 hover:opacity-100">
+                        <button class="bg-white text-primary w-12 h-12 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="font-poppins font-semibold text-lg text-gray-900">Brand Story 2024</h3>
+                        <button class="text-muted hover:text-gray-900">
+                            <i class="fa-solid fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                    <p class="text-muted text-sm mb-4">Company origin story and values presentation for corporate website and social media channels.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs text-muted">Duration: 1m 30s</span>
+                            <span class="w-1 h-1 bg-muted rounded-full"></span>
+                            <span class="text-xs text-muted">1080p</span>
+                        </div>
+                        <span class="text-xs text-muted">1 week ago</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button class="flex-1 border border-primary text-primary font-medium py-2 px-4 rounded-lg hover:bg-primary hover:text-white transition-colors">
+                            <i class="fa-solid fa-edit mr-2"></i>
+                            Edit Draft
+                        </button>
+                        <button class="px-4 py-2 border border-gray-200 rounded-lg hover:border-danger hover:text-danger transition-colors">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Template Library -->
+    <section id="template-library-section" class="mb-8">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 class="font-poppins font-semibold text-xl text-gray-900 mb-1">Popular Templates</h2>
+                <p class="text-muted">Professional video templates to jumpstart your projects</p>
+            </div>
+            <button class="bg-secondary text-white font-medium px-6 py-2 rounded-xl btn-hover">
+                Browse All Templates
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover group">
+                <div class="relative">
+                    <img class="w-full h-40 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/1f28394add-41247934c602637d01a2.png" alt="social media video template, modern colorful design">
+                    <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all"></div>
+                    <div class="absolute top-3 right-3">
+                        <button class="w-8 h-8 bg-white/80 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fa-solid fa-heart text-gray-600"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium text-gray-900 mb-1">Social Media Pack</h3>
+                    <p class="text-xs text-muted mb-3">Square &amp; Story formats</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-accent2 text-sm font-semibold">Free</span>
+                        <button class="text-primary text-sm font-medium hover:underline">Use Template</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover group">
+                <div class="relative">
+                    <img class="w-full h-40 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/a7a3cb0a5b-e0249a6fea6e9cc7f014.png" alt="product launch video template, professional business style">
+                    <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all"></div>
+                    <div class="absolute top-3 right-3">
+                        <button class="w-8 h-8 bg-white/80 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fa-solid fa-heart text-gray-600"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium text-gray-900 mb-1">Product Launch</h3>
+                    <p class="text-xs text-muted mb-3">Professional showcase</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-accent1 text-sm font-semibold">Pro</span>
+                        <button class="text-primary text-sm font-medium hover:underline">Use Template</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover group">
+                <div class="relative">
+                    <img class="w-full h-40 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/8606fcbb85-d8d617126fc2a7c47bdd.png" alt="testimonial video template, clean corporate design">
+                    <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all"></div>
+                    <div class="absolute top-3 right-3">
+                        <button class="w-8 h-8 bg-white/80 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fa-solid fa-heart text-gray-600"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium text-gray-900 mb-1">Testimonials</h3>
+                    <p class="text-xs text-muted mb-3">Customer stories</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-accent2 text-sm font-semibold">Free</span>
+                        <button class="text-primary text-sm font-medium hover:underline">Use Template</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover group">
+                <div class="relative">
+                    <img class="w-full h-40 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/92970a7e25-b54e51c88cc4d7893db4.png" alt="tutorial video template, educational modern style">
+                    <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all"></div>
+                    <div class="absolute top-3 right-3">
+                        <button class="w-8 h-8 bg-white/80 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fa-solid fa-heart text-gray-600"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium text-gray-900 mb-1">How-To Guide</h3>
+                    <p class="text-xs text-muted mb-3">Step-by-step tutorials</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-accent1 text-sm font-semibold">Pro</span>
+                        <button class="text-primary text-sm font-medium hover:underline">Use Template</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Overview -->
+    <section id="analytics-section" class="mb-8">
+        <div class="bg-surface border border-gray-200 rounded-xl p-8">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="font-poppins font-semibold text-xl text-gray-900 mb-1">Performance Analytics</h2>
+                    <p class="text-muted">Track your video marketing success</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <select class="px-4 py-2 border border-gray-200 rounded-lg text-sm">
+                        <option>Last 30 days</option>
+                        <option>Last 7 days</option>
+                        <option>Last 90 days</option>
+                    </select>
+                    <button class="text-primary font-medium hover:underline">View Detailed Report</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2">
+                    <div class="mb-4">
+                        <h3 class="font-medium text-gray-900 mb-2">Views &amp; Engagement</h3>
+                        <div id="analytics-chart" class="h-64"></div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h3 class="font-medium text-gray-900 mb-4">Top Performing Videos</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-play text-primary"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-sm font-medium text-gray-900">Summer Collection Launch</h4>
+                                    <p class="text-xs text-muted">124K views • 8.2% CTR</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-accent2 text-xs">↗ 23%</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-play text-secondary"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-sm font-medium text-gray-900">Client Success Stories</h4>
+                                    <p class="text-xs text-muted">98K views • 12.1% CTR</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-accent2 text-xs">↗ 31%</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-accent1/10 rounded-lg flex items-center justify-center">
+                                    <i class="fa-solid fa-play text-accent1"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-sm font-medium text-gray-900">Product Tutorial</h4>
+                                    <p class="text-xs text-muted">76K views • 6.8% CTR</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-danger text-xs">↘ 5%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h3 class="font-medium text-gray-900 mb-4">Platform Distribution</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fa-brands fa-youtube text-red-500"></i>
+                                    <span class="text-sm">YouTube</span>
+                                </div>
+                                <span class="text-sm font-medium">42%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-red-500 h-2 rounded-full" style="width: 42%"></div>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fa-brands fa-instagram text-pink-500"></i>
+                                    <span class="text-sm">Instagram</span>
+                                </div>
+                                <span class="text-sm font-medium">28%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-pink-500 h-2 rounded-full" style="width: 28%"></div>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fa-brands fa-linkedin text-blue-600"></i>
+                                    <span class="text-sm">LinkedIn</span>
+                                </div>
+                                <span class="text-sm font-medium">30%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-600 h-2 rounded-full" style="width: 30%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Collaboration -->
+    <section id="team-section" class="mb-8">
+        <div class="bg-surface border border-gray-200 rounded-xl p-8">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="font-poppins font-semibold text-xl text-gray-900 mb-1">Team Collaboration</h2>
+                    <p class="text-muted">Manage your video marketing team and projects</p>
+                </div>
+                <button class="bg-accent2 text-white font-medium px-6 py-2 rounded-xl btn-hover">
+                    <i class="fa-solid fa-user-plus mr-2"></i>
+                    Invite Member
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-medium text-gray-900 mb-4">Active Team Members</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Team Member" class="w-10 h-10 rounded-lg">
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Sarah Chen</h4>
+                                    <p class="text-sm text-muted">Creative Director</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-accent2 text-white text-xs px-2 py-1 rounded-full">Owner</span>
+                                <button class="text-muted hover:text-gray-900">
+                                    <i class="fa-solid fa-ellipsis-h"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="Team Member" class="w-10 h-10 rounded-lg">
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Marcus Johnson</h4>
+                                    <p class="text-sm text-muted">Video Editor</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-primary text-white text-xs px-2 py-1 rounded-full">Editor</span>
+                                <button class="text-muted hover:text-gray-900">
+                                    <i class="fa-solid fa-ellipsis-h"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="Team Member" class="w-10 h-10 rounded-lg">
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Emma Rodriguez</h4>
+                                    <p class="text-sm text-muted">Marketing Specialist</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-secondary text-white text-xs px-2 py-1 rounded-full">Viewer</span>
+                                <button class="text-muted hover:text-gray-900">
+                                    <i class="fa-solid fa-ellipsis-h"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                            <div class="flex items-center space-x-3">
+                                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="Team Member" class="w-10 h-10 rounded-lg">
+                                <div>
+                                    <h4 class="font-medium text-gray-900">David Kim</h4>
+                                    <p class="text-sm text-muted">Content Strategist</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-accent1 text-white text-xs px-2 py-1 rounded-full">Collaborator</span>
+                                <button class="text-muted hover:text-gray-900">
+                                    <i class="fa-solid fa-ellipsis-h"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-medium text-gray-900 mb-4">Recent Activity</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3 p-4 bg-gray-50 rounded-xl">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="User" class="w-8 h-8 rounded-lg">
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-900"><span class="font-medium">Marcus Johnson</span> completed editing <span class="font-medium">"Summer Collection Launch"</span></p>
+                                <p class="text-xs text-muted mt-1">2 hours ago</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3 p-4 bg-gray-50 rounded-xl">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="User" class="w-8 h-8 rounded-lg">
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-900"><span class="font-medium">Emma Rodriguez</span> shared <span class="font-medium">"Client Testimonials"</span> project</p>
+                                <p class="text-xs text-muted mt-1">4 hours ago</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3 p-4 bg-gray-50 rounded-xl">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="User" class="w-8 h-8 rounded-lg">
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-900"><span class="font-medium">David Kim</span> added new AI idea template <span class="font-medium">"Product Demo 2.0"</span></p>
+                                <p class="text-xs text-muted mt-1">1 day ago</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-3 p-4 bg-gray-50 rounded-xl">
+                            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="User" class="w-8 h-8 rounded-lg">
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-900"><span class="font-medium">Sarah Chen</span> created new project <span class="font-medium">"Brand Story 2024"</span></p>
+                                <p class="text-xs text-muted mt-1">2 days ago</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="w-full mt-4 text-primary font-medium py-2 border border-primary rounded-xl hover:bg-primary hover:text-white transition-colors">
+                        View All Activity
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Resources -->
+    <section id="learning-section" class="mb-8">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 class="font-poppins font-semibold text-xl text-gray-900 mb-1">Learning Center</h2>
+                <p class="text-muted">Master video marketing with our tutorials and guides</p>
+            </div>
+            <button class="text-primary font-medium hover:underline">View All Resources</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover">
+                <div class="relative">
+                    <img class="w-full h-32 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/a8d30dd9cb-a58773f79999e792ca3b.png" alt="video marketing tutorial thumbnail, educational design">
+                    <div class="absolute top-3 left-3">
+                        <span class="bg-accent2 text-white text-xs px-2 py-1 rounded-full">Tutorial</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-poppins font-semibold text-lg text-gray-900 mb-2">Getting Started with AI Video Ideas</h3>
+                    <p class="text-muted text-sm mb-4">Learn how to generate compelling video concepts using our AI-powered tools.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-play-circle text-primary"></i>
+                            <span class="text-sm text-muted">8 min read</span>
+                        </div>
+                        <button class="text-primary font-medium hover:underline">Start Learning</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover">
+                <div class="relative">
+                    <img class="w-full h-32 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/f9aa3d9e05-d2fa907b3050e18730f3.png" alt="video editing guide thumbnail, professional tutorial">
+                    <div class="absolute top-3 left-3">
+                        <span class="bg-primary text-white text-xs px-2 py-1 rounded-full">Guide</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-poppins font-semibold text-lg text-gray-900 mb-2">Advanced Editing Techniques</h3>
+                    <p class="text-muted text-sm mb-4">Master professional video editing with advanced techniques and best practices.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-book-open text-secondary"></i>
+                            <span class="text-sm text-muted">15 min read</span>
+                        </div>
+                        <button class="text-primary font-medium hover:underline">Start Learning</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover">
+                <div class="relative">
+                    <img class="w-full h-32 object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/9e61318bea-343d247227091a004dcd.png" alt="marketing strategy video thumbnail, business guide">
+                    <div class="absolute top-3 left-3">
+                        <span class="bg-accent1 text-white text-xs px-2 py-1 rounded-full">Strategy</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-poppins font-semibold text-lg text-gray-900 mb-2">Video Marketing Strategy</h3>
+                    <p class="text-muted text-sm mb-4">Build effective video marketing campaigns that drive engagement and conversions.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-chart-line text-accent1"></i>
+                            <span class="text-sm text-muted">12 min read</span>
+                        </div>
+                        <button class="text-primary font-medium hover:underline">Start Learning</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section id="quick-actions-section" class="mb-8">
+        <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-8">
+            <div class="text-center mb-8">
+                <h2 class="font-poppins font-semibold text-2xl text-gray-900 mb-2">Ready to Create Something Amazing?</h2>
+                <p class="text-muted text-lg">Choose your preferred way to start your next video project</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-surface border-2 border-dashed border-primary/30 rounded-xl p-8 text-center hover:border-primary/60 hover:bg-primary/5 transition-all card-hover group">
+                    <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
+                        <i class="fa-solid fa-magic-wand-sparkles text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="font-poppins font-semibold text-lg text-gray-900 mb-2">Generate AI Ideas</h3>
+                    <p class="text-muted text-sm mb-4">Let AI create unique video concepts tailored to your brand and audience</p>
+                    <button class="bg-primary text-white font-medium px-6 py-3 rounded-xl btn-hover w-full">
+                        Start Generating
+                    </button>
+                </div>
+
+                <div class="bg-surface border-2 border-dashed border-secondary/30 rounded-xl p-8 text-center hover:border-secondary/60 hover:bg-secondary/5 transition-all card-hover group">
+                    <div class="w-16 h-16 bg-secondary/10 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-secondary/20 transition-colors">
+                        <i class="fa-solid fa-template text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="font-poppins font-semibold text-lg text-gray-900 mb-2">Use Template</h3>
+                    <p class="text-muted text-sm mb-4">Start with professionally designed templates and customize to your needs</p>
+                    <button class="bg-secondary text-white font-medium px-6 py-3 rounded-xl btn-hover w-full">
+                        Browse Templates
+                    </button>
+                </div>
+
+                <div class="bg-surface border-2 border-dashed border-accent2/30 rounded-xl p-8 text-center hover:border-accent2/60 hover:bg-accent2/5 transition-all card-hover group">
+                    <div class="w-16 h-16 bg-accent2/10 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-accent2/20 transition-colors">
+                        <i class="fa-solid fa-upload text-accent2 text-2xl"></i>
+                    </div>
+                    <h3 class="font-poppins font-semibold text-lg text-gray-900 mb-2">Upload Content</h3>
+                    <p class="text-muted text-sm mb-4">Upload your existing content and enhance it with our editing tools</p>
+                    <button class="bg-accent2 text-white font-medium px-6 py-3 rounded-xl btn-hover w-full">
+                        Upload Files
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Mobile Bottom Navigation -->
+<div id="mobile-nav" class="fixed bottom-0 left-0 right-0 bg-surface border-t border-gray-200 lg:hidden z-40">
+    <div class="grid grid-cols-5 gap-1">
+        <button class="flex flex-col items-center justify-center py-3 text-primary">
+            <i class="fa-solid fa-home text-lg mb-1"></i>
+            <span class="text-xs">Home</span>
+        </button>
+        <button class="flex flex-col items-center justify-center py-3 text-muted hover:text-gray-900">
+            <i class="fa-solid fa-upload text-lg mb-1"></i>
+            <span class="text-xs">Upload</span>
+        </button>
+        <button class="flex flex-col items-center justify-center py-3 text-muted hover:text-gray-900">
+            <i class="fa-solid fa-lightbulb text-lg mb-1"></i>
+            <span class="text-xs">Ideas</span>
+        </button>
+        <button class="flex flex-col items-center justify-center py-3 text-muted hover:text-gray-900">
+            <i class="fa-solid fa-template text-lg mb-1"></i>
+            <span class="text-xs">Templates</span>
+        </button>
+        <button class="flex flex-col items-center justify-center py-3 text-muted hover:text-gray-900">
+            <i class="fa-solid fa-cog text-lg mb-1"></i>
+            <span class="text-xs">Settings</span>
+        </button>
+    </div>
+</div>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script>
+Highcharts.chart('analytics-chart', {
+    credits: { enabled: false },
+    chart: {
+        type: 'line',
+        backgroundColor: 'transparent',
+        height: 250
+    },
+    title: { text: null },
+    xAxis: {
+        categories: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        lineColor: '#E5E7EB',
+        tickColor: '#E5E7EB'
+    },
+    yAxis: {
+        title: { text: null },
+        gridLineColor: '#F3F4F6'
+    },
+    legend: {
+        align: 'right',
+        verticalAlign: 'top',
+        layout: 'horizontal'
+    },
+    series: [{
+        name: 'Views',
+        data: [120000, 145000, 132000, 167000],
+        color: '#6366F1',
+        lineWidth: 3,
+        marker: {
+            fillColor: '#6366F1',
+            radius: 5
+        }
+    }, {
+        name: 'Engagement',
+        data: [8500, 9200, 8800, 11400],
+        color: '#06B6D4',
+        lineWidth: 3,
+        marker: {
+            fillColor: '#06B6D4',
+            radius: 5
+        }
+    }],
+    plotOptions: {
+        line: {
+            dataLabels: { enabled: false },
+            enableMouseTracking: true
+        }
+    }
+});
+</script>
+
+
+</body></html>

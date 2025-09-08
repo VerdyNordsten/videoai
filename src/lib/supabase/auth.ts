@@ -65,18 +65,44 @@ export async function signUpWithEmail(email: string, password: string) {
       }
     )
     
+    // Check if user already exists
+    const { data: existingUser, error: fetchError } = await supabase
+      .from('users')
+      .select('id')
+      .eq('email', email)
+      .single();
+    
+    // If user already exists, return an error
+    if (existingUser && !fetchError) {
+      return { error: 'An account with this email already exists. Please sign in instead.' };
+    }
+    
+    // Also check if Supabase auth already has this user
+    const { data: authUser, error: authError } = await supabase.auth.getUserByEmail(email);
+    if (authUser && authUser.user && !authError) {
+      return { error: 'An account with this email already exists. Please sign in instead.' };
+    }
+    
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-    })
+    });
 
     if (error) {
-      return { error: error.message }
+      // Check if the error is about email already in use
+      if (error.message && error.message.toLowerCase().includes('email')) {
+        return { error: 'An account with this email already exists. Please sign in instead.' };
+      }
+      return { error: error.message };
     }
 
-    return { success: true, requiresEmailConfirmation: !data.session }
+    return { success: true, requiresEmailConfirmation: !data.session };
   } catch (error: any) {
-    return { error: error.message || 'An unexpected error occurred' }
+    // Also check if the error is about email already in use
+    if (error.message && error.message.toLowerCase().includes('email')) {
+      return { error: 'An account with this email already exists. Please sign in instead.' };
+    }
+    return { error: error.message || 'An unexpected error occurred' };
   }
 }
 

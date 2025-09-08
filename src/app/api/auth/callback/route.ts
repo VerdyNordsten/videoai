@@ -57,11 +57,13 @@ export async function GET(request: Request) {
         
         return NextResponse.redirect(`${requestUrl.origin}/signing-back?email=${encodeURIComponent(data.user.email || '')}&provider=google`);
       }
-      // If user doesn't exist, they will be redirected to the client-side callback
-      // which will handle the redirect to dashboard for new users
+      // If user doesn't exist, redirect to client-side callback for new users
+      else {
+        return NextResponse.redirect(`${requestUrl.origin}/auth/callback`);
+      }
     }
   }
 
-  // Redirect to the client-side callback page for new users or cases where we need client-side handling
+  // Redirect to the client-side callback page for all other cases
   return NextResponse.redirect(`${requestUrl.origin}/auth/callback`);
 }

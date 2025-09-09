@@ -1,0 +1,989 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <style>
+        ::-webkit-scrollbar { display: none;}
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .gradient-sidebar { background: linear-gradient(135deg, #6366F1 0%, #06B6D4 100%); }
+        .gradient-progress { background: linear-gradient(90deg, #6366F1 0%, #06B6D4 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        .btn-hover { transition: all 0.2s ease; }
+        .btn-hover:hover { transform: scale(1.02); }
+        .bulk-actions { transform: translateY(100%); transition: transform 0.3s ease; }
+        .bulk-actions.show { transform: translateY(0); }
+        .video-card { transition: all 0.3s ease; }
+        .video-card:hover { transform: translateY(-2px); }
+        .video-card.selected { ring: 2px; ring-color: #6366F1; }
+    </style>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "background": "#F9FAFB",
+        "surface": "#FFFFFF",
+        "primary": "#6366F1",
+        "secondary": "#06B6D4",
+        "accent1": "#F59E0B",
+        "accent2": "#10B981",
+        "danger": "#EF4444",
+        "muted": "#9CA3AF"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body class="bg-background font-sans">
+
+<!-- Sidebar -->
+<div id="sidebar" class="fixed left-0 top-0 h-full w-64 gradient-sidebar shadow-xl z-40 lg:block hidden">
+    <div class="p-6">
+        <div class="flex items-center space-x-3 mb-8">
+            <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                <i class="fa-solid fa-video text-white text-lg"></i>
+            </div>
+            <div class="text-white">
+                <h1 class="font-poppins font-semibold text-lg">AI VideoGen</h1>
+                <p class="text-white/70 text-sm">Marketing Ideas</p>
+            </div>
+        </div>
+
+        <nav class="space-y-2">
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-home text-lg"></i>
+                <span class="font-medium">Dashboard</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-lightbulb text-lg"></i>
+                <span class="font-medium">AI Ideas</span>
+                <span class="ml-auto bg-accent1 text-white text-xs px-2 py-1 rounded-full">New</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white bg-white/20 rounded-xl backdrop-blur-sm cursor-pointer">
+                <i class="fa-solid fa-play-circle text-lg"></i>
+                <span class="font-medium">Video Library</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-template text-lg"></i>
+                <span class="font-medium">Templates</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-chart-line text-lg"></i>
+                <span class="font-medium">Analytics</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-cog text-lg"></i>
+                <span class="font-medium">Settings</span>
+            </span>
+        </nav>
+
+        <div class="mt-8 p-4 bg-white/10 rounded-xl backdrop-blur-sm">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-white/90 text-sm font-medium">Monthly Usage</span>
+                <span class="text-white/70 text-xs">23/100</span>
+            </div>
+            <div class="w-full bg-white/20 rounded-full h-2">
+                <div class="gradient-progress h-2 rounded-full" style="width: 23%"></div>
+            </div>
+            <p class="text-white/70 text-xs mt-2">23 analyzed this month</p>
+        </div>
+    </div>
+
+    <div class="absolute bottom-6 left-6 right-6">
+        <div class="flex items-center space-x-3 p-3 bg-white/10 rounded-xl backdrop-blur-sm">
+            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="User Avatar" class="w-10 h-10 rounded-lg">
+            <div class="text-white">
+                <p class="font-medium text-sm">Sarah Chen</p>
+                <p class="text-white/70 text-xs">Pro Member</p>
+            </div>
+            <i class="fa-solid fa-chevron-up text-white/70 ml-auto"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Mobile Sidebar Overlay -->
+<div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"></div>
+
+<!-- Mobile Sidebar -->
+<div id="mobile-sidebar" class="fixed left-0 top-0 h-full w-64 gradient-sidebar shadow-xl z-40 lg:hidden transform -translate-x-full transition-transform">
+    <div class="p-6">
+        <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                    <i class="fa-solid fa-video text-white text-lg"></i>
+                </div>
+                <div class="text-white">
+                    <h1 class="font-poppins font-semibold text-lg">AI VideoGen</h1>
+                    <p class="text-white/70 text-sm">Marketing Ideas</p>
+                </div>
+            </div>
+            <button id="close-sidebar" class="text-white/70 hover:text-white">
+                <i class="fa-solid fa-times text-lg"></i>
+            </button>
+        </div>
+
+        <nav class="space-y-2">
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-home text-lg"></i>
+                <span class="font-medium">Dashboard</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-lightbulb text-lg"></i>
+                <span class="font-medium">AI Ideas</span>
+                <span class="ml-auto bg-accent1 text-white text-xs px-2 py-1 rounded-full">New</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white bg-white/20 rounded-xl backdrop-blur-sm cursor-pointer">
+                <i class="fa-solid fa-play-circle text-lg"></i>
+                <span class="font-medium">Video Library</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-template text-lg"></i>
+                <span class="font-medium">Templates</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-chart-line text-lg"></i>
+                <span class="font-medium">Analytics</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-cog text-lg"></i>
+                <span class="font-medium">Settings</span>
+            </span>
+        </nav>
+    </div>
+</div>
+
+<!-- Top Header -->
+<header id="header" class="fixed top-0 left-0 lg:left-64 right-0 bg-surface border-b border-gray-200 z-30">
+    <div class="flex items-center justify-between px-4 lg:px-6 py-4">
+        <div class="flex items-center space-x-4">
+            <button id="mobile-menu-btn" class="lg:hidden text-gray-600 hover:text-gray-900">
+                <i class="fa-solid fa-bars text-lg"></i>
+            </button>
+            <div>
+                <h1 class="font-poppins font-semibold text-xl lg:text-2xl text-gray-900">Video Library</h1>
+                <p class="text-muted text-sm hidden lg:block">All analyzed videos and their AI ideas, organized for quick retrieval.</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-2 lg:space-x-4">
+            <button class="relative p-2 text-muted hover:text-gray-900 transition-colors">
+                <i class="fa-regular fa-bell text-lg"></i>
+                <span class="absolute -top-1 -right-1 w-5 h-5 bg-danger text-white text-xs rounded-full flex items-center justify-center">3</span>
+            </button>
+
+            <div class="flex items-center space-x-3">
+                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Profile" class="w-8 h-8 rounded-lg">
+                <i class="fa-solid fa-chevron-down text-muted hidden lg:block"></i>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main id="main-content" class="lg:ml-64 pt-20 lg:pt-24">
+    
+    <!-- Header Controls -->
+    <section id="header-controls" class="px-4 lg:px-6 mb-6">
+        <div class="bg-surface border border-gray-200 rounded-xl p-4 lg:p-6">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <div class="flex flex-col sm:flex-row gap-3 flex-1">
+                    <div class="relative flex-1 max-w-md">
+                        <input type="text" placeholder="Search by title, hook, caption, hashtag…" class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-muted"></i>
+                    </div>
+                    
+                    <div class="flex gap-2">
+                        <select class="px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option>All Platforms</option>
+                            <option>TikTok</option>
+                            <option>Instagram</option>
+                            <option>YouTube</option>
+                        </select>
+                        
+                        <select class="px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option>All Status</option>
+                            <option>Draft</option>
+                            <option>Reviewed</option>
+                            <option>Approved</option>
+                            <option>Published</option>
+                        </select>
+                        
+                        <select class="px-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option>Newest</option>
+                            <option>Oldest</option>
+                            <option>A→Z</option>
+                            <option>Most exported</option>
+                            <option>Expiring soon</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button class="bg-primary text-white font-medium px-4 py-2.5 rounded-xl btn-hover flex items-center justify-center">
+                    <i class="fa-solid fa-plus mr-2"></i>
+                    Analyze New Video
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="flex">
+        <!-- Left Sidebar Filters -->
+        <aside id="filters-sidebar" class="hidden lg:block w-80 px-6">
+            <div class="bg-surface border border-gray-200 rounded-xl p-6">
+                <!-- Folders/Campaigns -->
+                <div class="mb-8">
+                    <h3 class="font-poppins font-semibold text-lg text-gray-900 mb-4">Folders &amp; Campaigns</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between p-3 bg-primary/5 border border-primary/20 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-folder text-primary"></i>
+                                <span class="font-medium text-gray-900">All Videos</span>
+                            </div>
+                            <span class="bg-primary text-white text-xs px-2 py-1 rounded-full">47</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-folder-open text-secondary"></i>
+                                <span class="text-gray-700">Summer Campaign</span>
+                            </div>
+                            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">12</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-folder-open text-accent1"></i>
+                                <span class="text-gray-700">Product Demos</span>
+                            </div>
+                            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">8</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-folder-open text-accent2"></i>
+                                <span class="text-gray-700">Testimonials</span>
+                            </div>
+                            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">15</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-folder-open text-muted"></i>
+                                <span class="text-gray-700">Brand Stories</span>
+                            </div>
+                            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">12</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Smart Filters -->
+                <div class="mb-8">
+                    <h3 class="font-poppins font-semibold text-lg text-gray-900 mb-4">Smart Filters</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="bg-danger/10 text-danger border border-danger/20 px-3 py-2 rounded-lg text-sm font-medium hover:bg-danger/20 transition-colors">
+                            <i class="fa-solid fa-clock mr-1"></i>
+                            Expiring &lt; 7 days
+                        </button>
+                        <button class="bg-secondary/10 text-secondary border border-secondary/20 px-3 py-2 rounded-lg text-sm font-medium hover:bg-secondary/20 transition-colors">
+                            <i class="fa-solid fa-text-width mr-1"></i>
+                            Has OCR text
+                        </button>
+                        <button class="bg-accent2/10 text-accent2 border border-accent2/20 px-3 py-2 rounded-lg text-sm font-medium hover:bg-accent2/20 transition-colors">
+                            <i class="fa-solid fa-star mr-1"></i>
+                            Strong Hook
+                        </button>
+                        <button class="bg-accent1/10 text-accent1 border border-accent1/20 px-3 py-2 rounded-lg text-sm font-medium hover:bg-accent1/20 transition-colors">
+                            <i class="fa-solid fa-bullhorn mr-1"></i>
+                            Needs CTA
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tags Cloud -->
+                <div class="mb-8">
+                    <h3 class="font-poppins font-semibold text-lg text-gray-900 mb-4">Popular Tags</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="bg-gray-100 hover:bg-primary hover:text-white px-3 py-1 rounded-lg text-sm transition-colors">#marketing</button>
+                        <button class="bg-gray-100 hover:bg-primary hover:text-white px-3 py-1 rounded-lg text-sm transition-colors">#product</button>
+                        <button class="bg-gray-100 hover:bg-primary hover:text-white px-3 py-1 rounded-lg text-sm transition-colors">#tutorial</button>
+                        <button class="bg-gray-100 hover:bg-primary hover:text-white px-3 py-1 rounded-lg text-sm transition-colors">#testimonial</button>
+                        <button class="bg-gray-100 hover:bg-primary hover:text-white px-3 py-1 rounded-lg text-sm transition-colors">#brand</button>
+                        <button class="bg-gray-100 hover:bg-primary hover:text-white px-3 py-1 rounded-lg text-sm transition-colors">#social</button>
+                        <button class="bg-gray-100 hover:bg-primary hover:text-white px-3 py-1 rounded-lg text-sm transition-colors">#viral</button>
+                        <button class="bg-gray-100 hover:bg-primary hover:text-white px-3 py-1 rounded-lg text-sm transition-colors">#trending</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Video Grid Content -->
+        <div class="flex-1 px-4 lg:px-6">
+            <!-- Usage Bar -->
+            <div id="usage-bar" class="mb-6">
+                <div class="bg-surface border border-gray-200 rounded-xl p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-gray-900 font-medium">Monthly Analysis Usage</span>
+                        <span class="text-muted text-sm">23/100 analyzed this month</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="gradient-progress h-2 rounded-full" style="width: 23%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Grid -->
+            <section id="video-grid" class="mb-8">
+                <div class="space-y-4">
+                    <!-- Video Card 1 -->
+                    <div class="video-card bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover">
+                        <div class="flex flex-col lg:flex-row">
+                            <div class="relative lg:w-80 flex-shrink-0">
+                                <input type="checkbox" class="absolute top-3 left-3 z-10 w-4 h-4 text-primary bg-white border-2 border-gray-300 rounded focus:ring-primary">
+                                <img class="w-full h-48 lg:h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/eaa5b569ba-c6ba8621eb1cd395496e.png" alt="summer fashion collection video thumbnail, trendy clothing showcase">
+                                <div class="absolute top-3 right-3">
+                                    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                                        <i class="fa-brands fa-tiktok mr-1"></i>
+                                        TikTok
+                                    </span>
+                                </div>
+                                <div class="absolute bottom-3 right-3">
+                                    <span class="bg-black/70 text-white text-xs px-2 py-1 rounded">0:45</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1 p-4 lg:p-6">
+                                <div class="flex items-start justify-between mb-3">
+                                    <input type="text" value="Summer Collection Launch" class="font-poppins font-semibold text-xl text-gray-900 bg-transparent border-none p-0 focus:outline-none focus:bg-gray-50 focus:px-2 focus:py-1 focus:rounded w-full">
+                                    <button class="text-muted hover:text-gray-900 ml-2">
+                                        <i class="fa-solid fa-ellipsis-h"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-primary/10 text-primary text-sm px-3 py-1 rounded-full font-medium">Fashion</span>
+                                    <span class="bg-secondary/10 text-secondary text-sm px-3 py-1 rounded-full font-medium">Trending</span>
+                                </div>
+                                
+                                <div class="text-sm text-muted mb-4 flex items-center space-x-3">
+                                    <span>0:45</span>
+                                    <span>•</span>
+                                    <span>English</span>
+                                    <span>•</span>
+                                    <span>2 days ago</span>
+                                </div>
+                                
+                                <div class="mb-6 space-y-3">
+                                    <div class="text-base text-gray-900">
+                                        <strong class="text-primary">Hook:</strong> "This $20 dress went viral for a reason and you won't believe what happened next..."
+                                    </div>
+                                    <div class="text-base text-gray-900">
+                                        <strong class="text-secondary">Caption:</strong> "Summer vibes are here! Check out our latest collection that's taking social media by storm. From casual to chic, we've got everything you need..."
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center space-x-4 text-sm text-muted">
+                                        <span class="flex items-center">
+                                            <i class="fa-solid fa-download mr-1"></i>
+                                            3 exports
+                                        </span>
+                                        <span>•</span>
+                                        <span>Analyzed 2d ago</span>
+                                    </div>
+                                    <span class="bg-accent2/10 text-accent2 px-3 py-1 rounded-full text-sm font-medium">D-25</span>
+                                </div>
+                                
+                                <div class="flex items-center space-x-3">
+                                    <button class="bg-primary text-white text-sm font-medium py-2.5 px-6 rounded-lg btn-hover flex-shrink-0">
+                                        View Full Analysis
+                                    </button>
+                                    <button class="bg-secondary text-white text-sm font-medium py-2.5 px-4 rounded-lg btn-hover flex-shrink-0">
+                                        Export JSON
+                                    </button>
+                                    <div class="relative">
+                                        <button class="bg-gray-100 text-gray-600 p-2.5 rounded-lg hover:bg-gray-200">
+                                            <i class="fa-solid fa-ellipsis-h"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 2 -->
+                    <div class="video-card bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover">
+                        <div class="flex flex-col lg:flex-row">
+                            <div class="relative lg:w-80 flex-shrink-0">
+                                <input type="checkbox" class="absolute top-3 left-3 z-10 w-4 h-4 text-primary bg-white border-2 border-gray-300 rounded focus:ring-primary">
+                                <img class="w-full h-48 lg:h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/d8cb9d8be4-af63841412dc31a216f8.png" alt="customer testimonial video professional business style">
+                                <div class="absolute top-3 right-3">
+                                    <span class="bg-blue-600 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                                        <i class="fa-brands fa-linkedin mr-1"></i>
+                                        LinkedIn
+                                    </span>
+                                </div>
+                                <div class="absolute bottom-3 right-3">
+                                    <span class="bg-black/70 text-white text-xs px-2 py-1 rounded">2:15</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1 p-4 lg:p-6">
+                                <div class="flex items-start justify-between mb-3">
+                                    <input type="text" value="Client Success Stories Q3" class="font-poppins font-semibold text-xl text-gray-900 bg-transparent border-none p-0 focus:outline-none focus:bg-gray-50 focus:px-2 focus:py-1 focus:rounded w-full">
+                                    <button class="text-muted hover:text-gray-900 ml-2">
+                                        <i class="fa-solid fa-ellipsis-h"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-accent2/10 text-accent2 text-sm px-3 py-1 rounded-full font-medium">Testimonials</span>
+                                    <span class="bg-accent1/10 text-accent1 text-sm px-3 py-1 rounded-full font-medium">B2B</span>
+                                </div>
+                                
+                                <div class="text-sm text-muted mb-4 flex items-center space-x-3">
+                                    <span>2:15</span>
+                                    <span>•</span>
+                                    <span>English</span>
+                                    <span>•</span>
+                                    <span>5 hours ago</span>
+                                </div>
+                                
+                                <div class="mb-6 space-y-3">
+                                    <div class="text-base text-gray-900">
+                                        <strong class="text-primary">Hook:</strong> "How we helped 3 companies grow 300% in just 6 months - the strategy that changed everything..."
+                                    </div>
+                                    <div class="text-base text-gray-900">
+                                        <strong class="text-secondary">Caption:</strong> "Real results from real clients. Here's how we transformed their business with our proven methodology and strategic approach..."
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center space-x-4 text-sm text-muted">
+                                        <span class="flex items-center">
+                                            <i class="fa-solid fa-download mr-1"></i>
+                                            7 exports
+                                        </span>
+                                        <span>•</span>
+                                        <span>Analyzed 5h ago</span>
+                                    </div>
+                                    <span class="bg-accent2/10 text-accent2 px-3 py-1 rounded-full text-sm font-medium">D-28</span>
+                                </div>
+                                
+                                <div class="flex items-center space-x-3">
+                                    <button class="bg-primary text-white text-sm font-medium py-2.5 px-6 rounded-lg btn-hover flex-shrink-0">
+                                        View Full Analysis
+                                    </button>
+                                    <button class="bg-secondary text-white text-sm font-medium py-2.5 px-4 rounded-lg btn-hover flex-shrink-0">
+                                        Export JSON
+                                    </button>
+                                    <div class="relative">
+                                        <button class="bg-gray-100 text-gray-600 p-2.5 rounded-lg hover:bg-gray-200">
+                                            <i class="fa-solid fa-ellipsis-h"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 3 -->
+                    <div class="video-card bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover">
+                        <div class="flex flex-col lg:flex-row">
+                            <div class="relative lg:w-80 flex-shrink-0">
+                                <input type="checkbox" class="absolute top-3 left-3 z-10 w-4 h-4 text-primary bg-white border-2 border-gray-300 rounded focus:ring-primary">
+                                <img class="w-full h-48 lg:h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/d4b3aba8f8-512103763c56ad1b6952.png" alt="product tutorial video modern tech demo">
+                                <div class="absolute top-3 right-3">
+                                    <span class="bg-red-600 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                                        <i class="fa-brands fa-youtube mr-1"></i>
+                                        YouTube
+                                    </span>
+                                </div>
+                                <div class="absolute bottom-3 right-3">
+                                    <span class="bg-black/70 text-white text-xs px-2 py-1 rounded">3:42</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1 p-4 lg:p-6">
+                                <div class="flex items-start justify-between mb-3">
+                                    <input type="text" value="How to Use Our New Feature" class="font-poppins font-semibold text-xl text-gray-900 bg-transparent border-none p-0 focus:outline-none focus:bg-gray-50 focus:px-2 focus:py-1 focus:rounded w-full">
+                                    <button class="text-muted hover:text-gray-900 ml-2">
+                                        <i class="fa-solid fa-ellipsis-h"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-secondary/10 text-secondary text-sm px-3 py-1 rounded-full font-medium">Tutorial</span>
+                                    <span class="bg-primary/10 text-primary text-sm px-3 py-1 rounded-full font-medium">SaaS</span>
+                                </div>
+                                
+                                <div class="text-sm text-muted mb-4 flex items-center space-x-3">
+                                    <span>3:42</span>
+                                    <span>•</span>
+                                    <span>English</span>
+                                    <span>•</span>
+                                    <span>1 day ago</span>
+                                </div>
+                                
+                                <div class="mb-6 space-y-3">
+                                    <div class="text-base text-gray-900">
+                                        <strong class="text-primary">Hook:</strong> "This feature will change how you work forever - see the transformation in just 3 minutes..."
+                                    </div>
+                                    <div class="text-base text-gray-900">
+                                        <strong class="text-secondary">Caption:</strong> "Step-by-step guide to our latest update that's revolutionizing productivity. Master this in under 4 minutes..."
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center space-x-4 text-sm text-muted">
+                                        <span class="flex items-center">
+                                            <i class="fa-solid fa-download mr-1"></i>
+                                            12 exports
+                                        </span>
+                                        <span>•</span>
+                                        <span>Analyzed 1d ago</span>
+                                    </div>
+                                    <span class="bg-danger/10 text-danger px-3 py-1 rounded-full text-sm font-medium">D-5</span>
+                                </div>
+                                
+                                <div class="flex items-center space-x-3">
+                                    <button class="bg-primary text-white text-sm font-medium py-2.5 px-6 rounded-lg btn-hover flex-shrink-0">
+                                        View Full Analysis
+                                    </button>
+                                    <button class="bg-secondary text-white text-sm font-medium py-2.5 px-4 rounded-lg btn-hover flex-shrink-0">
+                                        Export JSON
+                                    </button>
+                                    <div class="relative">
+                                        <button class="bg-gray-100 text-gray-600 p-2.5 rounded-lg hover:bg-gray-200">
+                                            <i class="fa-solid fa-ellipsis-h"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 4 -->
+                    <div class="video-card bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover">
+                        <div class="flex flex-col lg:flex-row">
+                            <div class="relative lg:w-80 flex-shrink-0">
+                                <input type="checkbox" class="absolute top-3 left-3 z-10 w-4 h-4 text-primary bg-white border-2 border-gray-300 rounded focus:ring-primary">
+                                <img class="w-full h-48 lg:h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/151cb5c6cf-5cb6a0b357bfdfaa8bb8.png" alt="instagram story brand behind the scenes content">
+                                <div class="absolute top-3 right-3">
+                                    <span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                                        <i class="fa-brands fa-instagram mr-1"></i>
+                                        Instagram
+                                    </span>
+                                </div>
+                                <div class="absolute bottom-3 right-3">
+                                    <span class="bg-black/70 text-white text-xs px-2 py-1 rounded">0:30</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1 p-4 lg:p-6">
+                                <div class="flex items-start justify-between mb-3">
+                                    <input type="text" value="Behind the Scenes: Office Tour" class="font-poppins font-semibold text-xl text-gray-900 bg-transparent border-none p-0 focus:outline-none focus:bg-gray-50 focus:px-2 focus:py-1 focus:rounded w-full">
+                                    <button class="text-muted hover:text-gray-900 ml-2">
+                                        <i class="fa-solid fa-ellipsis-h"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-accent1/10 text-accent1 text-sm px-3 py-1 rounded-full font-medium">Brand</span>
+                                    <span class="bg-accent2/10 text-accent2 text-sm px-3 py-1 rounded-full font-medium">Culture</span>
+                                </div>
+                                
+                                <div class="text-sm text-muted mb-4 flex items-center space-x-3">
+                                    <span>0:30</span>
+                                    <span>•</span>
+                                    <span>English</span>
+                                    <span>•</span>
+                                    <span>3 days ago</span>
+                                </div>
+                                
+                                <div class="mb-6 space-y-3">
+                                    <div class="text-base text-gray-900">
+                                        <strong class="text-primary">Hook:</strong> "Ever wondered what our office looks like? You'll be surprised by what we found..."
+                                    </div>
+                                    <div class="text-base text-gray-900">
+                                        <strong class="text-secondary">Caption:</strong> "Take a peek behind the scenes at our creative workspace where magic happens every day..."
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center space-x-4 text-sm text-muted">
+                                        <span class="flex items-center">
+                                            <i class="fa-solid fa-download mr-1"></i>
+                                            1 export
+                                        </span>
+                                        <span>•</span>
+                                        <span>Analyzed 3d ago</span>
+                                    </div>
+                                    <span class="bg-accent2/10 text-accent2 px-3 py-1 rounded-full text-sm font-medium">D-27</span>
+                                </div>
+                                
+                                <div class="flex items-center space-x-3">
+                                    <button class="bg-primary text-white text-sm font-medium py-2.5 px-6 rounded-lg btn-hover flex-shrink-0">
+                                        View Full Analysis
+                                    </button>
+                                    <button class="bg-secondary text-white text-sm font-medium py-2.5 px-4 rounded-lg btn-hover flex-shrink-0">
+                                        Export JSON
+                                    </button>
+                                    <div class="relative">
+                                        <button class="bg-gray-100 text-gray-600 p-2.5 rounded-lg hover:bg-gray-200">
+                                            <i class="fa-solid fa-ellipsis-h"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 5 -->
+                    <div class="video-card bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover">
+                        <div class="flex flex-col lg:flex-row">
+                            <div class="relative lg:w-80 flex-shrink-0">
+                                <input type="checkbox" class="absolute top-3 left-3 z-10 w-4 h-4 text-primary bg-white border-2 border-gray-300 rounded focus:ring-primary">
+                                <img class="w-full h-48 lg:h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/b673f14c0a-7e20a271e8c845d19815.png" alt="food recipe cooking video social media content">
+                                <div class="absolute top-3 right-3">
+                                    <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                                        <i class="fa-brands fa-tiktok mr-1"></i>
+                                        TikTok
+                                    </span>
+                                </div>
+                                <div class="absolute bottom-3 right-3">
+                                    <span class="bg-black/70 text-white text-xs px-2 py-1 rounded">1:20</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1 p-4 lg:p-6">
+                                <div class="flex items-start justify-between mb-3">
+                                    <input type="text" value="5-Minute Healthy Recipe" class="font-poppins font-semibold text-xl text-gray-900 bg-transparent border-none p-0 focus:outline-none focus:bg-gray-50 focus:px-2 focus:py-1 focus:rounded w-full">
+                                    <button class="text-muted hover:text-gray-900 ml-2">
+                                        <i class="fa-solid fa-ellipsis-h"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-accent2/10 text-accent2 text-sm px-3 py-1 rounded-full font-medium">Food</span>
+                                    <span class="bg-primary/10 text-primary text-sm px-3 py-1 rounded-full font-medium">Recipe</span>
+                                </div>
+                                
+                                <div class="text-sm text-muted mb-4 flex items-center space-x-3">
+                                    <span>1:20</span>
+                                    <span>•</span>
+                                    <span>English</span>
+                                    <span>•</span>
+                                    <span>1 week ago</span>
+                                </div>
+                                
+                                <div class="mb-6 space-y-3">
+                                    <div class="text-base text-gray-900">
+                                        <strong class="text-primary">Hook:</strong> "This recipe broke the internet and made everyone's kitchen smell amazing in just 5 minutes..."
+                                    </div>
+                                    <div class="text-base text-gray-900">
+                                        <strong class="text-secondary">Caption:</strong> "Quick, healthy, and absolutely delicious - this viral recipe will change your meal prep game forever..."
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center space-x-4 text-sm text-muted">
+                                        <span class="flex items-center">
+                                            <i class="fa-solid fa-download mr-1"></i>
+                                            25 exports
+                                        </span>
+                                        <span>•</span>
+                                        <span>Analyzed 1w ago</span>
+                                    </div>
+                                    <span class="bg-accent2/10 text-accent2 px-3 py-1 rounded-full text-sm font-medium">D-23</span>
+                                </div>
+                                
+                                <div class="flex items-center space-x-3">
+                                    <button class="bg-primary text-white text-sm font-medium py-2.5 px-6 rounded-lg btn-hover flex-shrink-0">
+                                        View Full Analysis
+                                    </button>
+                                    <button class="bg-secondary text-white text-sm font-medium py-2.5 px-4 rounded-lg btn-hover flex-shrink-0">
+                                        Export JSON
+                                    </button>
+                                    <div class="relative">
+                                        <button class="bg-gray-100 text-gray-600 p-2.5 rounded-lg hover:bg-gray-200">
+                                            <i class="fa-solid fa-ellipsis-h"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 6 -->
+                    <div class="video-card bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover">
+                        <div class="flex flex-col lg:flex-row">
+                            <div class="relative lg:w-80 flex-shrink-0">
+                                <input type="checkbox" class="absolute top-3 left-3 z-10 w-4 h-4 text-primary bg-white border-2 border-gray-300 rounded focus:ring-primary">
+                                <img class="w-full h-48 lg:h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/57a63056cd-56d57e8a0ff2d340ac86.png" alt="business presentation corporate video professional">
+                                <div class="absolute top-3 right-3">
+                                    <span class="bg-blue-600 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                                        <i class="fa-brands fa-linkedin mr-1"></i>
+                                        LinkedIn
+                                    </span>
+                                </div>
+                                <div class="absolute bottom-3 right-3">
+                                    <span class="bg-black/70 text-white text-xs px-2 py-1 rounded">4:15</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-1 p-4 lg:p-6">
+                                <div class="flex items-start justify-between mb-3">
+                                    <input type="text" value="Q4 Business Strategy Update" class="font-poppins font-semibold text-xl text-gray-900 bg-transparent border-none p-0 focus:outline-none focus:bg-gray-50 focus:px-2 focus:py-1 focus:rounded w-full">
+                                    <button class="text-muted hover:text-gray-900 ml-2">
+                                        <i class="fa-solid fa-ellipsis-h"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-primary/10 text-primary text-sm px-3 py-1 rounded-full font-medium">Business</span>
+                                    <span class="bg-accent1/10 text-accent1 text-sm px-3 py-1 rounded-full font-medium">Strategy</span>
+                                </div>
+                                
+                                <div class="text-sm text-muted mb-4 flex items-center space-x-3">
+                                    <span>4:15</span>
+                                    <span>•</span>
+                                    <span>English</span>
+                                    <span>•</span>
+                                    <span>2 weeks ago</span>
+                                </div>
+                                
+                                <div class="mb-6 space-y-3">
+                                    <div class="text-base text-gray-900">
+                                        <strong class="text-primary">Hook:</strong> "Our biggest quarter yet - here's how we achieved 400% growth and what's coming next..."
+                                    </div>
+                                    <div class="text-base text-gray-900">
+                                        <strong class="text-secondary">Caption:</strong> "Sharing our Q4 strategy and key insights that drove unprecedented results. The roadmap ahead..."
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center space-x-4 text-sm text-muted">
+                                        <span class="flex items-center">
+                                            <i class="fa-solid fa-download mr-1"></i>
+                                            8 exports
+                                        </span>
+                                        <span>•</span>
+                                        <span>Analyzed 2w ago</span>
+                                    </div>
+                                    <span class="bg-accent2/10 text-accent2 px-3 py-1 rounded-full text-sm font-medium">D-16</span>
+                                </div>
+                                
+                                <div class="flex items-center space-x-3">
+                                    <button class="bg-primary text-white text-sm font-medium py-2.5 px-6 rounded-lg btn-hover flex-shrink-0">
+                                        View Full Analysis
+                                    </button>
+                                    <button class="bg-secondary text-white text-sm font-medium py-2.5 px-4 rounded-lg btn-hover flex-shrink-0">
+                                        Export JSON
+                                    </button>
+                                    <div class="relative">
+                                        <button class="bg-gray-100 text-gray-600 p-2.5 rounded-lg hover:bg-gray-200">
+                                            <i class="fa-solid fa-ellipsis-h"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Load More -->
+                <div class="text-center mt-8">
+                    <button class="bg-surface border border-gray-200 text-gray-700 font-medium px-8 py-3 rounded-xl hover:bg-gray-50 btn-hover">
+                        Load More Videos
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+<!-- Bulk Actions Footer -->
+<div id="bulk-actions" class="bulk-actions fixed bottom-0 left-0 lg:left-64 right-0 bg-surface border-t border-gray-200 shadow-lg z-50">
+    <div class="flex items-center justify-between px-4 lg:px-6 py-4">
+        <div class="flex items-center space-x-4">
+            <span class="text-sm text-gray-700">
+                <span id="selected-count">0</span> videos selected
+            </span>
+        </div>
+        
+        <div class="flex items-center space-x-3">
+            <button class="bg-secondary text-white font-medium px-4 py-2 rounded-lg btn-hover">
+                Export Selected
+            </button>
+            <button class="bg-primary text-white font-medium px-4 py-2 rounded-lg btn-hover">
+                Move to Folder
+            </button>
+            <button class="bg-danger text-white font-medium px-4 py-2 rounded-lg btn-hover">
+                Delete
+            </button>
+            <button class="bg-gray-100 text-gray-700 font-medium px-4 py-2 rounded-lg hover:bg-gray-200">
+                Change Status
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Mobile Bottom Navigation -->
+<div id="mobile-nav" class="fixed bottom-0 left-0 right-0 bg-surface border-t border-gray-200 lg:hidden z-40">
+    <div class="grid grid-cols-5 gap-1">
+        <button class="flex flex-col items-center justify-center py-3 text-muted hover:text-gray-900">
+            <i class="fa-solid fa-home text-lg mb-1"></i>
+            <span class="text-xs">Home</span>
+        </button>
+        <button class="flex flex-col items-center justify-center py-3 text-muted hover:text-gray-900">
+            <i class="fa-solid fa-lightbulb text-lg mb-1"></i>
+            <span class="text-xs">Ideas</span>
+        </button>
+        <button class="flex flex-col items-center justify-center py-3 text-primary">
+            <i class="fa-solid fa-play-circle text-lg mb-1"></i>
+            <span class="text-xs">Library</span>
+        </button>
+        <button class="flex flex-col items-center justify-center py-3 text-muted hover:text-gray-900">
+            <i class="fa-solid fa-template text-lg mb-1"></i>
+            <span class="text-xs">Templates</span>
+        </button>
+        <button class="flex flex-col items-center justify-center py-3 text-muted hover:text-gray-900">
+            <i class="fa-solid fa-cog text-lg mb-1"></i>
+            <span class="text-xs">Settings</span>
+        </button>
+    </div>
+</div>
+
+<!-- Empty State (Hidden by default, shown when no videos) -->
+<div id="empty-state" class="hidden text-center py-16">
+    <div class="max-w-md mx-auto">
+        <img class="w-48 h-48 mx-auto mb-6 rounded-xl" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/771fca4028-6ceb416ce1873c51665f.png" alt="empty video library illustration, minimalist design with video icons">
+        <h3 class="font-poppins font-semibold text-xl text-gray-900 mb-2">Your library is empty</h3>
+        <p class="text-muted mb-6">Start analyzing your first video to see AI-generated marketing ideas and insights.</p>
+        <button class="bg-primary text-white font-medium px-6 py-3 rounded-xl btn-hover">
+            <i class="fa-solid fa-plus mr-2"></i>
+            Analyze Your First Video
+        </button>
+    </div>
+</div>
+
+<script>
+// Mobile sidebar toggle
+document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+    const sidebar = document.getElementById('mobile-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    sidebar.classList.remove('-translate-x-full');
+    overlay.classList.remove('hidden');
+});
+
+document.getElementById('close-sidebar').addEventListener('click', function() {
+    const sidebar = document.getElementById('mobile-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    sidebar.classList.add('-translate-x-full');
+    overlay.classList.add('hidden');
+});
+
+document.getElementById('sidebar-overlay').addEventListener('click', function() {
+    const sidebar = document.getElementById('mobile-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    sidebar.classList.add('-translate-x-full');
+    overlay.classList.add('hidden');
+});
+
+// Bulk selection functionality
+let selectedVideos = [];
+const checkboxes = document.querySelectorAll('.video-card input[type="checkbox"]');
+const bulkActions = document.getElementById('bulk-actions');
+const selectedCount = document.getElementById('selected-count');
+
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        const videoCard = this.closest('.video-card');
+        
+        if (this.checked) {
+            selectedVideos.push(this);
+            videoCard.classList.add('selected');
+        } else {
+            selectedVideos = selectedVideos.filter(cb => cb !== this);
+            videoCard.classList.remove('selected');
+        }
+        
+        selectedCount.textContent = selectedVideos.length;
+        
+        if (selectedVideos.length > 0) {
+            bulkActions.classList.add('show');
+        } else {
+            bulkActions.classList.remove('show');
+        }
+    });
+});
+
+// Search functionality
+const searchInput = document.querySelector('input[placeholder="Search by title, hook, caption, hashtag…"]');
+searchInput.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const videoCards = document.querySelectorAll('.video-card');
+    
+    videoCards.forEach(card => {
+        const title = card.querySelector('input[type="text"]').value.toLowerCase();
+        const hook = card.querySelector('strong').textContent.toLowerCase();
+        const caption = card.querySelectorAll('strong')[1].textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || hook.includes(searchTerm) || caption.includes(searchTerm)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+});
+
+// Smart filter functionality
+const smartFilters = document.querySelectorAll('button[class*="bg-"]');
+smartFilters.forEach(filter => {
+    filter.addEventListener('click', function() {
+        this.classList.toggle('bg-opacity-100');
+        this.classList.toggle('bg-opacity-10');
+    });
+});
+</script>
+
+
+</body></html>

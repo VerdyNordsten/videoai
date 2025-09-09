@@ -9,7 +9,7 @@ import {
   LogOut
 } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { logout } from '@/app/(dashboard)/dashboard/actions';
+import { logout } from '@/app/dashboard/actions';
 
 export function Header() {
   const router = useRouter();

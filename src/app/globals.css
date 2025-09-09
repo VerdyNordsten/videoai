@@ -99,16 +99,6 @@
     --ring: 228 70% 60%;
   }
 }
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
 /* Custom animations */
 @keyframes float {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -318,16 +308,6 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
 /*
   ---break---
 */
@@ -429,12 +409,3 @@
 /*
   ---break---
 */
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}

@@ -1,0 +1,838 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <style>
+        ::-webkit-scrollbar { display: none;}
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .gradient-sidebar { background: linear-gradient(135deg, #6366F1 0%, #06B6D4 100%); }
+        .gradient-progress { background: linear-gradient(90deg, #6366F1 0%, #06B6D4 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        .btn-hover { transition: all 0.2s ease; }
+        .btn-hover:hover { transform: scale(1.02); }
+        .drag-zone { transition: all 0.3s ease; }
+        .drag-zone.dragover { border-color: #06B6D4; background-color: rgba(6, 182, 212, 0.05); }
+        .upload-item { animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .pulse-dot { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    </style>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "background": "#F9FAFB",
+        "surface": "#FFFFFF",
+        "primary": "#6366F1",
+        "secondary": "#06B6D4",
+        "accent1": "#F59E0B",
+        "accent2": "#10B981",
+        "danger": "#EF4444",
+        "muted": "#9CA3AF"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body class="bg-background font-sans">
+
+<!-- Sidebar -->
+<div id="sidebar" class="fixed left-0 top-0 h-full w-64 gradient-sidebar shadow-xl z-40">
+    <div class="p-6">
+        <div class="flex items-center space-x-3 mb-8">
+            <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                <i class="fa-solid fa-video text-white text-lg"></i>
+            </div>
+            <div class="text-white">
+                <h1 class="font-poppins font-semibold text-lg">AI VideoGen</h1>
+                <p class="text-white/70 text-sm">Marketing Ideas</p>
+            </div>
+        </div>
+
+        <nav class="space-y-2">
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-home text-lg"></i>
+                <span class="font-medium">Dashboard</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white bg-white/20 rounded-xl backdrop-blur-sm cursor-pointer">
+                <i class="fa-solid fa-lightbulb text-lg"></i>
+                <span class="font-medium">AI Ideas</span>
+                <span class="ml-auto bg-accent1 text-white text-xs px-2 py-1 rounded-full">Active</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-play-circle text-lg"></i>
+                <span class="font-medium">Video Library</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-template text-lg"></i>
+                <span class="font-medium">Templates</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-chart-line text-lg"></i>
+                <span class="font-medium">Analytics</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-users text-lg"></i>
+                <span class="font-medium">Team</span>
+            </span>
+            <span class="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+                <i class="fa-solid fa-cog text-lg"></i>
+                <span class="font-medium">Settings</span>
+            </span>
+        </nav>
+
+        <div class="mt-8 p-4 bg-white/10 rounded-xl backdrop-blur-sm">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-white/90 text-sm font-medium">Monthly Usage</span>
+                <span class="text-white/70 text-xs">85%</span>
+            </div>
+            <div class="w-full bg-white/20 rounded-full h-2">
+                <div class="gradient-progress h-2 rounded-full" style="width: 85%"></div>
+            </div>
+            <p class="text-white/70 text-xs mt-2">850 / 1000 videos generated</p>
+            <button class="w-full mt-3 bg-accent1 text-white text-sm font-medium py-2 px-4 rounded-lg hover:bg-yellow-500 transition-colors">
+                Upgrade Plan
+            </button>
+        </div>
+    </div>
+
+    <div class="absolute bottom-6 left-6 right-6">
+        <div class="flex items-center space-x-3 p-3 bg-white/10 rounded-xl backdrop-blur-sm">
+            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="User Avatar" class="w-10 h-10 rounded-lg">
+            <div class="text-white">
+                <p class="font-medium text-sm">Sarah Chen</p>
+                <p class="text-white/70 text-xs">Pro Member</p>
+            </div>
+            <i class="fa-solid fa-chevron-up text-white/70 ml-auto"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Top Header -->
+<header id="header" class="fixed top-0 left-64 right-0 bg-surface border-b border-gray-200 z-30">
+    <div class="flex items-center justify-between px-6 py-4">
+        <div class="flex items-center space-x-4">
+            <h1 class="font-poppins font-semibold text-2xl text-gray-900">AI Ideas</h1>
+            <span class="text-muted">/</span>
+            <span class="text-muted">Workspace</span>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <div class="relative">
+                <input type="text" placeholder="Search ideas, templates..." class="w-80 pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-muted"></i>
+            </div>
+            
+            <button class="relative p-2 text-muted hover:text-gray-900 transition-colors">
+                <i class="fa-regular fa-bell text-lg"></i>
+                <span class="absolute -top-1 -right-1 w-5 h-5 bg-danger text-white text-xs rounded-full flex items-center justify-center">3</span>
+            </button>
+
+            <button class="p-2 text-muted hover:text-gray-900 transition-colors">
+                <i class="fa-solid fa-question-circle text-lg"></i>
+            </button>
+
+            <div class="flex items-center space-x-3">
+                <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Profile" class="w-8 h-8 rounded-lg">
+                <i class="fa-solid fa-chevron-down text-muted"></i>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main id="main-content" class="ml-64 pt-20 p-6">
+    
+    <!-- Header Section -->
+    <section id="header-section" class="mb-8">
+        <div class="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-white">
+            <div class="flex items-center justify-between">
+                <div class="flex-1">
+                    <h2 class="font-poppins font-bold text-3xl mb-2">AI Ideas Workspace</h2>
+                    <p class="text-white/90 text-lg mb-4">Drop videos here to generate fresh marketing ideas. Upload multiple videos and let AI analyze them to create compelling content concepts.</p>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-accent2 rounded-full pulse-dot"></div>
+                            <span class="text-white/90 text-sm">AI Analysis Active</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-clock text-white/70"></i>
+                            <span class="text-white/90 text-sm">Average processing: 2-3 min</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden lg:block">
+                    <img class="w-48 h-48 rounded-xl opacity-90" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/84727dda01-f3fe9f942dcfa05274a9.png" alt="AI video analysis workspace illustration, modern gradient style with upload icons">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="upload-section" class="mb-8">
+        <div class="bg-surface border border-gray-200 rounded-xl p-8">
+            <div id="drag-drop-zone" class="drag-zone border-2 border-dashed border-gray-300 rounded-xl p-12 text-center hover:border-primary hover:bg-primary/5 transition-all cursor-pointer">
+                <div class="max-w-md mx-auto">
+                    <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-cloud-upload-alt text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="font-poppins font-semibold text-xl text-gray-900 mb-2">Drop videos here to generate AI Ideas</h3>
+                    <p class="text-muted mb-6">Upload MP4, MOV, AVI files up to 100MB each. Multiple files supported.</p>
+                    <div class="flex items-center justify-center space-x-4">
+                        <button id="upload-btn" class="bg-primary text-white font-medium px-6 py-3 rounded-xl btn-hover">
+                            <i class="fa-solid fa-plus mr-2"></i>
+                            Choose Files
+                        </button>
+                        <button class="border border-gray-300 text-gray-700 font-medium px-6 py-3 rounded-xl hover:border-primary hover:text-primary transition-colors">
+                            <i class="fa-solid fa-link mr-2"></i>
+                            Paste URL
+                        </button>
+                    </div>
+                    <p class="text-xs text-muted mt-4">Supported formats: MP4, MOV, AVI • Max size: 100MB per file</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Queue -->
+    <section id="upload-queue-section" class="mb-8">
+        <div class="bg-surface border border-gray-200 rounded-xl p-6">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="font-poppins font-semibold text-xl text-gray-900 mb-1">Upload Queue</h2>
+                    <p class="text-muted">Track your video analysis progress</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button class="text-muted hover:text-gray-900">
+                        <i class="fa-solid fa-filter"></i>
+                    </button>
+                    <button class="text-primary font-medium hover:underline">Clear Completed</button>
+                </div>
+            </div>
+
+            <div id="queue-list" class="space-y-4">
+                <!-- Sample upload items -->
+                <div class="upload-item flex items-center justify-between p-4 bg-gray-50 rounded-xl border-l-4 border-accent2">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-12 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                            <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/b91a6b90ae-9dc2a3caa415a0faea2f.png" alt="product demo video thumbnail">
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-medium text-gray-900">summer-collection-demo.mp4</h3>
+                            <p class="text-sm text-muted">Fashion product showcase • 2.4 MB</p>
+                            <div class="flex items-center space-x-2 mt-1">
+                                <span class="bg-accent2 text-white text-xs px-2 py-1 rounded-full">Completed</span>
+                                <span class="text-xs text-muted">• Analyzed 2 min ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="text-right mr-4">
+                            <p class="text-sm font-medium text-gray-900">5 Marketing Ideas Generated</p>
+                            <p class="text-xs text-muted">Hook: "Transform your summer style..."</p>
+                        </div>
+                        <button class="bg-primary text-white font-medium px-4 py-2 rounded-lg btn-hover">
+                            <i class="fa-solid fa-eye mr-2"></i>
+                            View Analysis
+                        </button>
+                        <button class="text-muted hover:text-gray-900">
+                            <i class="fa-solid fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="upload-item flex items-center justify-between p-4 bg-gray-50 rounded-xl border-l-4 border-accent1">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-12 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                            <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/974db16bf6-46d204cdd4116426e90d.png" alt="customer testimonial video thumbnail">
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-medium text-gray-900">client-testimonial-sarah.mp4</h3>
+                            <p class="text-sm text-muted">Customer success story • 8.7 MB</p>
+                            <div class="flex items-center space-x-2 mt-1">
+                                <span class="bg-accent1 text-white text-xs px-2 py-1 rounded-full">Analyzing</span>
+                                <span class="text-xs text-muted">• 78% complete</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-32">
+                            <div class="w-full bg-gray-200 rounded-full h-2 mb-1">
+                                <div class="gradient-progress h-2 rounded-full" style="width: 78%"></div>
+                            </div>
+                            <p class="text-xs text-muted">Extracting key moments...</p>
+                        </div>
+                        <button class="text-danger hover:text-red-600 px-3 py-2 rounded-lg hover:bg-red-50 transition-colors">
+                            <i class="fa-solid fa-times"></i>
+                        </button>
+                        <button class="text-muted hover:text-gray-900">
+                            <i class="fa-solid fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="upload-item flex items-center justify-between p-4 bg-gray-50 rounded-xl border-l-4 border-secondary">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-file-video text-muted text-xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-medium text-gray-900">brand-story-behind-scenes.mov</h3>
+                            <p class="text-sm text-muted">Company culture video • 15.2 MB</p>
+                            <div class="flex items-center space-x-2 mt-1">
+                                <span class="bg-secondary text-white text-xs px-2 py-1 rounded-full">Uploading</span>
+                                <span class="text-xs text-muted">• 45% complete</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-32">
+                            <div class="w-full bg-gray-200 rounded-full h-2 mb-1">
+                                <div class="bg-secondary h-2 rounded-full" style="width: 45%"></div>
+                            </div>
+                            <p class="text-xs text-muted">6.8 MB / 15.2 MB</p>
+                        </div>
+                        <button class="text-danger hover:text-red-600 px-3 py-2 rounded-lg hover:bg-red-50 transition-colors">
+                            <i class="fa-solid fa-times"></i>
+                        </button>
+                        <button class="text-muted hover:text-gray-900">
+                            <i class="fa-solid fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="upload-item flex items-center justify-between p-4 bg-gray-50 rounded-xl border-l-4 border-accent2">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-12 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                            <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/ed1fb1b0c8-c3eb81e37909ffb6ceab.png" alt="product tutorial video thumbnail">
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-medium text-gray-900">how-to-use-app.mp4</h3>
+                            <p class="text-sm text-muted">Tutorial walkthrough • 12.1 MB</p>
+                            <div class="flex items-center space-x-2 mt-1">
+                                <span class="bg-accent2 text-white text-xs px-2 py-1 rounded-full">Completed</span>
+                                <span class="text-xs text-muted">• Analyzed 15 min ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="text-right mr-4">
+                            <p class="text-sm font-medium text-gray-900">7 Marketing Ideas Generated</p>
+                            <p class="text-xs text-muted">Hook: "Master this in 60 seconds..."</p>
+                        </div>
+                        <button class="bg-primary text-white font-medium px-4 py-2 rounded-lg btn-hover">
+                            <i class="fa-solid fa-eye mr-2"></i>
+                            View Analysis
+                        </button>
+                        <button class="text-muted hover:text-gray-900">
+                            <i class="fa-solid fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Analysis Results -->
+    <section id="analysis-results-section" class="mb-8">
+        <div class="bg-surface border border-gray-200 rounded-xl p-8">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="font-poppins font-semibold text-xl text-gray-900 mb-1">Recent AI Analysis</h2>
+                    <p class="text-muted">Generated marketing ideas from your uploaded videos</p>
+                </div>
+                <button class="text-primary font-medium hover:underline">View All Results</button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-gray-50 rounded-xl p-6 card-hover">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-lg overflow-hidden">
+                                <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/eaa5b569ba-ac9ea49a77f25fa9bd3a.png" alt="summer fashion collection video thumbnail">
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-900">summer-collection-demo.mp4</h3>
+                                <p class="text-sm text-muted">Fashion • 2 min ago</p>
+                            </div>
+                        </div>
+                        <span class="bg-accent2 text-white text-xs px-2 py-1 rounded-full">5 Ideas</span>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="font-medium text-gray-900 mb-2">Top Generated Hook:</h4>
+                        <div class="bg-white p-4 rounded-lg border border-gray-200">
+                            <p class="text-gray-900 font-medium mb-2">"Transform your summer style in just 30 seconds"</p>
+                            <p class="text-sm text-muted">Perfect for social media posts showcasing quick style transformations with your summer collection.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <div class="flex -space-x-2">
+                                <div class="w-6 h-6 bg-primary rounded-full border-2 border-white"></div>
+                                <div class="w-6 h-6 bg-secondary rounded-full border-2 border-white"></div>
+                                <div class="w-6 h-6 bg-accent1 rounded-full border-2 border-white"></div>
+                            </div>
+                            <span class="text-xs text-muted">Multiple formats</span>
+                        </div>
+                        <button class="bg-primary text-white font-medium px-4 py-2 rounded-lg btn-hover">
+                            View Full Analysis
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 card-hover">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-lg overflow-hidden">
+                                <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/32c37e0d03-4888075e7d277b078f83.png" alt="app tutorial video thumbnail">
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-900">how-to-use-app.mp4</h3>
+                                <p class="text-sm text-muted">Tutorial • 15 min ago</p>
+                            </div>
+                        </div>
+                        <span class="bg-accent1 text-white text-xs px-2 py-1 rounded-full">7 Ideas</span>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="font-medium text-gray-900 mb-2">Top Generated Hook:</h4>
+                        <div class="bg-white p-4 rounded-lg border border-gray-200">
+                            <p class="text-gray-900 font-medium mb-2">"Master this powerful feature in under 60 seconds"</p>
+                            <p class="text-sm text-muted">Ideal for creating quick tutorial content that highlights key app features and drives user engagement.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <div class="flex -space-x-2">
+                                <div class="w-6 h-6 bg-secondary rounded-full border-2 border-white"></div>
+                                <div class="w-6 h-6 bg-accent2 rounded-full border-2 border-white"></div>
+                                <div class="w-6 h-6 bg-primary rounded-full border-2 border-white"></div>
+                            </div>
+                            <span class="text-xs text-muted">Tutorial focused</span>
+                        </div>
+                        <button class="bg-primary text-white font-medium px-4 py-2 rounded-lg btn-hover">
+                            View Full Analysis
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Empty State (Hidden by default) -->
+    <section id="empty-state-section" class="mb-8 hidden">
+        <div class="bg-surface border border-gray-200 rounded-xl p-12 text-center">
+            <div class="max-w-md mx-auto">
+                <div class="w-24 h-24 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fa-solid fa-video text-gray-400 text-3xl"></i>
+                </div>
+                <h2 class="font-poppins font-semibold text-xl text-gray-900 mb-3">No videos uploaded yet</h2>
+                <p class="text-muted mb-6">Upload videos to generate AI Ideas. All completed results will be stored in Video Library for future reference and use.</p>
+                <button class="bg-primary text-white font-medium px-6 py-3 rounded-xl btn-hover">
+                    <i class="fa-solid fa-plus mr-2"></i>
+                    Upload Video
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section id="quick-actions-section" class="mb-8">
+        <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-8">
+            <div class="text-center mb-8">
+                <h2 class="font-poppins font-semibold text-2xl text-gray-900 mb-2">Maximize Your AI Ideas Potential</h2>
+                <p class="text-muted text-lg">Take your generated ideas to the next level</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-surface border border-gray-200 rounded-xl p-6 text-center card-hover">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-play-circle text-primary text-xl"></i>
+                    </div>
+                    <h3 class="font-poppins font-semibold text-lg text-gray-900 mb-2">Video Library</h3>
+                    <p class="text-muted text-sm mb-4">Access all your analyzed videos and generated ideas in one organized space</p>
+                    <button class="text-primary font-medium hover:underline">Browse Library</button>
+                </div>
+
+                <div class="bg-surface border border-gray-200 rounded-xl p-6 text-center card-hover">
+                    <div class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-template text-secondary text-xl"></i>
+                    </div>
+                    <h3 class="font-poppins font-semibold text-lg text-gray-900 mb-2">Use Templates</h3>
+                    <p class="text-muted text-sm mb-4">Transform your AI ideas into professional videos using our template library</p>
+                    <button class="text-secondary font-medium hover:underline">Explore Templates</button>
+                </div>
+
+                <div class="bg-surface border border-gray-200 rounded-xl p-6 text-center card-hover">
+                    <div class="w-12 h-12 bg-accent2/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-share-alt text-accent2 text-xl"></i>
+                    </div>
+                    <h3 class="font-poppins font-semibold text-lg text-gray-900 mb-2">Share &amp; Export</h3>
+                    <p class="text-muted text-sm mb-4">Export your ideas to popular marketing tools or share with your team</p>
+                    <button class="text-accent2 font-medium hover:underline">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Tips -->
+    <section id="ai-tips-section" class="mb-8">
+        <div class="bg-surface border border-gray-200 rounded-xl p-8">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="font-poppins font-semibold text-xl text-gray-900 mb-1">AI Analysis Tips</h2>
+                    <p class="text-muted">Get better results from your video uploads</p>
+                </div>
+                <button class="text-primary font-medium hover:underline">More Tips</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-video text-primary"></i>
+                    </div>
+                    <h3 class="font-medium text-gray-900 mb-2">Clear Audio</h3>
+                    <p class="text-sm text-muted">Ensure clear audio quality for better AI transcription and analysis</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-clock text-secondary"></i>
+                    </div>
+                    <h3 class="font-medium text-gray-900 mb-2">Optimal Length</h3>
+                    <p class="text-sm text-muted">30 seconds to 5 minutes works best for comprehensive idea generation</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-accent1/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-lightbulb text-accent1"></i>
+                    </div>
+                    <h3 class="font-medium text-gray-900 mb-2">Show Value</h3>
+                    <p class="text-sm text-muted">Include clear value propositions or benefits in your video content</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-accent2/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-target text-accent2"></i>
+                    </div>
+                    <h3 class="font-medium text-gray-900 mb-2">Define Audience</h3>
+                    <p class="text-sm text-muted">Videos targeting specific audiences generate more focused marketing ideas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Activity -->
+    <section id="activity-section" class="mb-8">
+        <div class="bg-surface border border-gray-200 rounded-xl p-8">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="font-poppins font-semibold text-xl text-gray-900 mb-1">Recent Activity</h2>
+                    <p class="text-muted">Track your AI Ideas workspace activity</p>
+                </div>
+                <button class="text-primary font-medium hover:underline">View All</button>
+            </div>
+
+            <div class="space-y-4">
+                <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-xl">
+                    <div class="w-8 h-8 bg-accent2 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-check text-white text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm text-gray-900">AI analysis completed for <span class="font-medium">summer-collection-demo.mp4</span></p>
+                        <p class="text-xs text-muted mt-1">Generated 5 marketing ideas • 2 minutes ago</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-xl">
+                    <div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-upload text-white text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm text-gray-900">Video uploaded: <span class="font-medium">brand-story-behind-scenes.mov</span></p>
+                        <p class="text-xs text-muted mt-1">Upload in progress • 5 minutes ago</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-xl">
+                    <div class="w-8 h-8 bg-accent1 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-eye text-white text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm text-gray-900">Viewed analysis results for <span class="font-medium">how-to-use-app.mp4</span></p>
+                        <p class="text-xs text-muted mt-1">Accessed 7 generated marketing ideas • 15 minutes ago</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-xl">
+                    <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-share text-white text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm text-gray-900">Shared AI ideas with team member <span class="font-medium">Marcus Johnson</span></p>
+                        <p class="text-xs text-muted mt-1">Collaboration • 1 hour ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Mobile Bottom Navigation -->
+<div id="mobile-nav" class="fixed bottom-0 left-0 right-0 bg-surface border-t border-gray-200 lg:hidden z-40">
+    <div class="grid grid-cols-5 gap-1">
+        <button class="flex flex-col items-center justify-center py-3 text-muted hover:text-gray-900">
+            <i class="fa-solid fa-home text-lg mb-1"></i>
+            <span class="text-xs">Home</span>
+        </button>
+        <button class="flex flex-col items-center justify-center py-3 text-muted hover:text-gray-900">
+            <i class="fa-solid fa-upload text-lg mb-1"></i>
+            <span class="text-xs">Upload</span>
+        </button>
+        <button class="flex flex-col items-center justify-center py-3 text-primary">
+            <i class="fa-solid fa-lightbulb text-lg mb-1"></i>
+            <span class="text-xs">Ideas</span>
+        </button>
+        <button class="flex flex-col items-center justify-center py-3 text-muted hover:text-gray-900">
+            <i class="fa-solid fa-template text-lg mb-1"></i>
+            <span class="text-xs">Templates</span>
+        </button>
+        <button class="flex flex-col items-center justify-center py-3 text-muted hover:text-gray-900">
+            <i class="fa-solid fa-cog text-lg mb-1"></i>
+            <span class="text-xs">Settings</span>
+        </button>
+    </div>
+</div>
+
+<input type="file" id="file-input" class="hidden" multiple="" accept="video/*">
+
+<script>
+// Drag and drop functionality
+const dragZone = document.getElementById('drag-drop-zone');
+const fileInput = document.getElementById('file-input');
+const uploadBtn = document.getElementById('upload-btn');
+const queueList = document.getElementById('queue-list');
+
+// Drag and drop events
+dragZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dragZone.classList.add('dragover');
+});
+
+dragZone.addEventListener('dragleave', () => {
+    dragZone.classList.remove('dragover');
+});
+
+dragZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dragZone.classList.remove('dragover');
+    const files = e.dataTransfer.files;
+    handleFiles(files);
+});
+
+// Click to upload
+uploadBtn.addEventListener('click', () => {
+    fileInput.click();
+});
+
+fileInput.addEventListener('change', (e) => {
+    handleFiles(e.target.files);
+});
+
+// Handle file uploads
+function handleFiles(files) {
+    Array.from(files).forEach(file => {
+        if (file.type.startsWith('video/')) {
+            addToQueue(file);
+        }
+    });
+}
+
+// Add file to upload queue
+function addToQueue(file) {
+    const queueItem = document.createElement('div');
+    queueItem.className = 'upload-item flex items-center justify-between p-4 bg-gray-50 rounded-xl border-l-4 border-secondary';
+    
+    const fileSize = (file.size / (1024 * 1024)).toFixed(1);
+    
+    queueItem.innerHTML = `
+        <div class="flex items-center space-x-4">
+            <div class="w-16 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
+                <i class="fa-solid fa-file-video text-muted text-xl"></i>
+            </div>
+            <div class="flex-1">
+                <h3 class="font-medium text-gray-900">${file.name}</h3>
+                <p class="text-sm text-muted">Video file • ${fileSize} MB</p>
+                <div class="flex items-center space-x-2 mt-1">
+                    <span class="bg-secondary text-white text-xs px-2 py-1 rounded-full">Uploading</span>
+                    <span class="text-xs text-muted">• Starting upload...</span>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center space-x-3">
+            <div class="w-32">
+                <div class="w-full bg-gray-200 rounded-full h-2 mb-1">
+                    <div class="bg-secondary h-2 rounded-full upload-progress" style="width: 0%"></div>
+                </div>
+                <p class="text-xs text-muted">0 MB / ${fileSize} MB</p>
+            </div>
+            <button class="text-danger hover:text-red-600 px-3 py-2 rounded-lg hover:bg-red-50 transition-colors cancel-btn">
+                <i class="fa-solid fa-times"></i>
+            </button>
+            <button class="text-muted hover:text-gray-900">
+                <i class="fa-solid fa-ellipsis-h"></i>
+            </button>
+        </div>
+    `;
+    
+    queueList.insertBefore(queueItem, queueList.firstChild);
+    
+    // Simulate upload progress
+    simulateUpload(queueItem, file);
+    
+    // Add cancel functionality
+    queueItem.querySelector('.cancel-btn').addEventListener('click', () => {
+        queueItem.remove();
+    });
+}
+
+// Simulate upload and analysis process
+function simulateUpload(queueItem, file) {
+    const progressBar = queueItem.querySelector('.upload-progress');
+    const statusSpan = queueItem.querySelector('.bg-secondary');
+    const statusText = queueItem.querySelector('.text-xs.text-muted');
+    const fileSize = (file.size / (1024 * 1024)).toFixed(1);
+    
+    let progress = 0;
+    const uploadInterval = setInterval(() => {
+        progress += Math.random() * 15;
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(uploadInterval);
+            
+            // Switch to analyzing
+            statusSpan.className = 'bg-accent1 text-white text-xs px-2 py-1 rounded-full';
+            statusSpan.textContent = 'Analyzing';
+            statusText.textContent = '• AI processing video...';
+            queueItem.className = queueItem.className.replace('border-secondary', 'border-accent1');
+            
+            // Simulate analysis
+            setTimeout(() => {
+                completeAnalysis(queueItem);
+            }, 3000 + Math.random() * 5000);
+        }
+        
+        progressBar.style.width = progress + '%';
+        statusText.textContent = `• ${progress.toFixed(0)}% complete`;
+    }, 200);
+}
+
+// Complete analysis and show results
+function completeAnalysis(queueItem) {
+    const statusSpan = queueItem.querySelector('.bg-accent1');
+    const statusText = queueItem.querySelector('.text-xs.text-muted');
+    const progressContainer = queueItem.querySelector('.w-32');
+    
+    statusSpan.className = 'bg-accent2 text-white text-xs px-2 py-1 rounded-full';
+    statusSpan.textContent = 'Completed';
+    statusText.textContent = '• Analyzed just now';
+    queueItem.className = queueItem.className.replace('border-accent1', 'border-accent2');
+    
+    // Replace progress bar with results
+    const ideasCount = Math.floor(Math.random() * 5) + 3;
+    const hooks = [
+        "Transform your business in 30 seconds...",
+        "The secret that changed everything...",
+        "Why 90% of people get this wrong...",
+        "This simple trick will blow your mind...",
+        "The one thing nobody tells you about..."
+    ];
+    const randomHook = hooks[Math.floor(Math.random() * hooks.length)];
+    
+    progressContainer.innerHTML = `
+        <div class="text-right mr-4">
+            <p class="text-sm font-medium text-gray-900">${ideasCount} Marketing Ideas Generated</p>
+            <p class="text-xs text-muted">Hook: "${randomHook}"</p>
+        </div>
+    `;
+    
+    // Add view analysis button
+    const buttonContainer = queueItem.querySelector('.flex.items-center.space-x-3');
+    buttonContainer.innerHTML = `
+        <div class="text-right mr-4">
+            <p class="text-sm font-medium text-gray-900">${ideasCount} Marketing Ideas Generated</p>
+            <p class="text-xs text-muted">Hook: "${randomHook}"</p>
+        </div>
+        <button class="bg-primary text-white font-medium px-4 py-2 rounded-lg btn-hover">
+            <i class="fa-solid fa-eye mr-2"></i>
+            View Analysis
+        </button>
+        <button class="text-muted hover:text-gray-900">
+            <i class="fa-solid fa-ellipsis-h"></i>
+        </button>
+    `;
+}
+
+// Show/hide empty state based on queue content
+function toggleEmptyState() {
+    const emptyState = document.getElementById('empty-state-section');
+    const queueSection = document.getElementById('upload-queue-section');
+    const analysisSection = document.getElementById('analysis-results-section');
+    
+    if (queueList.children.length === 0) {
+        emptyState.classList.remove('hidden');
+        queueSection.classList.add('hidden');
+        analysisSection.classList.add('hidden');
+    } else {
+        emptyState.classList.add('hidden');
+        queueSection.classList.remove('hidden');
+        analysisSection.classList.remove('hidden');
+    }
+}
+</script>
+
+
+</body></html>

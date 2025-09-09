@@ -63,19 +63,7 @@ export function ForgotPassword() {
     form.append('email', formData.email);
     
     // Call the action
-    const result = await formAction(form);
-    
-    if (result?.error) {
-      toast.error('Failed to send password reset instructions', {
-        description: result.error,
-        id: toastId,
-      });
-    } else {
-      toast.success('Password reset instructions sent', {
-        description: `We've sent password reset instructions to ${formData.email}`,
-        id: toastId,
-      });
-    }
+    formAction(form);
   };
 
   // Handle "back to login" click

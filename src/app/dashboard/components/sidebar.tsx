@@ -1,11 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { logout } from '../actions';
 import { toast } from 'sonner';
 
 export default function Sidebar({ sidebarOpen, setSidebarOpen }: { sidebarOpen: boolean; setSidebarOpen: (open: boolean) => void; }) {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const pathname = usePathname();
 
   const handleLogout = async () => {
     setIsLoggingOut(true);
@@ -35,6 +38,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: { sidebarOpen: 
       setIsLoggingOut(false);
     }
   };
+
+  // Function to determine if a link is active
+  const isActive = (path: string) => pathname === path;
 
   return (
     <>
@@ -73,31 +79,58 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: { sidebarOpen: 
           </div>
 
           <nav className="space-y-2">
-            <span className="flex items-center space-x-3 px-4 py-3 text-white bg-white/20 rounded-xl backdrop-blur-sm cursor-pointer">
+            <Link 
+              href="/dashboard" 
+              className={`flex items-center space-x-3 px-4 py-3 rounded-xl backdrop-blur-sm transition-all ${
+                isActive('/dashboard') 
+                  ? 'text-white bg-white/20' 
+                  : 'text-white/70 hover:text-white hover:bg-white/10'
+              }`}
+            >
               <i className="fa-solid fa-home text-lg"></i>
               <span className="font-medium">Dashboard</span>
-            </span>
-            <span className="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+            </Link>
+            
+            <Link 
+              href="/dashboard/aivideos" 
+              className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+                isActive('/dashboard/aivideos') 
+                  ? 'text-white bg-white/20' 
+                  : 'text-white/70 hover:text-white hover:bg-white/10'
+              }`}
+            >
               <i className="fa-solid fa-lightbulb text-lg"></i>
               <span className="font-medium">AI Ideas</span>
               <span className="ml-auto bg-accent1 text-white text-xs px-2 py-1 rounded-full">New</span>
-            </span>
-            <span className="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+            </Link>
+            
+            <Link 
+              href="/dashboard/videolibrary" 
+              className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+                isActive('/dashboard/videolibrary') 
+                  ? 'text-white bg-white/20' 
+                  : 'text-white/70 hover:text-white hover:bg-white/10'
+              }`}
+            >
               <i className="fa-solid fa-play-circle text-lg"></i>
               <span className="font-medium">Video Library</span>
-            </span>
+            </Link>
+            
             <span className="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
               <i className="fa-solid fa-template text-lg"></i>
               <span className="font-medium">Templates</span>
             </span>
+            
             <span className="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
               <i className="fa-solid fa-chart-line text-lg"></i>
               <span className="font-medium">Analytics</span>
             </span>
+            
             <span className="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
               <i className="fa-solid fa-cog text-lg"></i>
               <span className="font-medium">Settings</span>
             </span>
+            
             <button 
               onClick={handleLogout}
               disabled={isLoggingOut}

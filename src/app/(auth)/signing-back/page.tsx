@@ -5,8 +5,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
 
 export default function SigningBackPage() {
@@ -85,15 +83,11 @@ export default function SigningBackPage() {
         <CardHeader className="text-center space-y-6">
           <h1 className="text-2xl font-bold">You're signing back in to VideoAI</h1>
           <div className="flex flex-col items-center space-y-4">
-            <Avatar className="h-16 w-16">
-              {avatarUrl ? (
-                <AvatarImage src={avatarUrl} alt={email} />
-              ) : (
-                <AvatarFallback className="text-lg">
-                  {getInitials(email)}
-                </AvatarFallback>
-              )}
-            </Avatar>
+            <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center">
+              <span className="text-2xl font-bold text-primary">
+                {getInitials(email)}
+              </span>
+            </div>
             <div className="bg-muted rounded-full px-4 py-1 text-sm">
               {email}
             </div>
@@ -102,7 +96,7 @@ export default function SigningBackPage() {
         <CardContent className="text-center text-sm text-muted-foreground">
           <p>By continuing, you agree to our <Link href="/privacy" className="underline hover:text-primary">Privacy Policy</Link> and <Link href="/terms" className="underline hover:text-primary">Terms of Service</Link>.</p>
         </CardContent>
-        <Separator className="my-2" />
+        <div className="my-2 border-t border-border mx-6"></div>
         <CardFooter className="flex flex-col gap-2">
           <Button 
             className="w-full" 

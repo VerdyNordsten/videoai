@@ -65,22 +65,13 @@ export async function signUpWithEmail(email: string, password: string) {
       }
     )
     
-    // Check if user already exists
-    const { data: existingUser, error: fetchError } = await supabase
-      .from('users')
-      .select('id')
-      .eq('email', email)
-      .single();
-    
-    // If user already exists, return an error
-    if (existingUser && !fetchError) {
-      return { error: 'An account with this email already exists. Please sign in instead.' };
-    }
-    
-    // Also check if Supabase auth already has this user
-    const { data: authUser, error: authError } = await supabase.auth.getUserByEmail(email);
-    if (authUser && authUser.user && !authError) {
-      return { error: 'An account with this email already exists. Please sign in instead.' };
+    // Check if Supabase auth already has this user
+    const { data: { user: authUser }, error: authError } = await supabase.auth.getUser();
+    if (authUser && !authError) {
+      // Check if the user's email matches the one we're trying to sign up with
+      if (authUser.email === email) {
+        return { error: 'An account with this email already exists. Please sign in instead.' };
+      }
     }
     
     const { data, error } = await supabase.auth.signUp({

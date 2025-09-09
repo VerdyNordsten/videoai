@@ -239,7 +239,7 @@ export async function signOut() {
             cookieStore.set(name, value, options);
           },
           remove(name: string, options) {
-            cookieStore.delete(name, options);
+            cookieStore.delete(name);
           },
         },
       }
@@ -252,13 +252,19 @@ export async function signOut() {
   }
   
   // Then sign out from custom session
-  const user = (await getUser()) as User;
-  if (user) {
-    const userWithTeam = await getUserWithTeam(user.id);
-    await logActivity(userWithTeam?.teamId, user.id, ActivityType.SIGN_OUT);
+  try {
+    const user = (await getUser()) as User;
+    if (user) {
+      const userWithTeam = await getUserWithTeam(user.id);
+      await logActivity(userWithTeam?.teamId, user.id, ActivityType.SIGN_OUT);
+    }
+    
+    await deleteSession();
+    return { success: true };
+  } catch (error) {
+    console.error('Error during signout:', error);
+    return { error: 'Failed to sign out. Please try again.' };
   }
-  
-  await deleteSession();
 }
 
 const updatePasswordSchema = z.object({

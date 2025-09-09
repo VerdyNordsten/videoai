@@ -19,20 +19,13 @@ export function Header() {
     const toastId = toast.loading('Logging out...');
     
     try {
-      const result = await logout();
-      if (result?.error) {
-        toast.error('Logout failed', {
-          description: result.error,
-          id: toastId,
-        });
-      } else {
-        toast.success('Logged out successfully', {
-          description: 'You have been logged out successfully.',
-          id: toastId,
-        });
-        router.push('/login');
-        router.refresh();
-      }
+      await logout();
+      toast.success('Logged out successfully', {
+        description: 'You have been logged out successfully.',
+        id: toastId,
+      });
+      router.push('/login');
+      router.refresh();
     } catch (error: any) {
       toast.error('Logout failed', {
         description: error.message || 'An unexpected error occurred',

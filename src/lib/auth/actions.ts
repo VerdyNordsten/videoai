@@ -221,9 +221,43 @@ export const signUp = validatedAction(signUpSchema, async (data, formData) => {
 });
 
 export async function signOut() {
+  // Sign out from Supabase first
+  try {
+    const { createServerClient } = await import('@supabase/ssr');
+    const { cookies } = await import('next/headers');
+    
+    const cookieStore = await cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value;
+          },
+          set(name: string, value: string, options) {
+            cookieStore.set(name, value, options);
+          },
+          remove(name: string, options) {
+            cookieStore.delete(name, options);
+          },
+        },
+      }
+    );
+    
+    // Sign out from Supabase
+    await supabase.auth.signOut();
+  } catch (error) {
+    console.log('Supabase signout error (might not be initialized):', error);
+  }
+  
+  // Then sign out from custom session
   const user = (await getUser()) as User;
-  const userWithTeam = await getUserWithTeam(user.id);
-  await logActivity(userWithTeam?.teamId, user.id, ActivityType.SIGN_OUT);
+  if (user) {
+    const userWithTeam = await getUserWithTeam(user.id);
+    await logActivity(userWithTeam?.teamId, user.id, ActivityType.SIGN_OUT);
+  }
+  
   await deleteSession();
 }
 

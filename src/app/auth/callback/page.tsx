@@ -18,7 +18,7 @@ export default function AuthCallback() {
     
     // Fallback redirect to dashboard (in case window.close() doesn't work)
     setTimeout(() => {
-      router.push('/dashboard');
+      router.push('/explore');
     }, 1000);
   }, [router]);
 
@@ -27,7 +27,7 @@ export default function AuthCallback() {
       <div className="text-center">
         <FaSpinner className="animate-spin mx-auto text-4xl text-blue-500 mb-4" />
         <h2 className="text-2xl font-bold mb-2">Authentication Successful</h2>
-        <p className="text-gray-600">Closing window and redirecting to dashboard...</p>
+        <p className="text-gray-600">Closing window and redirecting to Apps...</p>
       </div>
     </div>
   );

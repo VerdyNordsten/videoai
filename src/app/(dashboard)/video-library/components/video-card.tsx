@@ -63,21 +63,22 @@ export default function VideoCard({ video }: { video: any }) {
 
   return (
     <div className="video-card bg-surface border border-gray-200 rounded-xl overflow-hidden card-hover">
-      <div className="flex flex-col lg:flex-row">
-        <div className="relative lg:w-80 flex-shrink-0">
+      <div className="flex flex-col md:flex-row">
+        <div className="relative md:w-64 lg:w-80 flex-shrink-0">
           <input 
             type="checkbox" 
             className="absolute top-3 left-3 z-10 w-4 h-4 text-primary bg-white border-2 border-gray-300 rounded focus:ring-primary"
           />
           <img 
-            className="w-full h-48 lg:h-full object-cover" 
+            className="w-full h-48 md:h-full object-cover" 
             src={video.thumbnail} 
             alt={`${video.title} video thumbnail`}
           />
           <div className="absolute top-3 right-3">
             <span className={`${getPlatformBgColor(video.platformColor)} text-white text-xs px-2 py-1 rounded-full flex items-center`}>
               <i className={`fa-brands fa-${video.platform.toLowerCase()} mr-1`}></i>
-              {video.platform}
+              <span className="hidden sm:inline">{video.platform}</span>
+              <span className="sm:hidden">{video.platform.charAt(0)}</span>
             </span>
           </div>
           <div className="absolute bottom-3 right-3">
@@ -85,13 +86,13 @@ export default function VideoCard({ video }: { video: any }) {
           </div>
         </div>
         
-        <div className="flex-1 p-4 lg:p-6">
+        <div className="flex-1 p-4 md:p-6">
           <div className="flex items-start justify-between mb-3">
             <input 
               type="text" 
               value={title} 
               onChange={handleTitleChange}
-              className="font-poppins font-semibold text-xl text-gray-900 bg-transparent border-none p-0 focus:outline-none focus:bg-gray-50 focus:px-2 focus:py-1 focus:rounded w-full"
+              className="font-poppins font-semibold text-lg md:text-xl text-gray-900 bg-transparent border-none p-0 focus:outline-none focus:bg-gray-50 focus:px-2 focus:py-1 focus:rounded w-full"
             />
             <button className="text-muted hover:text-gray-900 ml-2">
               <i className="fa-solid fa-ellipsis-h"></i>
@@ -104,7 +105,7 @@ export default function VideoCard({ video }: { video: any }) {
               return (
                 <span 
                   key={index} 
-                  className={`${colors.bg} ${colors.text} text-sm px-3 py-1 rounded-full font-medium`}
+                  className={`${colors.bg} ${colors.text} text-xs md:text-sm px-2 py-1 rounded-full font-medium`}
                 >
                   {tag}
                 </span>
@@ -112,7 +113,7 @@ export default function VideoCard({ video }: { video: any }) {
             })}
           </div>
           
-          <div className="text-sm text-muted mb-4 flex items-center space-x-3">
+          <div className="text-xs md:text-sm text-muted mb-4 flex flex-wrap items-center gap-2">
             <span>{video.videoLength}</span>
             <span>•</span>
             <span>{video.language}</span>
@@ -121,16 +122,16 @@ export default function VideoCard({ video }: { video: any }) {
           </div>
           
           <div className="mb-6 space-y-3">
-            <div className="text-base text-gray-900">
+            <div className="text-sm text-gray-900">
               <strong className="text-primary">Hook:</strong> "{video.hook}"
             </div>
-            <div className="text-base text-gray-900">
+            <div className="text-sm text-gray-900">
               <strong className="text-secondary">Caption:</strong> "{video.caption}"
             </div>
           </div>
           
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center space-x-4 text-sm text-muted">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <div className="flex items-center space-x-4 text-xs md:text-sm text-muted">
               <span className="flex items-center">
                 <i className="fa-solid fa-download mr-1"></i>
                 {video.exports} exports
@@ -138,20 +139,20 @@ export default function VideoCard({ video }: { video: any }) {
               <span>•</span>
               <span>Analyzed {video.analyzedAt}</span>
             </div>
-            <span className={`${getExpirationBgColor(video.expirationColor)} ${getExpirationTextColor(video.expirationColor)} px-3 py-1 rounded-full text-sm font-medium`}>
+            <span className={`${getExpirationBgColor(video.expirationColor)} ${getExpirationTextColor(video.expirationColor)} px-3 py-1 rounded-full text-xs md:text-sm font-medium`}>
               {video.expiration}
             </span>
           </div>
           
-          <div className="flex items-center space-x-3">
-            <button className="bg-primary text-white text-sm font-medium py-2.5 px-6 rounded-lg btn-hover flex-shrink-0">
+          <div className="flex flex-wrap gap-2">
+            <button className="bg-primary text-white text-sm font-medium py-2 px-4 rounded-lg btn-hover flex-shrink-0">
               View Full Analysis
             </button>
-            <button className="bg-secondary text-white text-sm font-medium py-2.5 px-4 rounded-lg btn-hover flex-shrink-0">
+            <button className="bg-secondary text-white text-sm font-medium py-2 px-4 rounded-lg btn-hover flex-shrink-0">
               Export JSON
             </button>
             <div className="relative">
-              <button className="bg-gray-100 text-gray-600 p-2.5 rounded-lg hover:bg-gray-200">
+              <button className="bg-gray-100 text-gray-600 p-2 rounded-lg hover:bg-gray-200">
                 <i className="fa-solid fa-ellipsis-h"></i>
               </button>
             </div>

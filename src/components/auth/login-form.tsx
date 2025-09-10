@@ -41,7 +41,7 @@ export function Login({ mode = 'signin' }: LoginProps) {
         });
         
         // Redirect to dashboard on successful sign in
-        window.location.href = '/dashboard';
+        window.location.href = '/explore';
         return { error: '' };
       } : 
       async (prevState: ActionState, formData: FormData) => {
@@ -62,7 +62,7 @@ export function Login({ mode = 'signin' }: LoginProps) {
         });
         
         // Redirect to dashboard on successful sign up
-        window.location.href = '/dashboard';
+        window.location.href = '/explore';
         return { error: '' };
       },
     { error: '' }
@@ -158,7 +158,7 @@ export function Login({ mode = 'signin' }: LoginProps) {
               id: toastId,
             });
             // Redirect to dashboard - the server-side callback will handle the interstitial for existing users
-            window.location.href = '/dashboard';
+            window.location.href = '/explore';
           }
         };
         
@@ -176,7 +176,7 @@ export function Login({ mode = 'signin' }: LoginProps) {
               id: toastId,
             });
             // Redirect to dashboard - the server-side callback will handle the interstitial for existing users
-            window.location.href = '/dashboard';
+            window.location.href = '/explore';
           }
         }, 1000);
       }
@@ -231,7 +231,7 @@ export function Login({ mode = 'signin' }: LoginProps) {
           id: toastId,
         });
         // Redirect to dashboard on successful sign in
-        window.location.href = '/dashboard';
+        window.location.href = '/explore';
       }
     } else {
       const result = await signUpWithEmail(formData.email, formData.password);
@@ -258,7 +258,7 @@ export function Login({ mode = 'signin' }: LoginProps) {
           id: toastId,
         });
         // Redirect to dashboard on successful sign up
-        window.location.href = '/dashboard';
+        window.location.href = '/explore';
       }
     }
   };

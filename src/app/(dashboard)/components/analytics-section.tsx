@@ -73,13 +73,13 @@ export default function AnalyticsSection() {
 
   return (
     <section id="analytics-section" className="mb-8">
-      <div className="bg-surface border border-gray-200 rounded-xl p-8">
-        <div className="flex items-center justify-between mb-6">
+      <div className="bg-surface border border-gray-200 rounded-xl p-4 md:p-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <h2 className="font-poppins font-semibold text-xl text-gray-900 mb-1">Performance Analytics</h2>
-            <p className="text-muted">Track your video marketing success</p>
+            <p className="text-muted text-sm">Track your video marketing success</p>
           </div>
-          <div className="flex items-center space-x-3">
+          <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
             <select 
               className="px-4 py-2 border border-gray-200 rounded-lg text-sm"
               value={timeRange}
@@ -89,11 +89,11 @@ export default function AnalyticsSection() {
                 <option key={range} value={range}>{range}</option>
               ))}
             </select>
-            <button className="text-primary font-medium hover:underline">View Detailed Report</button>
+            <button className="text-primary font-medium hover:underline text-sm">View Detailed Report</button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
           <div className="lg:col-span-2">
             <div className="mb-4">
               <h3 className="font-medium text-gray-900 mb-2">Views & Engagement</h3>
@@ -102,10 +102,10 @@ export default function AnalyticsSection() {
           </div>
 
           <div className="space-y-6">
-            <div className="bg-gray-50 rounded-xl p-6">
+            <div className="bg-gray-50 rounded-xl p-4 md:p-6">
               <h3 className="font-medium text-gray-900 mb-4">Top Performing Videos</h3>
               <div className="space-y-4">
-                <div className="flex items-center space-x-3">
+                <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                     <i className="fa-solid fa-play text-primary"></i>
                   </div>
@@ -118,7 +118,7 @@ export default function AnalyticsSection() {
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-3">
+                <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
                   <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center">
                     <i className="fa-solid fa-play text-secondary"></i>
                   </div>
@@ -131,7 +131,7 @@ export default function AnalyticsSection() {
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-3">
+                <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
                   <div className="w-12 h-12 bg-accent1/10 rounded-lg flex items-center justify-center">
                     <i className="fa-solid fa-play text-accent1"></i>
                   </div>
@@ -146,7 +146,7 @@ export default function AnalyticsSection() {
               </div>
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-6">
+            <div className="bg-gray-50 rounded-xl p-4 md:p-6">
               <h3 className="font-medium text-gray-900 mb-4">Platform Distribution</h3>
               <div className="space-y-3">
                 <div className="flex items-center justify-between">

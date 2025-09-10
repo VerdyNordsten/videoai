@@ -89,7 +89,7 @@ export const Navigation = () => {
                                     <Button
                                         asChild
                                         size="sm">
-                                        <Link href="/dashboard">
+                                        <Link href="/explore">
                                             <span>Dashboard</span>
                                         </Link>
                                     </Button>

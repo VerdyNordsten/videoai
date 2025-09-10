@@ -23,27 +23,27 @@ import {
 const navItems = [
   {
     title: 'Dashboard',
-    href: '/dashboard',
+    href: '/explore',
     icon: Home,
   },
   {
     title: 'Orders',
-    href: '/dashboard/orders',
+    href: '/explore/orders',
     icon: ShoppingCart,
   },
   {
     title: 'Products',
-    href: '/dashboard/products',
+    href: '/explore/products',
     icon: Package,
   },
   {
     title: 'Customers',
-    href: '/dashboard/customers',
+    href: '/explore/customers',
     icon: Users,
   },
   {
     title: 'Analytics',
-    href: '/dashboard/analytics',
+    href: '/explore/analytics',
     icon: LineChart,
   },
 ];

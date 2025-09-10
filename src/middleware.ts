@@ -27,12 +27,12 @@ export async function middleware(request: NextRequest) {
   if (pathname === '/login' && session) {
     // If user has session, redirect to dashboard
     const url = request.nextUrl.clone()
-    url.pathname = '/dashboard'
+    url.pathname = '/explore'
     return NextResponse.redirect(url)
   }
   
   // Protect dashboard - requires session
-  if (pathname.startsWith('/dashboard')) {
+  if (pathname.startsWith('/explore')) {
     if (!session) {
       // No session, redirect to login
       const url = request.nextUrl.clone()
@@ -58,7 +58,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/login',
-    '/dashboard/:path*',
+    '/explore/:path*',
     '/signing-back',
   ],
 }

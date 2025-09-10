@@ -9,7 +9,7 @@ export default function RecentProjectsSection() {
 
   return (
     <section id="recent-projects-section" className="mb-8">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <h2 className="font-poppins font-semibold text-xl text-gray-900">Recent Projects</h2>
         <div className="flex items-center space-x-3">
           <button className="text-muted hover:text-gray-900">
@@ -18,7 +18,7 @@ export default function RecentProjectsSection() {
           <button className="text-muted hover:text-gray-900">
             <i className="fa-solid fa-sort"></i>
           </button>
-          <button className="text-primary font-medium hover:underline">View All</button>
+          <button className="text-primary font-medium hover:underline text-sm">View All</button>
         </div>
       </div>
 
@@ -39,7 +39,7 @@ export default function RecentProjectsSection() {
               </button>
             </div>
           </div>
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             <div className="flex items-center justify-between mb-2">
               <h3 className="font-poppins font-semibold text-lg text-gray-900">Summer Collection Launch</h3>
               <button 
@@ -50,7 +50,7 @@ export default function RecentProjectsSection() {
               </button>
             </div>
             <p className="text-muted text-sm mb-4">Product showcase video for fashion e-commerce brand featuring new summer collection with dynamic transitions.</p>
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
               <div className="flex items-center space-x-2">
                 <span className="text-xs text-muted">Duration: 45s</span>
                 <span className="w-1 h-1 bg-muted rounded-full"></span>
@@ -58,7 +58,7 @@ export default function RecentProjectsSection() {
               </div>
               <span className="text-xs text-muted">2 days ago</span>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
               <button 
                 className="flex-1 bg-primary text-white font-medium py-2 px-4 rounded-lg btn-hover"
                 onClick={() => handleProjectAction('Download', 'Summer Collection Launch')}
@@ -92,7 +92,7 @@ export default function RecentProjectsSection() {
               </button>
             </div>
           </div>
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             <div className="flex items-center justify-between mb-2">
               <h3 className="font-poppins font-semibold text-lg text-gray-900">Client Testimonials</h3>
               <button 
@@ -103,7 +103,7 @@ export default function RecentProjectsSection() {
               </button>
             </div>
             <p className="text-muted text-sm mb-4">Customer success stories compilation for SaaS platform featuring real client experiences and results.</p>
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
               <div className="flex items-center space-x-2">
                 <span className="text-xs text-muted">Duration: 2m 15s</span>
                 <span className="w-1 h-1 bg-muted rounded-full"></span>
@@ -120,7 +120,7 @@ export default function RecentProjectsSection() {
                 <div className="gradient-progress h-2 rounded-full" style={{ width: '78%' }}></div>
               </div>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
               <button 
                 className="flex-1 bg-secondary text-white font-medium py-2 px-4 rounded-lg btn-hover"
                 onClick={() => handleProjectAction('Continue Editing', 'Client Testimonials')}
@@ -154,7 +154,7 @@ export default function RecentProjectsSection() {
               </button>
             </div>
           </div>
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             <div className="flex items-center justify-between mb-2">
               <h3 className="font-poppins font-semibold text-lg text-gray-900">Brand Story 2024</h3>
               <button 
@@ -165,7 +165,7 @@ export default function RecentProjectsSection() {
               </button>
             </div>
             <p className="text-muted text-sm mb-4">Company origin story and values presentation for corporate website and social media channels.</p>
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
               <div className="flex items-center space-x-2">
                 <span className="text-xs text-muted">Duration: 1m 30s</span>
                 <span className="w-1 h-1 bg-muted rounded-full"></span>
@@ -173,7 +173,7 @@ export default function RecentProjectsSection() {
               </div>
               <span className="text-xs text-muted">1 week ago</span>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
               <button 
                 className="flex-1 border border-primary text-primary font-medium py-2 px-4 rounded-lg hover:bg-primary hover:text-white transition-colors"
                 onClick={() => handleProjectAction('Edit Draft', 'Brand Story 2024')}

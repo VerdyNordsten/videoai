@@ -19,12 +19,12 @@ export default function TemplateLibrarySection() {
 
   return (
     <section id="template-library-section" className="mb-8">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <h2 className="font-poppins font-semibold text-xl text-gray-900 mb-1">Popular Templates</h2>
-          <p className="text-muted">Professional video templates to jumpstart your projects</p>
+          <p className="text-muted text-sm">Professional video templates to jumpstart your projects</p>
         </div>
-        <button className="bg-secondary text-white font-medium px-6 py-2 rounded-xl btn-hover">
+        <button className="bg-secondary text-white font-medium px-4 py-2 rounded-xl btn-hover text-sm sm:text-base">
           Browse All Templates
         </button>
       </div>

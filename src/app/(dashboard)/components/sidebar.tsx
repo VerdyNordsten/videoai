@@ -40,14 +40,19 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: { sidebarOpen: 
   };
 
   // Function to determine if a link is active
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path: string) => {
+    if (path === '/explore') {
+      return pathname === '/explore' || pathname === '/';
+    }
+    return pathname.startsWith(path);
+  };
 
   return (
     <>
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
           onClick={() => setSidebarOpen(false)}
         ></div>
       )}
@@ -57,101 +62,101 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: { sidebarOpen: 
         id="sidebar" 
         className={`fixed left-0 top-0 h-full w-64 gradient-sidebar shadow-xl z-40 transform transition-transform duration-300 ease-in-out ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:translate-x-0`}
+        } md:translate-x-0`}
       >
-        <div className="p-6">
-          <div className="flex items-center justify-between mb-8">
+        <div className="p-4 md:p-6">
+          <div className="flex items-center justify-between mb-6 md:mb-8">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
                 <i className="fa-solid fa-video text-white text-lg"></i>
               </div>
               <div className="text-white">
                 <h1 className="font-poppins font-semibold text-lg">AI VideoGen</h1>
-                <p className="text-white/70 text-sm">Marketing Ideas</p>
+                <p className="text-white/70 text-xs md:text-sm">Marketing Ideas</p>
               </div>
             </div>
             <button 
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden text-white p-2"
+              className="md:hidden text-white p-2"
             >
               <i className="fa-solid fa-times"></i>
             </button>
           </div>
 
-          <nav className="space-y-2">
+          <nav className="space-y-1 md:space-y-2">
             <Link 
-              href="/dashboard" 
-              className={`flex items-center space-x-3 px-4 py-3 rounded-xl backdrop-blur-sm transition-all ${
-                isActive('/dashboard') 
+              href="/explore" 
+              className={`flex items-center space-x-3 px-3 md:px-4 py-3 rounded-xl backdrop-blur-sm transition-all ${
+                isActive('/explore') 
                   ? 'text-white bg-white/20' 
                   : 'text-white/70 hover:text-white hover:bg-white/10'
               }`}
             >
               <i className="fa-solid fa-home text-lg"></i>
-              <span className="font-medium">Dashboard</span>
+              <span className="font-medium text-sm md:text-base">Dashboard</span>
             </Link>
             
             <Link 
-              href="/dashboard/aivideos" 
-              className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
-                isActive('/dashboard/aivideos') 
+              href="/ai-videos" 
+              className={`flex items-center space-x-3 px-3 md:px-4 py-3 rounded-xl transition-all ${
+                isActive('/ai-videos') 
                   ? 'text-white bg-white/20' 
                   : 'text-white/70 hover:text-white hover:bg-white/10'
               }`}
             >
               <i className="fa-solid fa-lightbulb text-lg"></i>
-              <span className="font-medium">AI Ideas</span>
+              <span className="font-medium text-sm md:text-base">AI Ideas</span>
               <span className="ml-auto bg-accent1 text-white text-xs px-2 py-1 rounded-full">New</span>
             </Link>
             
             <Link 
-              href="/dashboard/videolibrary" 
-              className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
-                isActive('/dashboard/videolibrary') 
+              href="/video-library" 
+              className={`flex items-center space-x-3 px-3 md:px-4 py-3 rounded-xl transition-all ${
+                isActive('/video-library') 
                   ? 'text-white bg-white/20' 
                   : 'text-white/70 hover:text-white hover:bg-white/10'
               }`}
             >
               <i className="fa-solid fa-play-circle text-lg"></i>
-              <span className="font-medium">Video Library</span>
+              <span className="font-medium text-sm md:text-base">Video Library</span>
             </Link>
             
-            <span className="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+            <span className="flex items-center space-x-3 px-3 md:px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
               <i className="fa-solid fa-template text-lg"></i>
-              <span className="font-medium">Templates</span>
+              <span className="font-medium text-sm md:text-base">Templates</span>
             </span>
             
-            <span className="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+            <span className="flex items-center space-x-3 px-3 md:px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
               <i className="fa-solid fa-chart-line text-lg"></i>
-              <span className="font-medium">Analytics</span>
+              <span className="font-medium text-sm md:text-base">Analytics</span>
             </span>
             
-            <span className="flex items-center space-x-3 px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
+            <span className="flex items-center space-x-3 px-3 md:px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer">
               <i className="fa-solid fa-cog text-lg"></i>
-              <span className="font-medium">Settings</span>
+              <span className="font-medium text-sm md:text-base">Settings</span>
             </span>
             
             <button 
               onClick={handleLogout}
               disabled={isLoggingOut}
-              className="flex items-center space-x-3 w-full px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer disabled:opacity-50"
+              className="flex items-center space-x-3 w-full px-3 md:px-4 py-3 text-white/70 hover:text-white hover:bg-white/10 rounded-xl transition-all cursor-pointer disabled:opacity-50"
             >
               {isLoggingOut ? (
                 <>
                   <i className="fa-solid fa-spinner fa-spin text-lg"></i>
-                  <span className="font-medium">Logging Out...</span>
+                  <span className="font-medium text-sm md:text-base">Logging Out...</span>
                 </>
               ) : (
                 <>
                   <i className="fa-solid fa-sign-out-alt text-lg"></i>
-                  <span className="font-medium">Log Out</span>
+                  <span className="font-medium text-sm md:text-base">Log Out</span>
                 </>
               )}
             </button>
           </nav>
 
-          <div className="mt-8 p-4 bg-white/10 rounded-xl backdrop-blur-sm">
-            <div className="flex items-center justify-between mb-3">
+          <div className="mt-6 md:mt-8 p-3 md:p-4 bg-white/10 rounded-xl backdrop-blur-sm">
+            <div className="flex items-center justify-between mb-2 md:mb-3">
               <span className="text-white/90 text-sm font-medium">Monthly Usage</span>
               <span className="text-white/70 text-xs">85%</span>
             </div>
@@ -165,9 +170,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: { sidebarOpen: 
           </div>
         </div>
 
-        <div className="absolute bottom-6 left-6 right-6">
+        <div className="absolute bottom-4 md:bottom-6 left-4 md:left-6 right-4 md:right-6">
           <div className="flex items-center space-x-3 p-3 bg-white/10 rounded-xl backdrop-blur-sm">
-            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="User Avatar" className="w-10 h-10 rounded-lg" />
+            <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="User Avatar" className="w-8 h-8 md:w-10 md:h-10 rounded-lg" />
             <div className="text-white">
               <p className="font-medium text-sm">Sarah Chen</p>
               <p className="text-white/70 text-xs">Pro Member</p>

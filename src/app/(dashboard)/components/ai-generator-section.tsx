@@ -38,11 +38,11 @@ export default function AIGeneratorSection() {
 
   return (
     <section id="ai-generator-section" className="mb-8">
-      <div className="bg-surface border border-gray-200 rounded-xl p-8">
-        <div className="flex items-center justify-between mb-6">
+      <div className="bg-surface border border-gray-200 rounded-xl p-4 md:p-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <h2 className="font-poppins font-semibold text-xl text-gray-900 mb-2">AI Video Ideas Generator</h2>
-            <p className="text-muted">Generate creative marketing video concepts with AI</p>
+            <p className="text-muted text-sm">Generate creative marketing video concepts with AI</p>
           </div>
           <div className="flex items-center space-x-2">
             <span className="bg-accent2 text-white text-xs px-3 py-1 rounded-full font-medium">✨ AI Powered</span>
@@ -52,12 +52,12 @@ export default function AIGeneratorSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-900 mb-2">Industry/Niche</label>
               <select 
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm md:text-base"
                 value={industry}
                 onChange={(e) => setIndustry(e.target.value)}
               >
@@ -91,14 +91,14 @@ export default function AIGeneratorSection() {
               <input
                 type="text"
                 placeholder="e.g., Young professionals, Parents, Small business owners"
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm md:text-base"
                 value={targetAudience}
                 onChange={(e) => setTargetAudience(e.target.value)}
               />
             </div>
 
             <button
-              className="w-full bg-primary text-white font-semibold py-4 px-6 rounded-xl btn-hover flex items-center justify-center"
+              className="w-full bg-primary text-white font-semibold py-3 md:py-4 px-6 rounded-xl btn-hover flex items-center justify-center"
               onClick={handleGenerateAI}
               disabled={isGenerating}
             >
@@ -116,16 +116,16 @@ export default function AIGeneratorSection() {
             </button>
           </div>
 
-          <div className="bg-gray-50 rounded-xl p-6">
+          <div className="bg-gray-50 rounded-xl p-4 md:p-6">
             <h3 className="font-poppins font-semibold text-lg text-gray-900 mb-4">Recent AI Generated Ideas</h3>
             <div className="space-y-4">
               <div className="bg-white p-4 rounded-xl border border-gray-200">
-                <div className="flex items-start justify-between mb-2">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
                   <h4 className="font-medium text-gray-900">"30-Second Product Showcase"</h4>
-                  <span className="text-xs text-accent1 bg-accent1/10 px-2 py-1 rounded-full">Trending</span>
+                  <span className="text-xs text-accent1 bg-accent1/10 px-2 py-1 rounded-full self-start">Trending</span>
                 </div>
                 <p className="text-sm text-muted mb-3">Quick product demo highlighting key features with dynamic transitions and call-to-action overlay.</p>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="flex items-center space-x-2">
                     <span className="text-xs text-muted">E-commerce</span>
                     <span className="w-1 h-1 bg-muted rounded-full"></span>
@@ -141,12 +141,12 @@ export default function AIGeneratorSection() {
               </div>
 
               <div className="bg-white p-4 rounded-xl border border-gray-200">
-                <div className="flex items-start justify-between mb-2">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
                   <h4 className="font-medium text-gray-900">"Customer Success Story"</h4>
-                  <span className="text-xs text-accent2 bg-accent2/10 px-2 py-1 rounded-full">Popular</span>
+                  <span className="text-xs text-accent2 bg-accent2/10 px-2 py-1 rounded-full self-start">Popular</span>
                 </div>
                 <p className="text-sm text-muted mb-3">Authentic testimonial format with before/after scenarios and emotional storytelling.</p>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="flex items-center space-x-2">
                     <span className="text-xs text-muted">SaaS</span>
                     <span className="w-1 h-1 bg-muted rounded-full"></span>
@@ -162,12 +162,12 @@ export default function AIGeneratorSection() {
               </div>
 
               <div className="bg-white p-4 rounded-xl border border-gray-200">
-                <div className="flex items-start justify-between mb-2">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
                   <h4 className="font-medium text-gray-900">"Behind-the-Scenes Tour"</h4>
-                  <span className="text-xs text-secondary bg-secondary/10 px-2 py-1 rounded-full">New</span>
+                  <span className="text-xs text-secondary bg-secondary/10 px-2 py-1 rounded-full self-start">New</span>
                 </div>
                 <p className="text-sm text-muted mb-3">Humanize your brand with workplace culture and team introduction content.</p>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="flex items-center space-x-2">
                     <span className="text-xs text-muted">Brand Story</span>
                     <span className="w-1 h-1 bg-muted rounded-full"></span>

@@ -4,9 +4,9 @@ import React from 'react';
 
 export default function FiltersSidebar() {
   return (
-    <aside id="filters-sidebar" className="bg-surface border border-gray-200 rounded-xl p-6">
+    <aside id="filters-sidebar" className="bg-surface border border-gray-200 rounded-xl p-4 md:p-6">
       {/* Folders/Campaigns */}
-      <div className="mb-8">
+      <div className="mb-6 md:mb-8">
         <h3 className="font-poppins font-semibold text-lg text-gray-900 mb-4">Folders & Campaigns</h3>
         <div className="space-y-2">
           <div className="flex items-center justify-between p-3 bg-primary/5 border border-primary/20 rounded-lg">
@@ -52,7 +52,7 @@ export default function FiltersSidebar() {
       </div>
 
       {/* Smart Filters */}
-      <div className="mb-8">
+      <div className="mb-6 md:mb-8">
         <h3 className="font-poppins font-semibold text-lg text-gray-900 mb-4">Smart Filters</h3>
         <div className="flex flex-wrap gap-2">
           <button className="bg-danger/10 text-danger border border-danger/20 px-3 py-2 rounded-lg text-sm font-medium hover:bg-danger/20 transition-colors">
@@ -75,7 +75,7 @@ export default function FiltersSidebar() {
       </div>
 
       {/* Tags Cloud */}
-      <div className="mb-8">
+      <div className="mb-6 md:mb-8">
         <h3 className="font-poppins font-semibold text-lg text-gray-900 mb-4">Popular Tags</h3>
         <div className="flex flex-wrap gap-2">
           <button className="bg-gray-100 hover:bg-primary hover:text-white px-3 py-1 rounded-lg text-sm transition-colors">#marketing</button>

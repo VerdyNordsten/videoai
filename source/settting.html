@@ -1,0 +1,985 @@
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <style>
+        ::-webkit-scrollbar { display: none;}
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        .tab-underline {
+            position: relative;
+        }
+        .tab-underline.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #8b5cf6;
+            border-radius: 1px;
+        }
+        .form-dirty::after {
+            content: '•';
+            color: #f59e0b;
+            margin-left: 4px;
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        .progress-ring-circle {
+            stroke-dasharray: 251.2;
+            stroke-dashoffset: 251.2;
+            transition: stroke-dashoffset 0.3s ease;
+        }
+    </style>
+    <script>tailwind.config = {
+  "theme": {
+    "extend": {
+      "colors": {
+        "purple-500": "#8b5cf6",
+        "purple-600": "#7c3aed",
+        "slate-800": "#1e293b",
+        "slate-300": "#cbd5e1"
+      },
+      "fontFamily": {
+        "sans": [
+          "Inter",
+          "sans-serif"
+        ]
+      }
+    }
+  }
+};</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"><style>
+      body {
+        font-family: 'Inter', sans-serif !important;
+      }
+      
+      /* Preserve Font Awesome icons */
+      .fa, .fas, .far, .fal, .fab {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+      }
+    </style><style>
+  .highlighted-section {
+    outline: 2px solid #3F20FB;
+    background-color: rgba(63, 32, 251, 0.1);
+  }
+
+  .edit-button {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  </style></head>
+<body class="bg-gray-50 text-slate-800 font-sans">
+
+<!-- Header -->
+<header id="header" class="sticky top-0 bg-white border-b border-gray-200 z-40">
+    <div class="px-6 py-4">
+        <h1 class="font-poppins font-semibold text-2xl text-slate-800">Account Settings</h1>
+    </div>
+</header>
+
+<!-- Main Container -->
+<main id="main-content" class="max-w-6xl mx-auto p-6">
+    
+    <!-- Tab Navigation -->
+    <div id="tab-navigation" class="border-b border-gray-200 mb-8">
+        <nav class="flex space-x-8">
+            <button class="tab-underline active font-medium text-purple-500 pb-4 px-1" data-tab="account">
+                Account Information
+            </button>
+            <button class="tab-underline font-medium text-gray-600 hover:text-slate-800 pb-4 px-1" data-tab="security">
+                Security
+            </button>
+            <button class="tab-underline font-medium text-gray-600 hover:text-slate-800 pb-4 px-1" data-tab="billing">
+                Plan &amp; Billing
+            </button>
+            <button class="tab-underline font-medium text-gray-600 hover:text-slate-800 pb-4 px-1" data-tab="credits">
+                Credits Information
+            </button>
+            <button class="tab-underline font-medium text-gray-600 hover:text-slate-800 pb-4 px-1" data-tab="usage">
+                Credits Usage
+            </button>
+        </nav>
+    </div>
+
+    <!-- Account Information Tab -->
+    <div id="account-tab" class="tab-content">
+        
+        <!-- Personal Details Section -->
+        <section id="personal-details" class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
+            <div class="mb-6">
+                <h2 class="font-poppins font-semibold text-lg text-slate-800 mb-2">Personal Details</h2>
+                <p class="text-gray-600">A view of your account details, you may manage your account at anytime.</p>
+            </div>
+
+            <form class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-800 mb-2">Full Name</label>
+                        <input type="text" value="Sarah Chen" class="w-full px-4 py-3 bg-purple-50/60 border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-800 mb-2">Email Address</label>
+                        <input type="email" value="sarah.chen@company.com" readonly="" class="w-full px-4 py-3 bg-gray-100 border-0 rounded-xl text-gray-600 cursor-not-allowed">
+                        <p class="text-xs text-gray-500 mt-1">Linked via Google OAuth</p>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-800 mb-2">Username</label>
+                    <div class="flex items-center space-x-3">
+                        <input type="text" value="sarah-chen-2024" readonly="" class="flex-1 px-4 py-3 bg-gray-100 border-0 rounded-xl text-gray-600 cursor-not-allowed">
+                        <button type="button" class="px-4 py-3 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors">
+                            <i class="fa-solid fa-copy text-gray-600"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-purple-600 text-white font-medium px-6 py-3 rounded-xl hover:bg-purple-700 transition-colors">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile-section" class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="font-poppins font-semibold text-lg text-slate-800">Profile Settings</h2>
+                <button class="text-gray-400 hover:text-gray-600">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
+
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-slate-800 mb-4">Profile Picture</label>
+                    <div class="flex items-center space-x-6">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Profile" class="w-24 h-24 rounded-full">
+                        <div class="space-x-3">
+                            <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                                Upload New
+                            </button>
+                            <button class="border border-gray-300 text-gray-600 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors">
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-800 mb-2">Timezone</label>
+                        <select class="w-full px-4 py-3 bg-purple-50/60 border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <option>UTC-08:00 (Pacific Time)</option>
+                            <option>UTC-05:00 (Eastern Time)</option>
+                            <option>UTC+00:00 (GMT)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-800 mb-2">Language</label>
+                        <select class="w-full px-4 py-3 bg-purple-50/60 border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <option>English (EN)</option>
+                            <option>Indonesian (ID)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-800 mb-4">Notifications</label>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">Email updates</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked="" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-500"></div>
+                            </label>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-700">Credits alerts</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked="" class="sr-only peer">
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-500"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Security Tab -->
+    <div id="security-tab" class="tab-content hidden">
+        
+        <!-- Set Password Section -->
+        <section id="password-section" class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
+            <div class="mb-6">
+                <h2 class="font-poppins font-semibold text-lg text-slate-800 mb-2">Set Password</h2>
+            </div>
+
+            <form class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-800 mb-2">New Password</label>
+                        <div class="relative">
+                            <input type="password" class="w-full px-4 py-3 bg-purple-50/60 border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 pr-12">
+                            <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-800 mb-2">Confirm New Password</label>
+                        <div class="relative">
+                            <input type="password" class="w-full px-4 py-3 bg-purple-50/60 border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 pr-12">
+                            <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="bg-purple-600 text-white font-medium px-6 py-3 rounded-xl hover:bg-purple-700 transition-colors">
+                    Set Password
+                </button>
+            </form>
+        </section>
+
+        <!-- Account Linking Section -->
+        <section id="account-linking" class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
+            <div class="mb-6">
+                <h2 class="font-poppins font-semibold text-lg text-slate-800 mb-2">Account Linking</h2>
+            </div>
+
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 border border-gray-200 rounded-xl">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-envelope text-gray-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-medium text-slate-800">Email &amp; Password</h3>
+                            <p class="text-sm text-gray-600">sarah.chen@company.com</p>
+                        </div>
+                    </div>
+                    <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                        Change Password
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-between p-4 border border-gray-200 rounded-xl">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center">
+                            <i class="fa-brands fa-google text-red-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-medium text-slate-800">Google Account</h3>
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Connected</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="border border-red-300 text-red-600 px-4 py-2 rounded-lg hover:bg-red-50 transition-colors">
+                        Disconnect
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Two-Factor Authentication -->
+        <section id="two-factor" class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
+            <div class="mb-6">
+                <h2 class="font-poppins font-semibold text-lg text-slate-800 mb-2">Two-Factor Authentication</h2>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="font-medium text-slate-800 mb-1">Enable 2FA</h3>
+                    <p class="text-gray-600 text-sm">Add an extra layer of security to your account</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded-full">Disabled</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-500"></div>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Active Sessions -->
+        <section id="active-sessions" class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="font-poppins font-semibold text-lg text-slate-800">Active Sessions</h2>
+                <button class="text-red-600 font-medium hover:underline">Sign out all devices</button>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-200">
+                            <th class="text-left py-3 text-sm font-medium text-gray-600">Device</th>
+                            <th class="text-left py-3 text-sm font-medium text-gray-600">Location</th>
+                            <th class="text-left py-3 text-sm font-medium text-gray-600">Last Active</th>
+                            <th class="text-right py-3 text-sm font-medium text-gray-600">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-laptop text-gray-600"></i>
+                                    <span class="text-sm">MacBook Pro</span>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Current</span>
+                                </div>
+                            </td>
+                            <td class="py-4 text-sm text-gray-600">San Francisco, CA</td>
+                            <td class="py-4 text-sm text-gray-600">Now</td>
+                            <td class="py-4 text-right">
+                                <span class="text-sm text-gray-400">This device</span>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-mobile text-gray-600"></i>
+                                    <span class="text-sm">iPhone 15 Pro</span>
+                                </div>
+                            </td>
+                            <td class="py-4 text-sm text-gray-600">San Francisco, CA</td>
+                            <td class="py-4 text-sm text-gray-600">2 hours ago</td>
+                            <td class="py-4 text-right">
+                                <button class="text-red-600 text-sm hover:underline">Sign out</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Plan & Billing Tab -->
+    <div id="billing-tab" class="tab-content hidden">
+        
+        <!-- Your Plan Section -->
+        <section id="current-plan" class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
+            <div class="mb-6">
+                <h2 class="font-poppins font-semibold text-lg text-slate-800 mb-2">Your Plan</h2>
+            </div>
+
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center space-x-4">
+                    <span class="bg-purple-100 text-purple-800 px-4 py-2 rounded-xl font-medium">Pro Plan</span>
+                    <div>
+                        <p class="font-semibold text-slate-800">$29/month</p>
+                        <p class="text-sm text-gray-600">Billed monthly</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-coins text-amber-500"></i>
+                        <span class="text-sm text-gray-600">Remaining Credits: <span class="font-medium">411</span></span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button class="bg-purple-600 text-white px-6 py-2 rounded-xl hover:bg-purple-700 transition-colors">
+                        Change Plan
+                    </button>
+                    <button class="text-red-600 text-sm hover:underline">Cancel Plan</button>
+                </div>
+            </div>
+
+            <p class="text-sm text-gray-600">Next billing date: January 15, 2025</p>
+        </section>
+
+        <!-- Credits Quick View -->
+        <section id="credits-quick" class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="font-poppins font-semibold text-lg text-slate-800 mb-2">Credits</h2>
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-coins text-amber-500"></i>
+                        <span class="font-medium text-slate-800">411 remaining credits</span>
+                    </div>
+                </div>
+                <button class="bg-amber-500 text-white px-6 py-2 rounded-xl hover:bg-amber-600 transition-colors">
+                    Buy Credits
+                </button>
+            </div>
+        </section>
+
+        <!-- Invoices & Billing -->
+        <section id="invoices" class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="font-poppins font-semibold text-lg text-slate-800">Invoices &amp; Billing</h2>
+                <button class="bg-purple-600 text-white px-6 py-2 rounded-xl hover:bg-purple-700 transition-colors">
+                    Manage Billing
+                </button>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-200">
+                            <th class="text-left py-3 text-sm font-medium text-gray-600">Date</th>
+                            <th class="text-left py-3 text-sm font-medium text-gray-600">Amount</th>
+                            <th class="text-left py-3 text-sm font-medium text-gray-600">Status</th>
+                            <th class="text-right py-3 text-sm font-medium text-gray-600">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 text-sm">Dec 15, 2024</td>
+                            <td class="py-4 text-sm font-medium">$29.00</td>
+                            <td class="py-4">
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Paid</span>
+                            </td>
+                            <td class="py-4 text-right">
+                                <button class="text-purple-600 text-sm hover:underline">Download PDF</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="py-4 text-sm">Nov 15, 2024</td>
+                            <td class="py-4 text-sm font-medium">$29.00</td>
+                            <td class="py-4">
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Paid</span>
+                            </td>
+                            <td class="py-4 text-right">
+                                <button class="text-purple-600 text-sm hover:underline">Download PDF</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Credits Information Tab -->
+    <div id="credits-tab" class="tab-content hidden">
+        
+        <!-- Credit Balance Header -->
+        <section id="credit-balance" class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl text-white p-8 mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="font-poppins font-bold text-2xl mb-2">Your Credit Balance</h2>
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="text-3xl font-bold">411</div>
+                        <div class="text-sm opacity-80">
+                            <div>of 1290 monthly credits</div>
+                            <div>+ 0 extra credits</div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between text-sm mb-1">
+                            <span>Monthly Credits Usage</span>
+                            <span>68%</span>
+                        </div>
+                        <div class="w-full bg-white/20 rounded-full h-2">
+                            <div class="bg-white h-2 rounded-full" style="width: 68%"></div>
+                        </div>
+                        <p class="text-xs opacity-80 mt-1">Expire on January 15, 2025</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <svg class="w-24 h-24 progress-ring">
+                        <circle class="progress-ring-circle" stroke="rgba(255,255,255,0.3)" stroke-width="4" fill="transparent" r="40" cx="48" cy="48"></circle>
+                        <circle class="progress-ring-circle" stroke="white" stroke-width="4" fill="transparent" r="40" cx="48" cy="48" style="stroke-dashoffset: 79.8"></circle>
+                    </svg>
+                </div>
+            </div>
+            <button class="text-white hover:text-purple-200 text-sm underline">
+                How I spent my credits?
+            </button>
+        </section>
+
+        <!-- Credit Packs -->
+        <section id="credit-packs" class="mb-8">
+            <div class="mb-6">
+                <h2 class="font-poppins font-semibold text-lg text-slate-800 mb-2">Buy Credit Packs</h2>
+                <p class="text-gray-600">Buy credit packs and maintain the save feature access</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 hover:shadow-lg transition-shadow">
+                    <div class="text-center mb-4">
+                        <div class="text-3xl font-bold text-slate-800 mb-1">360</div>
+                        <div class="text-sm text-gray-600">Credits</div>
+                    </div>
+                    <div class="text-center mb-4">
+                        <div class="text-2xl font-bold text-slate-800">$19</div>
+                        <div class="text-sm text-gray-500 line-through">$29</div>
+                    </div>
+                    <button class="w-full bg-purple-600 text-white py-3 rounded-xl hover:bg-purple-700 transition-colors">
+                        Buy Now
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-purple-200 shadow-sm p-6 hover:shadow-lg transition-shadow relative">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-purple-500 text-white text-xs px-3 py-1 rounded-full">Most Popular</span>
+                    </div>
+                    <div class="text-center mb-4">
+                        <div class="text-3xl font-bold text-slate-800 mb-1">720</div>
+                        <div class="text-sm text-gray-600">Credits</div>
+                    </div>
+                    <div class="text-center mb-4">
+                        <div class="text-2xl font-bold text-slate-800">$35</div>
+                        <div class="text-sm text-gray-500 line-through">$58</div>
+                    </div>
+                    <button class="w-full bg-purple-600 text-white py-3 rounded-xl hover:bg-purple-700 transition-colors">
+                        Buy Now
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 hover:shadow-lg transition-shadow">
+                    <div class="text-center mb-4">
+                        <div class="text-3xl font-bold text-slate-800 mb-1">1440</div>
+                        <div class="text-sm text-gray-600">Credits</div>
+                    </div>
+                    <div class="text-center mb-4">
+                        <div class="text-2xl font-bold text-slate-800">$65</div>
+                        <div class="text-sm text-gray-500 line-through">$116</div>
+                    </div>
+                    <button class="w-full bg-purple-600 text-white py-3 rounded-xl hover:bg-purple-700 transition-colors">
+                        Buy Now
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 hover:shadow-lg transition-shadow">
+                    <div class="text-center mb-4">
+                        <div class="text-3xl font-bold text-slate-800 mb-1">2880</div>
+                        <div class="text-sm text-gray-600">Credits</div>
+                    </div>
+                    <div class="text-center mb-4">
+                        <div class="text-2xl font-bold text-slate-800">$120</div>
+                        <div class="text-sm text-gray-500 line-through">$232</div>
+                    </div>
+                    <button class="w-full bg-purple-600 text-white py-3 rounded-xl hover:bg-purple-700 transition-colors">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Info -->
+        <section id="credit-info" class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+            <div class="space-y-4">
+                <div class="flex items-start space-x-3">
+                    <i class="fa-solid fa-info-circle text-blue-500 mt-1"></i>
+                    <div>
+                        <h3 class="font-medium text-slate-800 mb-1">Extra Credits</h3>
+                        <p class="text-sm text-gray-600">Purchased credits show as separate balance with "No expiration date" text</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <i class="fa-solid fa-clock text-amber-500 mt-1"></i>
+                    <div>
+                        <h3 class="font-medium text-slate-800 mb-1">Monthly Credits</h3>
+                        <p class="text-sm text-gray-600">Monthly credits reset on your billing date and expire if unused</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Credits Usage Tab -->
+    <div id="usage-tab" class="tab-content hidden">
+        
+        <section id="usage-table" class="bg-white rounded-2xl border border-gray-200 shadow-sm">
+            <div class="p-6 border-b border-gray-200">
+                <h2 class="font-poppins font-semibold text-lg text-slate-800">Credit Usage History</h2>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="sticky top-0 bg-gray-50">
+                        <tr>
+                            <th class="text-left py-4 px-6 text-sm font-medium text-gray-600">Type</th>
+                            <th class="text-left py-4 px-6 text-sm font-medium text-gray-600">Date</th>
+                            <th class="text-left py-4 px-6 text-sm font-medium text-gray-600">Tool</th>
+                            <th class="text-right py-4 px-6 text-sm font-medium text-gray-600">Amount</th>
+                            <th class="text-right py-4 px-6 text-sm font-medium text-gray-600">Plan Credits</th>
+                            <th class="text-right py-4 px-6 text-sm font-medium text-gray-600">Purchased Credits</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-6">
+                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Used</span>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-gray-600">Jan 12, 2025 2:30 PM</td>
+                            <td class="py-4 px-6 text-sm">Hifi Standard Design (Max Design)</td>
+                            <td class="py-4 px-6 text-sm text-right">-15</td>
+                            <td class="py-4 px-6 text-sm text-right">-15</td>
+                            <td class="py-4 px-6 text-sm text-right">0</td>
+                        </tr>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-6">
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Purchased</span>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-gray-600">Jan 10, 2025 10:15 AM</td>
+                            <td class="py-4 px-6 text-sm">Credit Pack Purchase</td>
+                            <td class="py-4 px-6 text-sm text-right">+720</td>
+                            <td class="py-4 px-6 text-sm text-right">0</td>
+                            <td class="py-4 px-6 text-sm text-right">+720</td>
+                        </tr>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-6">
+                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Used</span>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-gray-600">Jan 8, 2025 4:45 PM</td>
+                            <td class="py-4 px-6 text-sm">AI Video Generator</td>
+                            <td class="py-4 px-6 text-sm text-right">-25</td>
+                            <td class="py-4 px-6 text-sm text-right">-25</td>
+                            <td class="py-4 px-6 text-sm text-right">0</td>
+                        </tr>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-6">
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Refunded</span>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-gray-600">Jan 5, 2025 11:20 AM</td>
+                            <td class="py-4 px-6 text-sm">Template Design (Refunded)</td>
+                            <td class="py-4 px-6 text-sm text-right">+10</td>
+                            <td class="py-4 px-6 text-sm text-right">+10</td>
+                            <td class="py-4 px-6 text-sm text-right">0</td>
+                        </tr>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-6">
+                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Used</span>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-gray-600">Jan 3, 2025 9:10 AM</td>
+                            <td class="py-4 px-6 text-sm">Custom Video Template</td>
+                            <td class="py-4 px-6 text-sm text-right">-30</td>
+                            <td class="py-4 px-6 text-sm text-right">-30</td>
+                            <td class="py-4 px-6 text-sm text-right">0</td>
+                        </tr>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-6">
+                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Used</span>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-gray-600">Dec 28, 2024 3:25 PM</td>
+                            <td class="py-4 px-6 text-sm">AI Content Generator</td>
+                            <td class="py-4 px-6 text-sm text-right">-20</td>
+                            <td class="py-4 px-6 text-sm text-right">-20</td>
+                            <td class="py-4 px-6 text-sm text-right">0</td>
+                        </tr>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-6">
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Purchased</span>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-gray-600">Dec 25, 2024 12:00 PM</td>
+                            <td class="py-4 px-6 text-sm">Holiday Credit Pack</td>
+                            <td class="py-4 px-6 text-sm text-right">+360</td>
+                            <td class="py-4 px-6 text-sm text-right">0</td>
+                            <td class="py-4 px-6 text-sm text-right">+360</td>
+                        </tr>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-6">
+                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Used</span>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-gray-600">Dec 22, 2024 6:15 PM</td>
+                            <td class="py-4 px-6 text-sm">Premium Template Access</td>
+                            <td class="py-4 px-6 text-sm text-right">-40</td>
+                            <td class="py-4 px-6 text-sm text-right">-40</td>
+                            <td class="py-4 px-6 text-sm text-right">0</td>
+                        </tr>
+                        <tr class="border-b border-gray-100 hover:bg-gray-50">
+                            <td class="py-4 px-6">
+                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Used</span>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-gray-600">Dec 20, 2024 1:40 PM</td>
+                            <td class="py-4 px-6 text-sm">Video Export (4K)</td>
+                            <td class="py-4 px-6 text-sm text-right">-35</td>
+                            <td class="py-4 px-6 text-sm text-right">-35</td>
+                            <td class="py-4 px-6 text-sm text-right">0</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-4 px-6">
+                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Used</span>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-gray-600">Dec 18, 2024 8:55 AM</td>
+                            <td class="py-4 px-6 text-sm">Advanced AI Features</td>
+                            <td class="py-4 px-6 text-sm text-right">-50</td>
+                            <td class="py-4 px-6 text-sm text-right">-50</td>
+                            <td class="py-4 px-6 text-sm text-right">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="px-6 py-4 border-t border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-600">Show:</span>
+                        <select class="border border-gray-200 rounded-lg px-3 py-1 text-sm">
+                            <option>10</option>
+                            <option>25</option>
+                            <option>50</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-600">10 of 1–10</span>
+                        <div class="flex space-x-1">
+                            <button class="px-3 py-1 border border-gray-200 rounded-lg text-sm hover:bg-gray-50">Previous</button>
+                            <button class="px-3 py-1 border border-gray-200 rounded-lg text-sm hover:bg-gray-50">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</main>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast">
+    <div class="flex items-center space-x-2">
+        <i class="fa-solid fa-check-circle"></i>
+        <span>Settings updated successfully!</span>
+    </div>
+</div>
+
+<!-- Cancel Plan Modal -->
+<div id="cancel-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
+        <div class="text-center mb-6">
+            <i class="fa-solid fa-exclamation-triangle text-red-500 text-4xl mb-4"></i>
+            <h3 class="font-poppins font-semibold text-xl text-slate-800 mb-2">Cancel Your Plan?</h3>
+            <p class="text-gray-600">We're sorry to see you go. Please tell us why you're canceling.</p>
+        </div>
+
+        <div class="space-y-4 mb-6">
+            <textarea placeholder="Tell us why you're canceling..." rows="4" class="w-full px-4 py-3 bg-purple-50/60 border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"></textarea>
+            
+            <label class="flex items-center space-x-3">
+                <input type="checkbox" class="w-5 h-5 text-purple-500 rounded focus:ring-purple-500">
+                <span class="text-sm text-gray-600">I understand that canceling will remove access to all premium features</span>
+            </label>
+        </div>
+
+        <div class="flex space-x-3">
+            <button class="flex-1 border border-gray-300 text-gray-600 py-3 rounded-xl hover:bg-gray-50 transition-colors">
+                Keep Plan
+            </button>
+            <button class="flex-1 bg-red-500 text-white py-3 rounded-xl hover:bg-red-600 transition-colors">
+                Cancel Plan
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Tab switching functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('[data-tab]');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    // Get active tab from URL or default to 'account'
+    const urlParams = new URLSearchParams(window.location.search);
+    const activeTab = urlParams.get('tab') || 'account';
+    
+    // Set initial active tab
+    showTab(activeTab);
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const tabName = this.getAttribute('data-tab');
+            showTab(tabName);
+            
+            // Update URL
+            const newUrl = new URL(window.location);
+            newUrl.searchParams.set('tab', tabName);
+            window.history.pushState({}, '', newUrl);
+        });
+    });
+    
+    function showTab(tabName) {
+        // Remove active class from all tabs
+        tabs.forEach(tab => {
+            tab.classList.remove('active', 'text-purple-500');
+            tab.classList.add('text-gray-600');
+        });
+        
+        // Hide all tab contents
+        tabContents.forEach(content => {
+            content.classList.add('hidden');
+        });
+        
+        // Show selected tab content
+        const selectedTab = document.querySelector(`[data-tab="${tabName}"]`);
+        const selectedContent = document.getElementById(`${tabName}-tab`);
+        
+        if (selectedTab && selectedContent) {
+            selectedTab.classList.add('active', 'text-purple-500');
+            selectedTab.classList.remove('text-gray-600');
+            selectedContent.classList.remove('hidden');
+        }
+    }
+    
+    // Form submission handlers
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            showToast('Settings updated successfully!');
+        });
+    });
+    
+    // Password visibility toggles
+    document.querySelectorAll('[type="password"] + button').forEach(button => {
+        button.addEventListener('click', function() {
+            const input = this.previousElementSibling;
+            const icon = this.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    });
+    
+    // Copy username functionality
+    document.querySelector('button[type="button"]').addEventListener('click', function() {
+        const input = this.previousElementSibling;
+        navigator.clipboard.writeText(input.value).then(() => {
+            showToast('Username copied to clipboard!');
+        });
+    });
+    
+    // Cancel plan modal
+    const cancelButton = document.querySelector('button:contains("Cancel Plan")');
+    const modal = document.getElementById('cancel-modal');
+    
+    if (cancelButton) {
+        cancelButton.addEventListener('click', function() {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        });
+    }
+    
+    // Close modal
+    modal.querySelector('button:contains("Keep Plan")').addEventListener('click', function() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    });
+    
+    // Form dirty state detection
+    document.querySelectorAll('input, select, textarea').forEach(input => {
+        input.addEventListener('input', function() {
+            const form = this.closest('form');
+            if (form) {
+                // Add dirty indicator to tab
+                const currentTab = document.querySelector('.tab-underline.active');
+                if (currentTab && !currentTab.classList.contains('form-dirty')) {
+                    currentTab.classList.add('form-dirty');
+                }
+            }
+        });
+    });
+});
+
+// Toast notification function
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    const icon = toast.querySelector('i');
+    const text = toast.querySelector('span');
+    
+    text.textContent = message;
+    
+    if (type === 'success') {
+        toast.className = 'toast';
+        toast.style.background = '#10b981';
+        icon.className = 'fa-solid fa-check-circle';
+    } else if (type === 'error') {
+        toast.className = 'toast';
+        toast.style.background = '#ef4444';
+        icon.className = 'fa-solid fa-exclamation-circle';
+    }
+    
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+// Credit pack purchase handlers
+document.querySelectorAll('#credit-packs button').forEach(button => {
+    button.addEventListener('click', function() {
+        const pack = this.closest('div');
+        const credits = pack.querySelector('.text-3xl').textContent;
+        const price = pack.querySelector('.text-2xl').textContent;
+        
+        // Simulate checkout process
+        showToast(`Redirecting to checkout for ${credits} credits...`, 'success');
+        
+        // Here you would integrate with Stripe or your payment processor
+        setTimeout(() => {
+            showToast(`Purchase completed! ${credits} credits added to your account.`, 'success');
+        }, 2000);
+    });
+});
+
+// 2FA toggle handler
+document.querySelector('#two-factor input[type="checkbox"]').addEventListener('change', function() {
+    if (this.checked) {
+        showToast('2FA setup modal would open here', 'success');
+    } else {
+        showToast('2FA disabled', 'success');
+    }
+});
+
+// Session management
+document.querySelectorAll('button:contains("Sign out")').forEach(button => {
+    button.addEventListener('click', function() {
+        showToast('Session terminated', 'success');
+        this.closest('tr').style.opacity = '0.5';
+    });
+});
+
+// Buy credits button handler
+document.querySelector('#credits-quick button').addEventListener('click', function() {
+    // Switch to credits tab
+    showTab('credits');
+    const newUrl = new URL(window.location);
+    newUrl.searchParams.set('tab', 'credits');
+    window.history.pushState({}, '', newUrl);
+});
+</script>
+
+
+</body></html>

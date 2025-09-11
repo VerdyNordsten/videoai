@@ -47,6 +47,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: { sidebarOpen: 
     if (path === '/account') {
       return pathname === '/account';
     }
+    if (path === '/demo') {
+      return pathname === '/demo';
+    }
     return pathname.startsWith(path);
   };
 
@@ -144,6 +147,18 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: { sidebarOpen: 
             >
               <i className="fa-solid fa-cog text-lg"></i>
               <span className="font-medium text-sm lg:text-base">Account Settings</span>
+            </Link>
+            
+            <Link 
+              href="/demo" 
+              className={`flex items-center space-x-3 px-3 lg:px-4 py-3 rounded-xl transition-all ${
+                isActive('/demo') 
+                  ? 'text-white bg-white/20' 
+                  : 'text-white/70 hover:text-white hover:bg-white/10'
+              }`}
+            >
+              <i className="fa-solid fa-flask text-lg"></i>
+              <span className="font-medium text-sm lg:text-base">Demo Features</span>
             </Link>
             
             <button 
